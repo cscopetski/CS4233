@@ -1,6 +1,6 @@
 package dice;
 
-public class DiceException extends Exception {
+public class DiceException extends RuntimeException {
     public DiceException(String message) {
         super(message);
     }

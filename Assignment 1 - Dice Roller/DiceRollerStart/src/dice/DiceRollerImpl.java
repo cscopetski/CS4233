@@ -33,7 +33,7 @@ public class DiceRollerImpl implements DiceRoller {
      * @param numberOfDice The number of dice range(MIN_DICE <= x)
      * @throws DiceException throws an exception if the number of sides < MIN_SIDES or number of dice < MIN_DICE
      */
-    public DiceRollerImpl(int numberOfSides, int numberOfDice) throws DiceException {
+    public DiceRollerImpl(int numberOfSides, int numberOfDice) {
 
         if(numberOfSides < MIN_SIDES){
             throw new DiceException("Number of sides must be >= " + MIN_SIDES);
