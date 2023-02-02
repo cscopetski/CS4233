@@ -8,7 +8,13 @@ import static org.junit.jupiter.api.Assertions.*;
 public class OCRTest {
 
     @Test
-    void testNullInput() { assertThrows(OCRException.class, () -> new OCRTranslator().translate(null, "","")); }
+    void testNullInputTop() { assertThrows(OCRException.class, () -> new OCRTranslator().translate(null, "","")); }
+
+    @Test
+    void testNullInputMiddle() { assertThrows(OCRException.class, () -> new OCRTranslator().translate("", null,"")); }
+
+    @Test
+    void testNullInputBottom() { assertThrows(OCRException.class, () -> new OCRTranslator().translate("", "",null)); }
 
     @Test
     void testEmptyInput() {
@@ -17,12 +23,22 @@ public class OCRTest {
     }
 
     @Test
-    void testDifferentLengthInput() {
+    void testDifferentLengthInputTop() {
+        assertThrows(OCRException.class, () -> new OCRTranslator().translate(" ", "",""));
+    }
+
+    @Test
+    void testDifferentLengthInputMiddle() {
         assertThrows(OCRException.class, () -> new OCRTranslator().translate("", " ",""));
     }
 
-//    @Test
-//    void testInvalidChars() { assertThrows(OCRException.class, () -> new OCRTranslator().translate("asd", "123","3as")); }
+    @Test
+    void testDifferentLengthInputBottom() {
+        assertThrows(OCRException.class, () -> new OCRTranslator().translate("", ""," "));
+    }
+
+    @Test
+    void testInvalidChars() { assertThrows(OCRException.class, () -> new OCRTranslator().translate("asd", "123","3as")); }
 
     @Test
     void testOCR0() {
@@ -78,14 +94,23 @@ public class OCRTest {
     }
 
     @Test
+    void testInvalidOCRDigit() {
+        assertThrows(OCRException.class, () -> new OCRTranslator().translate("___", "|_ "," | "));
+    }
+    @Test
+    void testValidAndInvalidOCRDigits() {
+        assertThrows(OCRException.class, () -> new OCRTranslator().translate(" _   _ ", "|_| |_|","    |_|"));
+    }
+
+    @Test
     void testOCRStartWithSpaces() {
         OCRTranslator ocrTranslator = new OCRTranslator();
-        assertEquals("1", ocrTranslator.translate("  ", " |", " |"));
+        assertEquals("1", ocrTranslator.translate("    ", "   |", "   |"));
     }
     @Test
     void testOCREndWithSpaces() {
         OCRTranslator ocrTranslator = new OCRTranslator();
-        assertEquals("1", ocrTranslator.translate("  ", "| ", "| "));
+        assertEquals("1", ocrTranslator.translate("    ", "|   ", "|   "));
     }
     @Test
     void testMultiDigitInput() {

@@ -60,6 +60,17 @@ public class OCRTranslator
 			throw new OCRException("Error: Invalid input");
 		}
 
+		return translateOCRSequence(top,middle,bottom);
+	}
+
+	/**
+	 * Loops through the OCR input and translates each digit
+	 * @param top the top string of the OCR input
+	 * @param middle the middle string of the OCR input
+	 * @param bottom the bottom string of the OCR input
+	 * @return the OCR input translated to digits
+	 */
+	private String translateOCRSequence(String top,String middle,String bottom){
 		StringBuilder translation = new StringBuilder();
 
 		int startIndex = 0;
@@ -71,41 +82,47 @@ public class OCRTranslator
 
 			if(isSpace(topChar,middleChar,bottomChar)){
 
-				if (i != 0 && i!=startIndex) {
-					String currentTopSubstring = top.substring(startIndex, i);
-					String currentMiddleSubstring = middle.substring(startIndex, i);
-					String currentBottomSubstring = bottom.substring(startIndex, i);
+				if (i!=startIndex) {
 
-					String digit = ocrLookupTable.get(currentTopSubstring + currentMiddleSubstring + currentBottomSubstring);
-
-					if (digit == null) {
-						throw new OCRException("Error: Invalid digit");
-					}
-
-					translation.append(digit);
+					translation.append(lookupDigit(top,middle,bottom, startIndex, i));
 
 				}
 				startIndex = i+1;
 
+			} else if(i == top.length()-1){
 
-			}else if(i == top.length()-1){
+				translation.append(lookupDigit(top,middle,bottom, startIndex, i+1));
 
-				String currentTopSubstring = top.substring(startIndex, i+1);
-				String currentMiddleSubstring = middle.substring(startIndex, i+1);
-				String currentBottomSubstring = bottom.substring(startIndex, i+1);
-
-				String digit = ocrLookupTable.get(currentTopSubstring+currentMiddleSubstring+currentBottomSubstring);
-
-				if(digit == null){
-					throw new OCRException("Error: Invalid digit");
-				}
-
-				translation.append(digit);
 			}
 
 		}
 
 		return translation.toString();
+	}
+
+	/**
+	 * Finds an OCR representation of a digit in hashtable if one exists
+	 * @param top the top string of the OCR input
+	 * @param middle the middle string of the OCR input
+	 * @param bottom the bottom string of the OCR input
+	 * @param startIndex the starting index of the current digit
+	 * @param endIndex the ending index of the current digit
+	 * @return a string representation of the OCR digit if one exists
+	 * @throws OCRException if the digit is not found in the lookup table
+	 */
+	private String lookupDigit(String top, String middle, String bottom, int startIndex, int endIndex){
+
+		String currentTopSubstring = top.substring(startIndex, endIndex);
+		String currentMiddleSubstring = middle.substring(startIndex, endIndex);
+		String currentBottomSubstring = bottom.substring(startIndex, endIndex);
+
+		String digit = ocrLookupTable.get(currentTopSubstring+currentMiddleSubstring+currentBottomSubstring);
+
+		if(digit == null){
+			throw new OCRException("Error: Invalid digit");
+		}
+
+		return digit;
 	}
 
 	/**
