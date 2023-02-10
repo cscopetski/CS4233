@@ -36,6 +36,8 @@ public class EscapeGameInitializer
 	// Board items
 	private int xMax, yMax;
 	private LocationInitializer[] locationInitializers;
+
+	private String [] players;
 	
 	// Piece items
 	private PieceTypeDescriptor[] pieceTypes;
@@ -155,5 +157,12 @@ public class EscapeGameInitializer
 		    + Arrays.toString(locationInitializers) + ", types="
 		    + Arrays.toString(pieceTypes) + "]";
 	}
-	
+
+	public String[] getPlayers() {
+		return players;
+	}
+
+	public void setPlayers(String[] players) {
+		this.players = players;
+	}
 }
