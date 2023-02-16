@@ -5,10 +5,14 @@ import escape.required.EscapePiece;
 import escape.required.GameObserver;
 import escape.required.GameStatus;
 
-public class EscapeGameManagerImpl<C extends Coordinate> implements EscapeGameManager<CoordinateImpl> {
+import java.util.HashMap;
+import java.util.Map;
+
+public class EscapeGameManagerImpl<C extends Coordinate> implements EscapeGameManager<C> {
 
     private Coordinate.CoordinateType coordinateType;
     private int xMax, yMax;
+    private Map<C, Location<C>> board = new HashMap<>();
 
     /**
      * Make the move in the current game.
@@ -18,7 +22,7 @@ public class EscapeGameManagerImpl<C extends Coordinate> implements EscapeGameMa
      * @return true if the move was legal, false otherwise
      */
     @Override
-    public GameStatus move(CoordinateImpl from, CoordinateImpl to) {
+    public GameStatus move(C from, C to) {
         return EscapeGameManager.super.move(from, to);
     }
 
@@ -31,7 +35,7 @@ public class EscapeGameManagerImpl<C extends Coordinate> implements EscapeGameMa
      * @return the piece at the specified location or null if there is none
      */
     @Override
-    public EscapePiece getPieceAt(CoordinateImpl coordinate) {
+    public EscapePiece getPieceAt(C coordinate) {
         return EscapeGameManager.super.getPieceAt(coordinate);
     }
 
@@ -44,8 +48,8 @@ public class EscapeGameManagerImpl<C extends Coordinate> implements EscapeGameMa
      * @return the coordinate or null if the coordinate cannot be implemented
      */
     @Override
-    public CoordinateImpl makeCoordinate(int x, int y) {
-        return new CoordinateImpl(x,y);
+    public C makeCoordinate(int x, int y) {
+        return (C) new CoordinateImpl(x,y);
     }
 
     /**
@@ -121,6 +125,18 @@ public class EscapeGameManagerImpl<C extends Coordinate> implements EscapeGameMa
     public void setyMax(int yMax)
     {
         this.yMax = yMax;
+    }
+
+    /**
+     * Add a location to the board
+     * @param location
+     */
+    public void addLocation(Location<C> location){
+        board.put(location.getCoordinate(), location);
+    }
+
+    public Map<C, Location<C>> getBoard(){
+        return board;
     }
 
 }

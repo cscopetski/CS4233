@@ -14,11 +14,16 @@ package escape.builder;
 
 import econfig.*;
 import escape.*;
+import escape.required.Coordinate;
+import escape.required.EscapePiece;
+import escape.required.LocationType;
 import org.antlr.v4.runtime.*;
 
 import javax.xml.bind.*;
 import javax.xml.transform.stream.*;
 import java.io.*;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * This class builds an instance of an EscapeGameManager from a configuration
@@ -111,11 +116,38 @@ public class EscapeGameBuilder
      ***********************************************************************/
     public EscapeGameManager makeGameManager()
     {
-    	EscapeGameManagerImpl<CoordinateImpl> gameManager = new EscapeGameManagerImpl<>();
+		EscapeGameManagerImpl<CoordinateImpl> gameManager = new EscapeGameManagerImpl<>();
 
 		gameManager.setCoordinateType(gameInitializer.getCoordinateType());
 		gameManager.setxMax(gameInitializer.getxMax());
 		gameManager.setyMax(gameInitializer.getyMax());
+
+		if(gameInitializer.getLocationInitializers() == null){
+			return gameManager;
+		}
+
+		Map<EscapePiece.PieceName, PieceTypeDescriptor> pieceMap = new HashMap<>();
+
+		if(gameInitializer.getPieceTypes() != null){
+			for (PieceTypeDescriptor piece: gameInitializer.getPieceTypes()) {
+				pieceMap.put(piece.getPieceName(), piece);
+			}
+		}
+
+
+
+		for(LocationInitializer init : gameInitializer.getLocationInitializers()){
+
+			PieceTypeDescriptor pieceDescriptor = pieceMap.get(init.pieceName);
+
+			EscapePieceImpl piece = null;
+
+			if(pieceDescriptor !=null){
+				 piece = new EscapePieceImpl(init.pieceName, init.player, pieceDescriptor.getMovementPattern(), pieceDescriptor.getAttributes());
+			}
+
+			gameManager.addLocation(new LocationImpl<>(piece, new CoordinateImpl(init.x, init.y), init.locationType != null ? init.locationType : LocationType.CLEAR));
+		}
 
     	return gameManager;
     }

@@ -2,6 +2,8 @@ package escape;
 
 import escape.required.Coordinate;
 
+import java.util.Objects;
+
 public class CoordinateImpl implements Coordinate {
 
     private int row;
@@ -36,5 +38,10 @@ public class CoordinateImpl implements Coordinate {
         }
 
         return false;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(row, column);
     }
 }

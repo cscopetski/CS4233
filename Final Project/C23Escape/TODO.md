@@ -11,6 +11,7 @@ These are for implementing the EscapeGameBuilder's `makeGameManager()` method.
 | 1 | Build game manager | create game object |
 | 2 | Build game manager 2 X 2, 2 players, and coordinate type SQUARE | create correct game object |
 | 3 | Build game manager 4 X 6, 2 players, and coordinate type HEX | create correct game object |
+| 4 | Build game manager with 2X2, 4 locations, 2, pieces, 2 players and coordinate type SQUARE | create correct game object |
 
 **Coordinate Tests**
 
@@ -19,3 +20,4 @@ These are for implementing the EscapeGameBuilder's `makeGameManager()` method.
 | 1 | Check two coordinates with the same row and column are equal | coordinate equals |
 | 2 | Check two coordinates with different row and column are not equal | coordinate unequal |
 | 3 | Check coordinate creation from game manager | created correct coordinate |
+| 4 | Check coordinate hashing | coordinate hashing |

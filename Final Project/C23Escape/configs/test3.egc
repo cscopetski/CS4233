@@ -1,0 +1,13 @@
+    Coordinate type : HEX
+    xMax : 2
+    yMax : 2
+    Players : Chris Pat
+
+    Locations :
+        (0, 0)
+        (1, 0) Chris snail
+        (0, 1)
+        (1, 1) Pat horse
+
+    Piece descriptors :
+        SNAIL omni [distance 1]
