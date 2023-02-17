@@ -14,7 +14,9 @@ package escape.builder;
 
 import econfig.*;
 import escape.*;
-import escape.required.Coordinate;
+import escape.board.Board;
+import escape.board.CoordinateImpl;
+import escape.board.LocationImpl;
 import escape.required.EscapePiece;
 import escape.required.LocationType;
 import org.antlr.v4.runtime.*;
@@ -116,11 +118,13 @@ public class EscapeGameBuilder
      ***********************************************************************/
     public EscapeGameManager makeGameManager()
     {
+		//TODO: CLEAN UP CLEAN UP
 		EscapeGameManagerImpl<CoordinateImpl> gameManager = new EscapeGameManagerImpl<>();
 
 		gameManager.setCoordinateType(gameInitializer.getCoordinateType());
 		gameManager.setxMax(gameInitializer.getxMax());
 		gameManager.setyMax(gameInitializer.getyMax());
+		gameManager.setPlayers(gameInitializer.getPlayers());
 
 		if(gameInitializer.getLocationInitializers() == null){
 			return gameManager;
@@ -134,7 +138,7 @@ public class EscapeGameBuilder
 			}
 		}
 
-
+		Board<CoordinateImpl> board = new Board<>(gameInitializer.getxMax(), gameInitializer.getyMax());
 
 		for(LocationInitializer init : gameInitializer.getLocationInitializers()){
 
@@ -146,8 +150,10 @@ public class EscapeGameBuilder
 				 piece = new EscapePieceImpl(init.pieceName, init.player, pieceDescriptor.getMovementPattern(), pieceDescriptor.getAttributes());
 			}
 
-			gameManager.addLocation(new LocationImpl<>(piece, new CoordinateImpl(init.x, init.y), init.locationType != null ? init.locationType : LocationType.CLEAR));
+			board.addLocation(new CoordinateImpl(init.x, init.y), new LocationImpl<>(piece, new CoordinateImpl(init.x, init.y), init.locationType != null ? init.locationType : LocationType.CLEAR));
 		}
+
+		gameManager.setBoard(board);
 
     	return gameManager;
     }

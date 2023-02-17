@@ -1,5 +1,6 @@
-package escape;
+package escape.board;
 
+import escape.board.Location;
 import escape.required.Coordinate;
 import escape.required.EscapePiece;
 import escape.required.LocationType;
@@ -19,6 +20,11 @@ public class LocationImpl<C extends Coordinate> implements Location<C> {
     @Override
     public EscapePiece getPiece() {
         return piece;
+    }
+
+    @Override
+    public void setPiece(EscapePiece piece) {
+        this.piece = piece;
     }
 
     @Override

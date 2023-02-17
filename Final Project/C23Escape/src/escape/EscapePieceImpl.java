@@ -1,5 +1,6 @@
 package escape;
 
+import escape.required.Coordinate;
 import escape.required.EscapePiece;
 import escape.required.PieceAttribute;
 

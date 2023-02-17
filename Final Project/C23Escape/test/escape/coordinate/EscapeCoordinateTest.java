@@ -1,6 +1,6 @@
 package escape.coordinate;
 
-import escape.CoordinateImpl;
+import escape.board.CoordinateImpl;
 import escape.EscapeGameManager;
 import escape.builder.EscapeGameBuilder;
 import escape.required.Coordinate;

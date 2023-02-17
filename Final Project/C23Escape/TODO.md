@@ -21,3 +21,15 @@ These are for implementing the EscapeGameBuilder's `makeGameManager()` method.
 | 2 | Check two coordinates with different row and column are not equal | coordinate unequal |
 | 3 | Check coordinate creation from game manager | created correct coordinate |
 | 4 | Check coordinate hashing | coordinate hashing |
+
+**Movement Tests**
+
+| **#** | Test                                                            | Comments                        |
+|:-----:|:----------------------------------------------------------------|:--------------------------------|
+| 1 | Call move on location with no piece | Invalid move |
+| 2 | Call move on piece that is not owned by current player | Invalid move |
+| 3 | Move piece onto location with another piece (no rules) | Invalid move |
+| 4 | Player turn does not change when inputting invalid move | Maintain turns on invalid move |
+| 5 | Player turn changes when inputting valid move | Switch turn on valid move |
+| * | _**Refactored by extracting board hashmap into separate board class**_ | Refactor |
+

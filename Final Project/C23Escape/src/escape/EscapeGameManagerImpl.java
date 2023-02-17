@@ -1,29 +1,101 @@
 package escape;
 
+import escape.board.Board;
+import escape.board.CoordinateImpl;
+import escape.board.Location;
 import escape.required.Coordinate;
 import escape.required.EscapePiece;
 import escape.required.GameObserver;
 import escape.required.GameStatus;
 
-import java.util.HashMap;
 import java.util.Map;
 
 public class EscapeGameManagerImpl<C extends Coordinate> implements EscapeGameManager<C> {
 
     private Coordinate.CoordinateType coordinateType;
     private int xMax, yMax;
-    private Map<C, Location<C>> board = new HashMap<>();
+    private Board<C> board;
+    private String[] players;
+    private int currentPlayer = 0;
 
     /**
      * Make the move in the current game.
-     *
      * @param from starting location
-     * @param to   ending location
+     * @param to ending location
      * @return true if the move was legal, false otherwise
      */
     @Override
     public GameStatus move(C from, C to) {
-        return EscapeGameManager.super.move(from, to);
+
+        if(!board.move(from, to, getCurrentPlayer())){
+            return invalidMoveStatus(from);
+        };
+
+        setNextPlayer();
+
+        return validMoveStatus(to);
+    }
+
+    /**
+     * Gets the current player
+     * @return The name of the current player
+     */
+    public String getCurrentPlayer(){
+        return players[currentPlayer];
+    }
+
+    /**
+     * Sets the current player to the next player
+     */
+    private void setNextPlayer(){
+        currentPlayer = (currentPlayer+1)%players.length;
+    }
+
+    /**
+     * Gets default valid moveStatus
+     * @param finalLocation The final location
+     * @return default valid moveStatus
+     */
+    private GameStatus validMoveStatus(C finalLocation){
+        return getGameStatus(finalLocation, true);
+    }
+
+    /**
+     * Generates default invalid move status
+     * @return default invalid move status
+     */
+    private GameStatus invalidMoveStatus(C finalLocation){
+        return getGameStatus(finalLocation, false);
+    }
+
+    /**
+     * Returns the game status
+     * @param finalLocation The final location
+     * @param isValid Whether the move was valid or not
+     * @return the game status
+     */
+    private GameStatus getGameStatus(C finalLocation, boolean isValid) {
+        return new GameStatus() {
+            @Override
+            public boolean isValidMove() {
+                return isValid;
+            }
+
+            @Override
+            public boolean isMoreInformation() {
+                return false;
+            }
+
+            @Override
+            public MoveResult getMoveResult() {
+                return MoveResult.NONE;
+            }
+
+            @Override
+            public Coordinate finalLocation() {
+                return finalLocation;
+            }
+        };
     }
 
     /**
@@ -36,7 +108,7 @@ public class EscapeGameManagerImpl<C extends Coordinate> implements EscapeGameMa
      */
     @Override
     public EscapePiece getPieceAt(C coordinate) {
-        return EscapeGameManager.super.getPieceAt(coordinate);
+        return board.getLocation(coordinate).getPiece();
     }
 
     /**
@@ -127,16 +199,24 @@ public class EscapeGameManagerImpl<C extends Coordinate> implements EscapeGameMa
         this.yMax = yMax;
     }
 
+    public void setPlayers(String[] players){
+        this.players = players;
+    }
     /**
-     * Add a location to the board
-     * @param location
+     * Set the board
+     * @param board the board to set
      */
-    public void addLocation(Location<C> location){
-        board.put(location.getCoordinate(), location);
+    public void setBoard(Board<C> board){
+        this.board = board;
     }
 
-    public Map<C, Location<C>> getBoard(){
-        return board;
+    /**
+     * Get a location
+     * @param coordinate The coordinate to get the location from
+     * @return the location
+     */
+    public Location<C> getLocation(C coordinate){
+        return board.getLocation(coordinate);
     }
 
 }

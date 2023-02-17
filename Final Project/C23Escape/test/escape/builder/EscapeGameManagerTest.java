@@ -1,6 +1,9 @@
 package escape.builder;
 
 import escape.*;
+import escape.board.CoordinateImpl;
+import escape.board.Location;
+import escape.board.LocationImpl;
 import escape.required.Coordinate;
 import escape.required.EscapePiece;
 import escape.required.LocationType;
@@ -66,27 +69,36 @@ public class EscapeGameManagerTest {
         LocationImpl[] locations = {new LocationImpl(null, new CoordinateImpl(0, 0), LocationType.CLEAR),
                 new LocationImpl(new EscapePieceImpl(EscapePiece.PieceName.SNAIL, player1, EscapePiece.MovementPattern.OMNI, new PieceAttribute[]{snailDistance}), new CoordinateImpl(1, 0), LocationType.CLEAR),
                 new LocationImpl(null, new CoordinateImpl(0, 1), LocationType.CLEAR),
-                new LocationImpl(new EscapePieceImpl(EscapePiece.PieceName.SNAIL, player2, EscapePiece.MovementPattern.OMNI, new PieceAttribute[]{snailDistance}), new CoordinateImpl(1, 1), LocationType.CLEAR)};
-        Map<CoordinateImpl, Location<CoordinateImpl>> board = gameManager.getBoard();
-
-        assertEquals(locations.length, board.entrySet().size());
+                new LocationImpl(new EscapePieceImpl(EscapePiece.PieceName.HORSE, player2, EscapePiece.MovementPattern.OMNI, new PieceAttribute[]{snailDistance}), new CoordinateImpl(1, 1), LocationType.CLEAR)};
 
         for (LocationImpl location : locations) {
-            LocationImpl newLocation = (LocationImpl) board.get(location.getCoordinate());
+            LocationImpl newLocation = (LocationImpl) gameManager.getLocation(location.getCoordinate());
 
             assertEquals(location.getLocationType(), newLocation.getLocationType());
             assertEquals(location.getCoordinate(), newLocation.getCoordinate());
 
             EscapePieceImpl piece = (EscapePieceImpl) location.getPiece();
-            EscapePieceImpl newPiece = (EscapePieceImpl) location.getPiece();
+            EscapePieceImpl newPiece = (EscapePieceImpl) gameManager.getPieceAt(newLocation.getCoordinate());
 
             if (piece == null) {
                 assertNull(newPiece);
             } else {
+                assertNotNull(newPiece);
                 assertEquals(piece.getName(), newPiece.getName());
                 assertEquals(piece.getPlayer(), newPiece.getPlayer());
                 assertEquals(piece.getMovementPattern(), newPiece.getMovementPattern());
-                assertEquals(piece.getAttributes(), newPiece.getAttributes());
+
+                PieceAttribute[] pieceAttributes = piece.getAttributes();
+                PieceAttribute[] newPieceAttributes = newPiece.getAttributes();
+
+                for (int i = 0; i < piece.getAttributes().length; i++) {
+
+                    assertEquals(pieceAttributes[i].getId(), newPieceAttributes[i].getId());
+                    assertEquals(pieceAttributes[i].getValue(), newPieceAttributes[i].getValue());
+
+                }
+
+
             }
         }
     }
