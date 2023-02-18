@@ -66,19 +66,22 @@ public class EscapeGameManagerTest {
         snailDistance.setId(EscapePiece.PieceAttributeID.DISTANCE);
         snailDistance.setValue(1);
 
-        LocationImpl[] locations = {new LocationImpl(null, new CoordinateImpl(0, 0), LocationType.CLEAR),
-                new LocationImpl(new EscapePieceImpl(EscapePiece.PieceName.SNAIL, player1, EscapePiece.MovementPattern.OMNI, new PieceAttribute[]{snailDistance}), new CoordinateImpl(1, 0), LocationType.CLEAR),
-                new LocationImpl(null, new CoordinateImpl(0, 1), LocationType.CLEAR),
-                new LocationImpl(new EscapePieceImpl(EscapePiece.PieceName.HORSE, player2, EscapePiece.MovementPattern.OMNI, new PieceAttribute[]{snailDistance}), new CoordinateImpl(1, 1), LocationType.CLEAR)};
+        Coordinate[] coordinates = {gameManager.makeCoordinate(1, 1), gameManager.makeCoordinate(2, 1), gameManager.makeCoordinate(1, 2), gameManager.makeCoordinate(2, 2)};
+        LocationImpl[] locations = {new LocationImpl(null, LocationType.CLEAR),
+                new LocationImpl(new EscapePieceImpl(EscapePiece.PieceName.SNAIL, player1, EscapePiece.MovementPattern.OMNI, new PieceAttribute[]{snailDistance}), LocationType.CLEAR),
+                new LocationImpl(null, LocationType.CLEAR),
+                new LocationImpl(new EscapePieceImpl(EscapePiece.PieceName.HORSE, player2, EscapePiece.MovementPattern.OMNI, new PieceAttribute[]{snailDistance}), LocationType.CLEAR)};
 
-        for (LocationImpl location : locations) {
-            LocationImpl newLocation = (LocationImpl) gameManager.getLocation(location.getCoordinate());
+        for (int i = 0; i < coordinates.length; i++) {
+
+            Coordinate coordinate = coordinates[i];
+            LocationImpl location = locations[i];
+            LocationImpl newLocation = (LocationImpl) gameManager.getLocation(coordinate);
 
             assertEquals(location.getLocationType(), newLocation.getLocationType());
-            assertEquals(location.getCoordinate(), newLocation.getCoordinate());
 
             EscapePieceImpl piece = (EscapePieceImpl) location.getPiece();
-            EscapePieceImpl newPiece = (EscapePieceImpl) gameManager.getPieceAt(newLocation.getCoordinate());
+            EscapePieceImpl newPiece = (EscapePieceImpl) gameManager.getPieceAt(coordinate);
 
             if (piece == null) {
                 assertNull(newPiece);
@@ -91,14 +94,12 @@ public class EscapeGameManagerTest {
                 PieceAttribute[] pieceAttributes = piece.getAttributes();
                 PieceAttribute[] newPieceAttributes = newPiece.getAttributes();
 
-                for (int i = 0; i < piece.getAttributes().length; i++) {
+                for (int j = 0; j < piece.getAttributes().length; j++) {
 
-                    assertEquals(pieceAttributes[i].getId(), newPieceAttributes[i].getId());
-                    assertEquals(pieceAttributes[i].getValue(), newPieceAttributes[i].getValue());
+                    assertEquals(pieceAttributes[j].getId(), newPieceAttributes[j].getId());
+                    assertEquals(pieceAttributes[j].getValue(), newPieceAttributes[j].getValue());
 
                 }
-
-
             }
         }
     }

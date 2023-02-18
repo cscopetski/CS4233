@@ -34,8 +34,9 @@ class EscapeCoordinateTest {
         }
 
         Coordinate coordinate1 = gameManager.makeCoordinate(1, 1);
+        Coordinate coordinate2 = gameManager.makeCoordinate(1, 1);
 
-        assertEquals(new CoordinateImpl(1, 1), coordinate1);
+        assertEquals(coordinate2, coordinate1);
     }
 
     @Test
@@ -49,14 +50,16 @@ class EscapeCoordinateTest {
         }
 
         Coordinate coordinate1 = gameManager.makeCoordinate(1, 1);
+        Coordinate coordinate2 = gameManager.makeCoordinate(0, 0);
         Map<Coordinate, Integer> map = new HashMap<>();
 
         map.put(coordinate1,1);
-        map.put(new CoordinateImpl(0,0),0);
+        map.put(coordinate2,0);
 
         assertEquals(map.size(), 2);
 
         assertEquals(map.get(coordinate1), 1);
+        assertEquals(map.get(coordinate2), 0);
     }
 
 }

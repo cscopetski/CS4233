@@ -5,15 +5,15 @@ import escape.required.Coordinate;
 import escape.required.EscapePiece;
 import escape.required.LocationType;
 
-public class LocationImpl<C extends Coordinate> implements Location<C> {
+public class LocationImpl implements Location {
 
     private EscapePiece piece;
-    private C coordinate;
+
     private LocationType locationType;
 
-    public LocationImpl(EscapePiece piece, C coordinate, LocationType locationType){
+    public LocationImpl(EscapePiece piece, LocationType locationType){
         this.piece = piece;
-        this.coordinate = coordinate;
+
         this.locationType = locationType;
     }
 
@@ -25,11 +25,6 @@ public class LocationImpl<C extends Coordinate> implements Location<C> {
     @Override
     public void setPiece(EscapePiece piece) {
         this.piece = piece;
-    }
-
-    @Override
-    public C getCoordinate() {
-        return coordinate;
     }
 
     @Override

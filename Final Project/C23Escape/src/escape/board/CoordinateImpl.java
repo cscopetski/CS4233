@@ -32,7 +32,7 @@ public class CoordinateImpl implements Coordinate {
     @Override
     public boolean equals(Object obj) {
 
-        if(obj.getClass() == CoordinateImpl.class){
+        if(obj.getClass() == this.getClass()){
             return ((CoordinateImpl) obj).getRow() == this.row &&
                     ((CoordinateImpl) obj).getColumn() == this.column;
         }

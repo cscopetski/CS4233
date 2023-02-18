@@ -2,6 +2,7 @@ package escape.board;
 
 import escape.required.Coordinate;
 import escape.required.EscapePiece;
+import escape.required.LocationType;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -11,7 +12,7 @@ public class Board<C extends Coordinate> {
     private int xMax, yMax;
     private final int xMin = 1;
     private final int yMin = 1;
-    private Map<C, Location<C>> board = new HashMap<>();
+    private Map<C, Location> board = new HashMap<>();
 
     private final int INFINITE_AXIS = 0;
 
@@ -29,9 +30,15 @@ public class Board<C extends Coordinate> {
      */
     public boolean move(C from, C to, String currentPlayer){
 
-        EscapePiece piece = board.get(from).getPiece();
+        Location fromLocation = getLocation(from);
 
-        if(!hasPiece(from) || hasPiece(to) || isInBounds(to) || !piece.getPlayer().equals(currentPlayer)){
+        if(fromLocation == null){
+            return false;
+        }
+
+        EscapePiece piece = fromLocation.getPiece();
+
+        if(!isInBounds(to) || !hasPiece(from) || hasPiece(to) || !piece.getPlayer().equals(currentPlayer)){
             return false;
         }
 
@@ -48,11 +55,11 @@ public class Board<C extends Coordinate> {
      */
     private void movePiece(C from, C to){
 
-        Location<C> fromLocation = board.get(from);
-        Location<C> toLocation = board.get(to);
+        Location fromLocation = getLocation(from);
+        Location toLocation = getLocation(to);
 
-        fromLocation.setPiece(null);
         toLocation.setPiece(fromLocation.getPiece());
+        fromLocation.setPiece(null);
 
     }
 
@@ -83,7 +90,7 @@ public class Board<C extends Coordinate> {
      * @return True if there is a piece at the coordinate
      */
     private boolean hasPiece(C coordinate){
-        return board.get(coordinate).getPiece() != null;
+        return getLocation(coordinate).getPiece() != null;
     }
 
     /**
@@ -91,7 +98,7 @@ public class Board<C extends Coordinate> {
      * @param coordinate The coordinate to add the location at
      * @param location The location to add
      */
-    public void addLocation(C coordinate, Location<C> location){
+    public void addLocation(C coordinate, Location location){
         board.put(coordinate, location);
     }
 
@@ -100,7 +107,22 @@ public class Board<C extends Coordinate> {
      * @param coordinate The coordinate to get the location from
      * @return the location
      */
-    public Location<C> getLocation(C coordinate){
-        return board.get(coordinate);
+    public Location getLocation(C coordinate){
+
+        if(!isInBounds(coordinate)) {
+
+            return null;
+        }
+
+        return board.computeIfAbsent(coordinate, this::createBaseLocation);
+    }
+
+    /**
+     * Creates a clear location at th
+     * @param coordinate
+     * @return
+     */
+    private Location createBaseLocation(C coordinate){
+        return new LocationImpl(null, LocationType.CLEAR);
     }
 }

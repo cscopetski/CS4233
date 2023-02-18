@@ -21,6 +21,7 @@ These are for implementing the EscapeGameBuilder's `makeGameManager()` method.
 | 2 | Check two coordinates with different row and column are not equal | coordinate unequal |
 | 3 | Check coordinate creation from game manager | created correct coordinate |
 | 4 | Check coordinate hashing | coordinate hashing |
+| * | May want to delete hex and square coordinate types (not doing anything atm) | * |
 
 **Movement Tests**
 
@@ -31,5 +32,17 @@ These are for implementing the EscapeGameBuilder's `makeGameManager()` method.
 | 3 | Move piece onto location with another piece (no rules) | Invalid move |
 | 4 | Player turn does not change when inputting invalid move | Maintain turns on invalid move |
 | 5 | Player turn changes when inputting valid move | Switch turn on valid move |
-| * | _**Refactored by extracting board hashmap into separate board class**_ | Refactor |
+| * | _**Refactored by extracting board hashmap and validation checks into separate board class**_ | Refactor |
+| 6 | Move to location that is out of bounds | Invalid move |
+| 7 | Move to negative location on infinite board | Valid move (creates new location) |
+| 8 | Check if piece can move linearly (no obstacles, no distance) | linear valid move |
+| 9 | Check if piece cannot move linearly (no obstacles, no distance) | linear invalid move |
+| * | _**Refactored by extracting valid movement type checks into MoveChecker class **_ | Refactor |
+| 10 | Check if piece can move in straight line (no obstacles, max distance) | linear valid move |
+| 11 | Check if piece cannot move in straight line (no obstacles, max distance+1) | linear invalid move |
+| * | _**Refactored by extracting valid path checks into PathChecker class **_ | Refactor |
+| 12 | Check if piece can move diagonally (no obstacles, positive direction) | linear valid move |
+| 13 | Check if piece can move diagonally (no obstacles, negative direction, infinite board) | linear valid move |
+| 14 | Check if piece cannot move (piece in the way) | linear invalid move |
+
 

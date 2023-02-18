@@ -1,14 +1,10 @@
 package escape;
 
-import escape.board.Board;
-import escape.board.CoordinateImpl;
-import escape.board.Location;
+import escape.board.*;
 import escape.required.Coordinate;
 import escape.required.EscapePiece;
 import escape.required.GameObserver;
 import escape.required.GameStatus;
-
-import java.util.Map;
 
 public class EscapeGameManagerImpl<C extends Coordinate> implements EscapeGameManager<C> {
 
@@ -121,7 +117,19 @@ public class EscapeGameManagerImpl<C extends Coordinate> implements EscapeGameMa
      */
     @Override
     public C makeCoordinate(int x, int y) {
-        return (C) new CoordinateImpl(x,y);
+
+        C coordinate = (C) new CoordinateImpl(x,y);
+
+        switch (coordinateType){
+            case SQUARE -> {
+                coordinate = (C) new SquareCoordinate(x,y);
+            }
+            case HEX -> {
+                coordinate = (C) new HexagonalCoordinate(x,y);
+            }
+        }
+
+        return coordinate;
     }
 
     /**
@@ -215,7 +223,7 @@ public class EscapeGameManagerImpl<C extends Coordinate> implements EscapeGameMa
      * @param coordinate The coordinate to get the location from
      * @return the location
      */
-    public Location<C> getLocation(C coordinate){
+    public Location getLocation(C coordinate){
         return board.getLocation(coordinate);
     }
 
