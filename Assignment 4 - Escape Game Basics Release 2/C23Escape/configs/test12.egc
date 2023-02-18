@@ -1,0 +1,13 @@
+    Coordinate type : SQUARE
+    xMax : 1
+    yMax : 3
+    Players : Chris Pat
+
+    Locations :
+        (1, 1) Chris snail
+        (1, 2) Pat horse
+        (1, 3)
+
+    Piece descriptors :
+        SNAIL omni [distance 5]
+        HORSE orthogonal [distance 5]
