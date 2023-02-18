@@ -1,5 +1,6 @@
 package escape.board;
 
+import escape.EscapePieceImpl;
 import escape.required.Coordinate;
 import escape.required.EscapePiece;
 import escape.required.LocationType;
@@ -36,9 +37,13 @@ public class Board<C extends Coordinate> {
             return false;
         }
 
-        EscapePiece piece = fromLocation.getPiece();
+        EscapePieceImpl piece = (EscapePieceImpl) fromLocation.getPiece();
 
-        if(!isInBounds(to) || !hasPiece(from) || hasPiece(to) || !piece.getPlayer().equals(currentPlayer)){
+        if(!isInBounds(from) || !isInBounds(to) || !hasPiece(from) || hasPiece(to) || !piece.getPlayer().equals(currentPlayer)){
+            return false;
+        }
+
+        if(!piece.canMove(from, to)){
             return false;
         }
 
@@ -118,9 +123,9 @@ public class Board<C extends Coordinate> {
     }
 
     /**
-     * Creates a clear location at th
-     * @param coordinate
-     * @return
+     * Creates a clear location at the coordinate
+     * @param coordinate The coordinate to create the location at
+     * @return the created location
      */
     private Location createBaseLocation(C coordinate){
         return new LocationImpl(null, LocationType.CLEAR);

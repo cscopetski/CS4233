@@ -21,15 +21,16 @@ public class EscapePieceImpl implements EscapePiece {
     private MoveValidator moveValidator;
     private PathValidator pathValidator;
     private int distance;
-    private boolean fly;
-    private boolean jump;
-    private boolean unblock;
+    private boolean fly = false;
+    private boolean jump = false;
+    private boolean unblock = false;
     private int value;
 
     public EscapePieceImpl(PieceName name, String player, MovementPattern movementPattern, PieceAttribute[] attributes){
         this.name = name;
         this.player = player;
         this.attributes = attributes;
+        this.movementPattern = movementPattern;
 
         switch (movementPattern){
             //TODO: add rest of movement patterns
@@ -37,8 +38,14 @@ public class EscapePieceImpl implements EscapePiece {
                 this.moveValidator = MoveChecker.linearValidator;
                 this.pathValidator = PathChecker.linearPathValidator;
             }
-            case ORTHOGONAL -> this.moveValidator = MoveChecker.orthogonalValidator;
-            case OMNI -> this.moveValidator = MoveChecker.omniValidator;
+            case ORTHOGONAL -> {
+                this.moveValidator = MoveChecker.orthogonalValidator;
+                this.pathValidator = PathChecker.orthogonalPathValidator;
+            }
+            case OMNI -> {
+                this.moveValidator = MoveChecker.omniValidator;
+                this.pathValidator = PathChecker.omniPathValidator;
+            }
             case DIAGONAL -> this.moveValidator = MoveChecker.diagonalValidator;
         }
 
@@ -84,7 +91,7 @@ public class EscapePieceImpl implements EscapePiece {
      * @param to the ending location
      * @return true if the piece can move from the starting location to the end location, false otherwise
      */
-    public boolean canMove(TileShapeCoordinate from, TileShapeCoordinate to){
-       return moveValidator.isLegalMovePattern(from, to) && pathValidator.isLegalPath(from, to, distance, fly, jump, unblock);
+    public boolean canMove(Coordinate from, Coordinate to){
+       return moveValidator.isLegalMovePattern((TileShapeCoordinate) from, (TileShapeCoordinate)to) && pathValidator.isLegalPath((TileShapeCoordinate)from, (TileShapeCoordinate)to, distance, fly, jump, unblock);
     }
 }

@@ -14,7 +14,7 @@ public class HexagonalCoordinate extends CoordinateImpl implements TileShapeCoor
     }
 
     @Override
-    public TileShapeCoordinate[] getNeighbors() {
+    public TileShapeCoordinate[] getAllNeighbors() {
         return new TileShapeCoordinate[] {
                 new SquareCoordinate(getRow()+1, getColumn()),
                 new SquareCoordinate(getRow()-1, getColumn()),
@@ -23,6 +23,11 @@ public class HexagonalCoordinate extends CoordinateImpl implements TileShapeCoor
                 new SquareCoordinate(getRow()+1, getColumn()-1),
                 new SquareCoordinate(getRow()-1, getColumn()+1),
         };
+    }
+
+    @Override
+    public TileShapeCoordinate[] getNeighbors(Direction[] directions) {
+        return new TileShapeCoordinate[0];
     }
 
     @Override

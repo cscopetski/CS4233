@@ -2,10 +2,8 @@ package escape.board;
 
 import escape.EscapeGameManager;
 import escape.EscapeGameManagerImpl;
-import escape.EscapePieceImpl;
 import escape.builder.EscapeGameBuilder;
 import escape.required.Coordinate;
-import escape.required.EscapePiece;
 import escape.required.GameStatus;
 import escape.required.LocationType;
 import org.junit.jupiter.api.Test;
@@ -15,6 +13,26 @@ public class MovementTest {
 
     @Test
     void testNoPieceAtStartLocation(){
+        EscapeGameManagerImpl gameManager = null;
+        try {
+            gameManager = (EscapeGameManagerImpl) new EscapeGameBuilder("configs/test3.egc").makeGameManager();
+        } catch (Exception e) {
+            e.printStackTrace();
+            fail();
+        }
+
+        Coordinate startLocation = gameManager.makeCoordinate(1, 1);
+        Coordinate endLocation = gameManager.makeCoordinate(1, 2);
+
+        GameStatus status = gameManager.move(startLocation, endLocation);
+
+        assertFalse(status.isValidMove());
+        assertEquals(status.getMoveResult(), GameStatus.MoveResult.NONE);
+        assertEquals(status.finalLocation(), startLocation);
+    }
+
+    @Test
+    void testMoveFromStartToStart(){
         EscapeGameManagerImpl gameManager = null;
         try {
             gameManager = (EscapeGameManagerImpl) new EscapeGameBuilder("configs/test3.egc").makeGameManager();
@@ -197,12 +215,10 @@ public class MovementTest {
             fail("Exception from builder: " + e.getMessage());
         }
 
-        Coordinate coordinate1 = gameManager.makeCoordinate(1, 1);
-        Coordinate coordinate2 = gameManager.makeCoordinate(1, 2);
+        Coordinate coordinate1 = gameManager.makeCoordinate(2, 1);
+        Coordinate coordinate2 = gameManager.makeCoordinate(2, 0);
 
-        EscapePieceImpl piece = (EscapePieceImpl)gameManager.getPieceAt(gameManager.makeCoordinate(2, 1));
-
-        assertTrue(piece.canMove((TileShapeCoordinate) coordinate1, (TileShapeCoordinate) coordinate2));
+        assertTrue(gameManager.move(coordinate1, coordinate2).isValidMove());
 
     }
 
@@ -219,9 +235,7 @@ public class MovementTest {
         Coordinate coordinate1 = gameManager.makeCoordinate(2, 1);
         Coordinate coordinate2 = gameManager.makeCoordinate(3, 3);
 
-        EscapePieceImpl piece = (EscapePieceImpl)gameManager.getPieceAt(coordinate1);
-
-        assertFalse(piece.canMove((TileShapeCoordinate) coordinate1, (TileShapeCoordinate) coordinate2));
+        assertFalse(gameManager.move(coordinate1, coordinate2).isValidMove());
 
     }
 
@@ -238,9 +252,7 @@ public class MovementTest {
         Coordinate coordinate1 = gameManager.makeCoordinate(2, 1);
         Coordinate coordinate2 = gameManager.makeCoordinate(7, 1);
 
-        EscapePieceImpl piece = (EscapePieceImpl)gameManager.getPieceAt(coordinate1);
-
-        assertTrue(piece.canMove((TileShapeCoordinate) coordinate1, (TileShapeCoordinate) coordinate2));
+        assertTrue(gameManager.move(coordinate1, coordinate2).isValidMove());
 
     }
 
@@ -257,9 +269,7 @@ public class MovementTest {
         Coordinate coordinate1 = gameManager.makeCoordinate(2, 1);
         Coordinate coordinate2 = gameManager.makeCoordinate(8, 1);
 
-        EscapePieceImpl piece = (EscapePieceImpl)gameManager.getPieceAt(coordinate1);
-
-        assertFalse(piece.canMove((TileShapeCoordinate) coordinate1, (TileShapeCoordinate) coordinate2));
+        assertFalse(gameManager.move(coordinate1, coordinate2).isValidMove());
 
     }
 
@@ -276,9 +286,7 @@ public class MovementTest {
         Coordinate coordinate1 = gameManager.makeCoordinate(2, 1);
         Coordinate coordinate2 = gameManager.makeCoordinate(6, 5);
 
-        EscapePieceImpl piece = (EscapePieceImpl)gameManager.getPieceAt(coordinate1);
-
-        assertTrue(piece.canMove((TileShapeCoordinate) coordinate1, (TileShapeCoordinate) coordinate2));
+        assertTrue(gameManager.move(coordinate1, coordinate2).isValidMove());
 
     }
 
@@ -295,9 +303,7 @@ public class MovementTest {
         Coordinate coordinate1 = gameManager.makeCoordinate(2, 1);
         Coordinate coordinate2 = gameManager.makeCoordinate(-2, -3);
 
-        EscapePieceImpl piece = (EscapePieceImpl)gameManager.getPieceAt(coordinate1);
-
-        assertTrue(piece.canMove((TileShapeCoordinate) coordinate1, (TileShapeCoordinate) coordinate2));
+        assertTrue(gameManager.move(coordinate1, coordinate2).isValidMove());
 
     }
 
@@ -314,9 +320,262 @@ public class MovementTest {
         Coordinate coordinate1 = gameManager.makeCoordinate(2, 1);
         Coordinate coordinate2 = gameManager.makeCoordinate(2, 4);
 
-        EscapePieceImpl piece = (EscapePieceImpl)gameManager.getPieceAt(coordinate1);
+        assertFalse(gameManager.move(coordinate1, coordinate2).isValidMove());
 
-        assertFalse(piece.canMove((TileShapeCoordinate) coordinate1, (TileShapeCoordinate) coordinate2));
+    }
+
+    @Test
+    void checkOrthogonalHorizontalMovementNoObstacles() {
+        EscapeGameManager gameManager = null;
+
+        try {
+            gameManager = new EscapeGameBuilder("configs/test6.egc").makeGameManager();
+        } catch (Exception e) {
+            fail("Exception from builder: " + e.getMessage());
+        }
+
+        Coordinate coordinate1 = gameManager.makeCoordinate(2, 2);
+        Coordinate coordinate2 = gameManager.makeCoordinate(2, 7);
+
+        assertTrue(gameManager.move(coordinate1, coordinate2).isValidMove());
+
+    }
+
+    @Test
+    void checkOrthogonalVerticalMovementNoObstacles() {
+        EscapeGameManager gameManager = null;
+
+        try {
+            gameManager = new EscapeGameBuilder("configs/test6.egc").makeGameManager();
+        } catch (Exception e) {
+            fail("Exception from builder: " + e.getMessage());
+        }
+
+        Coordinate coordinate1 = gameManager.makeCoordinate(2, 2);
+        Coordinate coordinate2 = gameManager.makeCoordinate(7, 2);
+
+        assertTrue(gameManager.move(coordinate1, coordinate2).isValidMove());
+
+    }
+
+    @Test
+    void checkOrthogonalDiagonalMovementNoObstacles() {
+        EscapeGameManager gameManager = null;
+
+        try {
+            gameManager = new EscapeGameBuilder("configs/test6.egc").makeGameManager();
+        } catch (Exception e) {
+            fail("Exception from builder: " + e.getMessage());
+        }
+
+        Coordinate coordinate1 = gameManager.makeCoordinate(2, 2);
+        Coordinate coordinate2 = gameManager.makeCoordinate(7, 7);
+
+        assertFalse(gameManager.move(coordinate1, coordinate2).isValidMove());
+
+    }
+
+    @Test
+    void checkOrthogonalLMovementAroundObstacle() {
+        EscapeGameManager gameManager = null;
+
+        try {
+            gameManager = new EscapeGameBuilder("configs/test6.egc").makeGameManager();
+        } catch (Exception e) {
+            fail("Exception from builder: " + e.getMessage());
+        }
+
+        Coordinate coordinate1 = gameManager.makeCoordinate(2, 2);
+        Coordinate coordinate2 = gameManager.makeCoordinate(2, 0);
+
+        assertTrue(gameManager.move(coordinate1, coordinate2).isValidMove());
+
+    }
+
+    @Test
+    void checkOrthogonalBlockedByObstacleMaxLength() {
+        EscapeGameManager gameManager = null;
+
+        try {
+            gameManager = new EscapeGameBuilder("configs/test11.egc").makeGameManager();
+        } catch (Exception e) {
+            fail("Exception from builder: " + e.getMessage());
+        }
+
+        Coordinate coordinate1 = gameManager.makeCoordinate(2, 1);
+        Coordinate coordinate2 = gameManager.makeCoordinate(3, 2);
+
+        assertFalse(gameManager.move(coordinate1, coordinate2).isValidMove());
+
+    }
+
+    @Test
+    void checkOmniHorizontalMovementNoObstacles() {
+        EscapeGameManager gameManager = null;
+
+        try {
+            gameManager = new EscapeGameBuilder("configs/test7.egc").makeGameManager();
+        } catch (Exception e) {
+            fail("Exception from builder: " + e.getMessage());
+        }
+
+        Coordinate coordinate1 = gameManager.makeCoordinate(2, 2);
+        Coordinate coordinate2 = gameManager.makeCoordinate(2, 7);
+
+        assertTrue(gameManager.move(coordinate1, coordinate2).isValidMove());
+
+    }
+
+    @Test
+    void checkOmniVerticalMovementNoObstacles() {
+        EscapeGameManager gameManager = null;
+
+        try {
+            gameManager = new EscapeGameBuilder("configs/test7.egc").makeGameManager();
+        } catch (Exception e) {
+            fail("Exception from builder: " + e.getMessage());
+        }
+
+        Coordinate coordinate1 = gameManager.makeCoordinate(2, 2);
+        Coordinate coordinate2 = gameManager.makeCoordinate(7, 2);
+
+        assertTrue(gameManager.move(coordinate1, coordinate2).isValidMove());
+
+    }
+
+    @Test
+    void checkOmniDiagonalMovementNoObstacles() {
+        EscapeGameManager gameManager = null;
+
+        try {
+            gameManager = new EscapeGameBuilder("configs/test7.egc").makeGameManager();
+        } catch (Exception e) {
+            fail("Exception from builder: " + e.getMessage());
+        }
+
+        Coordinate coordinate1 = gameManager.makeCoordinate(2, 2);
+        Coordinate coordinate2 = gameManager.makeCoordinate(7, 7);
+
+        assertTrue(gameManager.move(coordinate1, coordinate2).isValidMove());
+
+    }
+
+    @Test
+    void checkOmniDiagonalAroundObstacleMaxLength() {
+        EscapeGameManager gameManager = null;
+
+        try {
+            gameManager = new EscapeGameBuilder("configs/test7.egc").makeGameManager();
+        } catch (Exception e) {
+            fail("Exception from builder: " + e.getMessage());
+        }
+
+        Coordinate coordinate1 = gameManager.makeCoordinate(2, 1);
+        Coordinate coordinate2 = gameManager.makeCoordinate(7, 1);
+
+        assertTrue(gameManager.move(coordinate1, coordinate2).isValidMove());
+
+    }
+
+    @Test
+    void checkOmniDiagonalObstacleBlockMaxLength() {
+        EscapeGameManager gameManager = null;
+
+        try {
+            gameManager = new EscapeGameBuilder("configs/test7.egc").makeGameManager();
+        } catch (Exception e) {
+            fail("Exception from builder: " + e.getMessage());
+        }
+
+        Coordinate coordinate1 = gameManager.makeCoordinate(2, 1);
+        Coordinate coordinate2 = gameManager.makeCoordinate(7, 6);
+
+        assertFalse(gameManager.move(coordinate1, coordinate2).isValidMove());
+
+    }
+
+    @Test
+    void checkLinearFlyOverPiece() {
+        EscapeGameManager gameManager = null;
+
+        try {
+            gameManager = new EscapeGameBuilder("configs/test8.egc").makeGameManager();
+        } catch (Exception e) {
+            fail("Exception from builder: " + e.getMessage());
+        }
+
+        Coordinate coordinate1 = gameManager.makeCoordinate(2, 1);
+        Coordinate coordinate2 = gameManager.makeCoordinate(2, 4);
+
+        assertTrue(gameManager.move(coordinate1, coordinate2).isValidMove());
+
+    }
+
+    @Test
+    void checkLinearFlyOverPieceEndBlocked() {
+        EscapeGameManager gameManager = null;
+
+        try {
+            gameManager = new EscapeGameBuilder("configs/test8.egc").makeGameManager();
+        } catch (Exception e) {
+            fail("Exception from builder: " + e.getMessage());
+        }
+
+        Coordinate coordinate1 = gameManager.makeCoordinate(2, 1);
+        Coordinate coordinate2 = gameManager.makeCoordinate(2, 3);
+
+        assertFalse(gameManager.move(coordinate1, coordinate2).isValidMove());
+
+    }
+
+    @Test
+    void checkOrthogonalFlyOverObstacleMaxLength() {
+        EscapeGameManager gameManager = null;
+
+        try {
+            gameManager = new EscapeGameBuilder("configs/test10.egc").makeGameManager();
+        } catch (Exception e) {
+            fail("Exception from builder: " + e.getMessage());
+        }
+
+        Coordinate coordinate1 = gameManager.makeCoordinate(2, 1);
+        Coordinate coordinate2 = gameManager.makeCoordinate(3, 2);
+
+        assertTrue(gameManager.move(coordinate1, coordinate2).isValidMove());
+
+    }
+
+    @Test
+    void checkOmniFlyOverObstacleMaxLength() {
+        EscapeGameManager gameManager = null;
+
+        try {
+            gameManager = new EscapeGameBuilder("configs/test9.egc").makeGameManager();
+        } catch (Exception e) {
+            fail("Exception from builder: " + e.getMessage());
+        }
+
+        Coordinate coordinate1 = gameManager.makeCoordinate(2, 1);
+        Coordinate coordinate2 = gameManager.makeCoordinate(7, 6);
+
+        assertTrue(gameManager.move(coordinate1, coordinate2).isValidMove());
+
+    }
+
+    @Test
+    void checkFiniteBoardPathIsOutOfBounds() {
+        EscapeGameManager gameManager = null;
+
+        try {
+            gameManager = new EscapeGameBuilder("configs/test12.egc").makeGameManager();
+        } catch (Exception e) {
+            fail("Exception from builder: " + e.getMessage());
+        }
+
+        Coordinate coordinate1 = gameManager.makeCoordinate(1, 1);
+        Coordinate coordinate2 = gameManager.makeCoordinate(1, 3);
+
+        assertFalse(gameManager.move(coordinate1, coordinate2).isValidMove());
 
     }
 

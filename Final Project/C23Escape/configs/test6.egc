@@ -5,9 +5,10 @@
 
     Locations :
         (1, 1)
-        (2, 1) Chris bird
+        (2, 1) Chris snail
         (1, 2)
         (2, 2) Chris horse
+        (3, 1) Pat horse
 
     Piece descriptors :
         SNAIL omni [distance 5]

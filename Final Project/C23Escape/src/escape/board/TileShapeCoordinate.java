@@ -4,11 +4,17 @@ import escape.required.Coordinate;
 
 public interface TileShapeCoordinate extends Coordinate {
 
-    static enum Direction{NORTH, SOUTH, EAST, WEST, NORTHEAST, NORTHWEST, SOUTHEAST, SOUTHWEST}
+    enum Direction{NORTH, SOUTH, EAST, WEST, NORTHEAST, NORTHWEST, SOUTHEAST, SOUTHWEST}
 
     int getDistance(Coordinate to);
 
-    TileShapeCoordinate[] getNeighbors();
+    TileShapeCoordinate[] getAllNeighbors();
+
+    static Direction[] getOrthogonalDirections() {
+        return new Direction[]{Direction.NORTH, Direction.SOUTH, Direction.EAST, Direction.WEST};
+    }
+
+    TileShapeCoordinate[] getNeighbors(Direction[] directions);
 
     TileShapeCoordinate getNeighbor(Direction direction);
 

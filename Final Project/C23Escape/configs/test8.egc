@@ -8,8 +8,9 @@
         (2, 1) Chris bird
         (1, 2)
         (2, 2) Chris horse
+        (2, 3) Chris horse
 
     Piece descriptors :
         SNAIL omni [distance 5]
         HORSE orthogonal [distance 5]
-        BIRD linear [distance 5]
+        BIRD linear [distance 5, fly]
