@@ -17,16 +17,28 @@ public class LocationImpl implements Location {
         this.locationType = locationType;
     }
 
+    /**
+     * Get the piece at this location
+     * @return The piece at this location
+     */
     @Override
     public EscapePiece getPiece() {
         return piece;
     }
 
+    /**
+     * Set the piece at this location
+     * @param piece The piece to set
+     */
     @Override
     public void setPiece(EscapePiece piece) {
         this.piece = piece;
     }
 
+    /**
+     * Get the type of this location
+     * @return
+     */
     @Override
     public LocationType getLocationType() {
         return locationType;

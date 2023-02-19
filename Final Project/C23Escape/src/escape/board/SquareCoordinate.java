@@ -8,11 +8,20 @@ public class SquareCoordinate extends CoordinateImpl implements TileShapeCoordin
         super(x, y);
     }
 
+    /**
+     * Get the manhattan distance between two coordinates
+     * @param to The coordinate to compare to
+     * @return The manhattan distance between two coordinates
+     */
     @Override
     public int getDistance(Coordinate to) {
         return Math.abs(this.getRow() - to.getRow()) + Math.abs(this.getColumn() - to.getColumn());
     }
 
+    /**
+     * Get neighbors in all directions
+     * @return Neighboring coordinates in all directions
+     */
     @Override
     public TileShapeCoordinate[] getAllNeighbors() {
         return new TileShapeCoordinate[] {
@@ -27,6 +36,11 @@ public class SquareCoordinate extends CoordinateImpl implements TileShapeCoordin
         };
     }
 
+    /**
+     * Get a list of neighbors in the given directions
+     * @param directions The directions to get neighbors in
+     * @return a list of neighboring coordinates in the given directions
+     */
     @Override
     public TileShapeCoordinate[] getNeighbors(Direction[] directions) {
 
@@ -42,6 +56,11 @@ public class SquareCoordinate extends CoordinateImpl implements TileShapeCoordin
         return neighbors;
     }
 
+    /**
+     * Get the neighboring coordinate in the given direction
+     * @param direction The direction to get the neighbor from
+     * @return The neighboring coordinate in the given direction
+     */
     @Override
     public TileShapeCoordinate getNeighbor(Direction direction) {
 

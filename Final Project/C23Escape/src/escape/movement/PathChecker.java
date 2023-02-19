@@ -13,10 +13,26 @@ public class PathChecker {
     public static PathValidator orthogonalPathValidator = PathChecker::isValidOrthogonalPath;
     public static PathValidator omniPathValidator = PathChecker::isValidOmniPath;
 
+    /**
+     * Search the board and find a valid linear path
+     * @param from the starting coordinate
+     * @param to the ending coordinate
+     * @param distance The total distance the piece can move
+     * @param fly if the piece can fly or not
+     * @param jump if the piece can jump or not
+     * @param unblock if the piece can unblock or not
+     * @return true if a valid path was found, false otherwise
+     */
     private static boolean isValidLinearPath(TileShapeCoordinate from, TileShapeCoordinate to, int distance, boolean fly, boolean jump, boolean unblock){
         return dfs(from,to, new TileShapeCoordinate.Direction[]{getLinearDirection(from, to)},distance, fly, jump, unblock);
     }
 
+    /**
+     * Get the direction to move linearly in
+     * @param from the starting coordinate
+     * @param to the ending coordinate
+     * @return The linear direction to get from point A to point B
+     */
     private static TileShapeCoordinate.Direction getLinearDirection(TileShapeCoordinate from, TileShapeCoordinate to){
 
         int minDistance = from.getDistance(to);
@@ -35,28 +51,77 @@ public class PathChecker {
         return bestDirection;
     }
 
+    /**
+     * Search the board and find a valid omni path
+     * @param from the starting coordinate
+     * @param to the ending coordinate
+     * @param distance The total distance the piece can move
+     * @param fly if the piece can fly or not
+     * @param jump if the piece can jump or not
+     * @param unblock if the piece can unblock or not
+     * @return true if a valid path was found, false otherwise
+     */
     private static boolean isValidOmniPath(TileShapeCoordinate from, TileShapeCoordinate to, int distance, boolean fly, boolean jump, boolean unblock){
         return dfs(from,to, getOmniDirections(),distance, fly, jump, unblock);
     }
+
 
     private static TileShapeCoordinate.Direction[] getOmniDirections(){
         return TileShapeCoordinate.Direction.values();
     }
 
+    /**
+     * Search the board and find a valid orthogonal path
+     * @param from the starting coordinate
+     * @param to the ending coordinate
+     * @param distance The total distance the piece can move
+     * @param fly if the piece can fly or not
+     * @param jump if the piece can jump or not
+     * @param unblock if the piece can unblock or not
+     * @return true if a valid path was found, false otherwise
+     */
     private static boolean isValidOrthogonalPath(TileShapeCoordinate from, TileShapeCoordinate to, int distance, boolean fly, boolean jump, boolean unblock){
         return dfs(from,to, getOrthogonalDirections(),distance, fly, jump, unblock);
     }
 
+    /**
+     * Get the directions for orthogonal movement
+     * @return
+     */
     private static TileShapeCoordinate.Direction[] getOrthogonalDirections(){
         return TileShapeCoordinate.getOrthogonalDirections();
     }
 
 
     //TODO: look into using bfs instead will be much faster
+
+    /**
+     * Search the board and find a valid path using the given movement pattern
+     * @param from the starting coordinate
+     * @param to the ending coordinate
+     * @param directions The directions to search in
+     * @param distance The total distance the piece can move
+     * @param fly if the piece can fly or not
+     * @param jump if the piece can jump or not
+     * @param unblock if the piece can unblock or not
+     * @return true if a valid path was found, false otherwise
+     */
     private static boolean dfs(TileShapeCoordinate from, TileShapeCoordinate to, TileShapeCoordinate.Direction[] directions, int distance, boolean fly, boolean jump, boolean unblock) {
         return dfsRecursive(from, to, true, directions, distance, fly, jump, unblock);
     }
 
+    /**
+     * Search the board and find a valid path using the given movement pattern
+     * @param current The current coordinate
+     * @param to the goal coordinate
+     * @param isFirst true if this is the first recursive step
+     * @param directions The directions to search in
+     * @param distance The remaining distance the piece can move
+     * @param fly if the piece can fly or not
+     * @param jump if the piece can jump or not
+     * @param unblock if the piece can unblock or not
+     * @return true if a valid path was found, false otherwise
+     */
     private static boolean dfsRecursive(TileShapeCoordinate current, TileShapeCoordinate to, boolean isFirst, TileShapeCoordinate.Direction[] directions, int distance, boolean fly, boolean jump, boolean unblock) {
 
         if(distance < 0){
@@ -113,6 +178,10 @@ public class PathChecker {
 
     }
 
+    /**
+     * Set the board instance
+     * @param board the board instance
+     */
     public static void setBoard(Board board){
         PathChecker.board = board;
     }
