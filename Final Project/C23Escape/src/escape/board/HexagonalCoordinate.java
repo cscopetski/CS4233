@@ -17,28 +17,15 @@ public class HexagonalCoordinate extends CoordinateImpl implements TileShapeCoor
      */
     @Override
     public int getDistance(Coordinate to) {
-        return 0;
-    }
+        int colDiff = to.getColumn() - getColumn();
+        int rowDiff = to.getRow() - getRow();
 
-    /**
-     * Get neighbors in all directions
-     *
-     * @return Neighboring coordinates in all directions
-     */
-    @Override
-    public TileShapeCoordinate[] getAllNeighbors() {
-        return new TileShapeCoordinate[0];
-    }
+        if((colDiff < 0) == (rowDiff < 0)){
+            return Math.abs(colDiff + rowDiff);
+        }else{
+            return Math.max(Math.abs(rowDiff), Math.abs(colDiff));
+        }
 
-    /**
-     * Get a list of neighbors in the given directions
-     *
-     * @param directions The directions to get neighbors in
-     * @return a list of neighboring coordinates in the given directions
-     */
-    @Override
-    public TileShapeCoordinate[] getNeighbors(Direction[] directions) {
-        return new TileShapeCoordinate[0];
     }
 
     /**
@@ -49,6 +36,28 @@ public class HexagonalCoordinate extends CoordinateImpl implements TileShapeCoor
      */
     @Override
     public TileShapeCoordinate getNeighbor(Direction direction) {
-        return null;
+        int rowModifier = 0;
+        int columnModifier = 0;
+
+        switch (direction){
+            case NORTH -> columnModifier = 1;
+            case SOUTH -> columnModifier = -1;
+            case NORTHEAST -> {
+                rowModifier = 1;
+            }
+            case SOUTHEAST -> {
+                rowModifier = 1;
+                columnModifier = -1;
+            }
+            case NORTHWEST -> {
+                rowModifier = -1;
+                columnModifier = 1;
+            }
+            case SOUTHWEST -> {
+                rowModifier = -1;
+            }
+        }
+
+        return new HexagonalCoordinate(this.getRow()+rowModifier,this.getColumn()+columnModifier);
     }
 }

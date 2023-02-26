@@ -19,44 +19,6 @@ public class SquareCoordinate extends CoordinateImpl implements TileShapeCoordin
     }
 
     /**
-     * Get neighbors in all directions
-     * @return Neighboring coordinates in all directions
-     */
-    @Override
-    public TileShapeCoordinate[] getAllNeighbors() {
-        return new TileShapeCoordinate[] {
-            new SquareCoordinate(getRow()+1, getColumn()),
-            new SquareCoordinate(getRow()-1, getColumn()),
-            new SquareCoordinate(getRow(), getColumn()+1),
-            new SquareCoordinate(getRow(), getColumn()-1),
-            new SquareCoordinate(getRow()+1, getColumn()+1),
-            new SquareCoordinate(getRow()-1, getColumn()-1),
-            new SquareCoordinate(getRow()+1, getColumn()-1),
-            new SquareCoordinate(getRow()-1, getColumn()+1),
-        };
-    }
-
-    /**
-     * Get a list of neighbors in the given directions
-     * @param directions The directions to get neighbors in
-     * @return a list of neighboring coordinates in the given directions
-     */
-    @Override
-    public TileShapeCoordinate[] getNeighbors(Direction[] directions) {
-
-        TileShapeCoordinate[] neighbors = new TileShapeCoordinate[directions.length];
-
-        int count = 0;
-
-        for (Direction direction: directions) {
-            neighbors[count] = this.getNeighbor(direction);
-            count++;
-        }
-
-        return neighbors;
-    }
-
-    /**
      * Get the neighboring coordinate in the given direction
      * @param direction The direction to get the neighbor from
      * @return The neighboring coordinate in the given direction

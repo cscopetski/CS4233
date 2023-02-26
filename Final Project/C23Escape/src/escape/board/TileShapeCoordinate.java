@@ -19,16 +19,32 @@ public interface TileShapeCoordinate extends Coordinate {
 
     /**
      * Get neighbors in all directions
+     *
      * @return Neighboring coordinates in all directions
      */
-    TileShapeCoordinate[] getAllNeighbors();
+    default TileShapeCoordinate[] getAllNeighbors() {
+        return getNeighbors(Direction.values());
+    }
 
     /**
      * Get a list of neighbors in the given directions
+     *
      * @param directions The directions to get neighbors in
      * @return a list of neighboring coordinates in the given directions
      */
-    TileShapeCoordinate[] getNeighbors(Direction[] directions);
+     default TileShapeCoordinate[] getNeighbors(Direction[] directions) {
+
+            TileShapeCoordinate[] neighbors = new TileShapeCoordinate[directions.length];
+
+            int count = 0;
+
+            for (Direction direction: directions) {
+                neighbors[count] = this.getNeighbor(direction);
+                count++;
+            }
+
+            return neighbors;
+    }
 
     /**
      * Get the neighboring coordinate in the given direction

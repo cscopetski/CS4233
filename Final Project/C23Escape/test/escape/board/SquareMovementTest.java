@@ -9,7 +9,7 @@ import escape.required.LocationType;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
-public class MovementTest {
+public class SquareMovementTest {
 
     @Test
     void testNoPieceAtStartLocation(){
