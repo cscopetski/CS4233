@@ -790,4 +790,55 @@ public class SquareMovementTest {
         assertFalse(gameManager.move(coordinate1, coordinate2).isValidMove());
 
     }
+
+    @Test
+    void checkJumpOmniOutOfBoundsInvalidMove() {
+        EscapeGameManager gameManager = null;
+
+        try {
+            gameManager = new EscapeGameBuilder("configs/moveJumpSquare7.egc").makeGameManager();
+        } catch (Exception e) {
+            fail("Exception from builder: " + e.getMessage());
+        }
+
+        Coordinate coordinate1 = gameManager.makeCoordinate(1, 1);
+        Coordinate coordinate2 = gameManager.makeCoordinate(3, 2);
+
+        assertFalse(gameManager.move(coordinate1, coordinate2).isValidMove());
+
+    }
+
+    @Test
+    void checkFlyPrecedenceOverJumpOmni() {
+        EscapeGameManager gameManager = null;
+
+        try {
+            gameManager = new EscapeGameBuilder("configs/moveJumpSquare9.egc").makeGameManager();
+        } catch (Exception e) {
+            fail("Exception from builder: " + e.getMessage());
+        }
+
+        Coordinate coordinate1 = gameManager.makeCoordinate(1, 1);
+        Coordinate coordinate2 = gameManager.makeCoordinate(3, 2);
+
+        assertTrue(gameManager.move(coordinate1, coordinate2).isValidMove());
+
+    }
+
+    @Test
+    void checkUnblockPrecedenceOverJumpOmni() {
+        EscapeGameManager gameManager = null;
+
+        try {
+            gameManager = new EscapeGameBuilder("configs/moveJumpSquare8.egc").makeGameManager();
+        } catch (Exception e) {
+            fail("Exception from builder: " + e.getMessage());
+        }
+
+        Coordinate coordinate1 = gameManager.makeCoordinate(1, 1);
+        Coordinate coordinate2 = gameManager.makeCoordinate(3, 2);
+
+        assertTrue(gameManager.move(coordinate1, coordinate2).isValidMove());
+
+    }
 }

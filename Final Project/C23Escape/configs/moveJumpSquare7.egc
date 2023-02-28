@@ -1,0 +1,12 @@
+    Coordinate type : SQUARE
+    xMax : 3
+    yMax : 2
+    Players : Chris Pat
+
+    Locations :
+        (1, 1) Chris bird
+        (1, 2) BLOCK
+        (2, 2) Pat bird
+        (2, 1) BLOCK
+    Piece descriptors :
+        BIRD omni [distance 4, jump]

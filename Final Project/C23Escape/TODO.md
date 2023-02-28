@@ -80,7 +80,9 @@ These are for implementing the EscapeGameBuilder's `makeGameManager()` method.
 | 41 | Check if piece cannot change directions mid air while jumping | orthogonal jump invalid move |
 | 42 | Check if piece can unblock over obstacle (test 24 with jump) | omni jump valid move |
 | 43 | Check if piece cannot change directions mid air while jumping | omni jump invalid move |
-| 44 | Check that piece will fly before jumping | omni fly jump valid move |
+| 44 | Check if piece cannot jump out of bounds | omni jump invalid move |
+| 45 | Check that piece will fly before jumping (test 44 w/ fly and jump) | omni fly jump valid move |
+| 46 | Check that piece will unblock before jumping (test 44 w/ fly and unblock) | omni unblock jump valid move |
 | * | |  |
 
 **Hex Movement Tests**
