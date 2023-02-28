@@ -1,6 +1,6 @@
-package escape.movement;
+package escape.piece;
 
-import escape.board.TileShapeCoordinate;
+import escape.coordinate.TileShapeCoordinate;
 
 public class MoveChecker {
 
@@ -44,7 +44,6 @@ public class MoveChecker {
         return true;
     }
 
-    //TODO: TEST THIS
     /**
      * Checks if a move is a valid diagonal move
      * @param from the starting coordinate
@@ -54,7 +53,7 @@ public class MoveChecker {
     private static boolean isMoveDiagonal(TileShapeCoordinate from, TileShapeCoordinate to){
         int rowDiff = Math.abs(from.getRow() - to.getRow());
         int columnDiff = Math.abs(from.getColumn() - to.getColumn());
-        return rowDiff+columnDiff %2 == 0;
+        return (rowDiff+columnDiff) %2 == 0;
     }
 
     /**

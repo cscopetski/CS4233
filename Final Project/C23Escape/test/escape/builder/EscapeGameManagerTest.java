@@ -1,16 +1,13 @@
 package escape.builder;
 
 import escape.*;
-import escape.board.CoordinateImpl;
-import escape.board.Location;
 import escape.board.LocationImpl;
+import escape.piece.EscapePieceImpl;
 import escape.required.Coordinate;
 import escape.required.EscapePiece;
 import escape.required.LocationType;
 import escape.required.PieceAttribute;
 import org.junit.jupiter.api.Test;
-
-import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.*;
 

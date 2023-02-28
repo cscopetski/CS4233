@@ -1,8 +1,8 @@
-package escape.movement;
+package escape.piece;
 
 import escape.board.Board;
 import escape.board.Location;
-import escape.board.TileShapeCoordinate;
+import escape.coordinate.TileShapeCoordinate;
 import escape.required.LocationType;
 
 public class PathChecker {
@@ -12,6 +12,7 @@ public class PathChecker {
     public static PathValidator linearPathValidator = PathChecker::isValidLinearPath;
     public static PathValidator orthogonalPathValidator = PathChecker::isValidOrthogonalPath;
     public static PathValidator omniPathValidator = PathChecker::isValidOmniPath;
+    public static PathValidator diagonalPathValidator = PathChecker::isValidDiagonalPath;
 
     /**
      * Search the board and find a valid linear path
@@ -65,7 +66,10 @@ public class PathChecker {
         return dfs(from,to, getOmniDirections(),distance, fly, jump, unblock);
     }
 
-
+    /**
+     * Get the directions for omni movement
+     * @return the directions for omni movement
+     */
     private static TileShapeCoordinate.Direction[] getOmniDirections(){
         return TileShapeCoordinate.Direction.values();
     }
@@ -86,13 +90,23 @@ public class PathChecker {
 
     /**
      * Get the directions for orthogonal movement
-     * @return
+     * @return the directions for orthogonal movement
      */
     private static TileShapeCoordinate.Direction[] getOrthogonalDirections(){
         return TileShapeCoordinate.getOrthogonalDirections();
     }
 
+    private static boolean isValidDiagonalPath(TileShapeCoordinate from, TileShapeCoordinate to, int distance, boolean fly, boolean jump, boolean unblock){
+        return dfs(from,to, getDiagonalDirections(),distance, fly, jump, unblock);
+    }
 
+    /**
+     * Get the directions for diagonal movement
+     * @return the directions for diagonal movement
+     */
+    private static TileShapeCoordinate.Direction[] getDiagonalDirections(){
+        return TileShapeCoordinate.getDiagonalDirections();
+    }
     //TODO: look into using bfs instead will be much faster
 
     /**

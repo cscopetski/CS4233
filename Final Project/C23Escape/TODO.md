@@ -59,9 +59,12 @@ These are for implementing the EscapeGameBuilder's `makeGameManager()` method.
 | 25 | Check if piece cannot move in diagonal and straight line around obstacle (max distance) | omni invalid move |
 | 26 | Check if piece can fly over (test 14 with flight) (piece in the way) | linear fly valid move |
 | 27 | Check if piece cannot fly over (piece in the way) end blocked with piece | linear fly invalid move |
-| 28 | Check if piece can fly over obstacle (test 19 with flight) | orthogonal valid move |
+| 28 | Check if piece can fly over obstacle (test 19 with flight) | orthogonal fly valid move |
 | 29 | Check if piece can fly over obstacle (test 24 with flight) | omni fly valid move |
 | 30 | Check finite board only valid path is out of bounds | omni invalid move |
+| 31 | Check that piece can move in diagonally in one direction | diagonal valid move |
+| 32 | Check that piece can move diagonally in multiple direction | diagonal valid move |
+| 33 | Check that piece cannot move in 4 orthogonal directions (N, S, W, E) | diagonal invalid move |
 
 **Hex Movement Tests**
 

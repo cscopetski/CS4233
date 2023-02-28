@@ -1,8 +1,8 @@
-package escape.board;
+package escape.coordinate;
 
 import escape.required.Coordinate;
 
-public class HexagonalCoordinate extends CoordinateImpl implements TileShapeCoordinate{
+public class HexagonalCoordinate extends CoordinateImpl implements TileShapeCoordinate {
 
     public HexagonalCoordinate(int x, int y) {
         super(x, y);

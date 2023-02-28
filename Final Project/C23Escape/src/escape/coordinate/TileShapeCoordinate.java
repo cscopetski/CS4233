@@ -1,4 +1,4 @@
-package escape.board;
+package escape.coordinate;
 
 import escape.required.Coordinate;
 
@@ -8,6 +8,9 @@ public interface TileShapeCoordinate extends Coordinate {
 
     static Direction[] getOrthogonalDirections() {
         return new Direction[]{Direction.NORTH, Direction.SOUTH, Direction.EAST, Direction.WEST};
+    }
+    static Direction[] getDiagonalDirections() {
+        return new Direction[]{Direction.NORTHEAST, Direction.NORTHWEST, Direction.SOUTHEAST, Direction.SOUTHWEST};
     }
 
     /**

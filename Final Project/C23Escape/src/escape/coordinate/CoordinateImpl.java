@@ -1,4 +1,4 @@
-package escape.board;
+package escape.coordinate;
 
 import escape.required.Coordinate;
 

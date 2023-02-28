@@ -1,8 +1,8 @@
-package escape.board;
+package escape.coordinate;
 
 import escape.required.Coordinate;
 
-public class SquareCoordinate extends CoordinateImpl implements TileShapeCoordinate{
+public class SquareCoordinate extends CoordinateImpl implements TileShapeCoordinate {
 
     public SquareCoordinate(int x, int y) {
         super(x, y);

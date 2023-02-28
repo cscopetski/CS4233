@@ -1,7 +1,8 @@
-package escape.board;
+package escape.movement;
 
 import escape.EscapeGameManager;
 import escape.EscapeGameManagerImpl;
+import escape.board.Location;
 import escape.builder.EscapeGameBuilder;
 import escape.required.Coordinate;
 import escape.required.GameStatus;
@@ -579,4 +580,53 @@ public class SquareMovementTest {
 
     }
 
+    @Test
+    void checkDiagonalSimpleValidMove() {
+        EscapeGameManager gameManager = null;
+
+        try {
+            gameManager = new EscapeGameBuilder("configs/moveDiagonalSquare1.egc").makeGameManager();
+        } catch (Exception e) {
+            fail("Exception from builder: " + e.getMessage());
+        }
+
+        Coordinate coordinate1 = gameManager.makeCoordinate(0, 0);
+        Coordinate coordinate2 = gameManager.makeCoordinate(5, 5);
+
+        assertTrue(gameManager.move(coordinate1, coordinate2).isValidMove());
+
+    }
+    @Test
+    void checkDiagonalMultiValidMove() {
+        EscapeGameManager gameManager = null;
+
+        try {
+            gameManager = new EscapeGameBuilder("configs/moveDiagonalSquare1.egc").makeGameManager();
+        } catch (Exception e) {
+            fail("Exception from builder: " + e.getMessage());
+        }
+
+        Coordinate coordinate1 = gameManager.makeCoordinate(0, 0);
+        Coordinate coordinate2 = gameManager.makeCoordinate(5, -1);
+
+        assertTrue(gameManager.move(coordinate1, coordinate2).isValidMove());
+
+    }
+
+    @Test
+    void checkDiagonalInvalidMove() {
+        EscapeGameManager gameManager = null;
+
+        try {
+            gameManager = new EscapeGameBuilder("configs/moveDiagonalSquare1.egc").makeGameManager();
+        } catch (Exception e) {
+            fail("Exception from builder: " + e.getMessage());
+        }
+
+        Coordinate coordinate1 = gameManager.makeCoordinate(0, 0);
+        Coordinate coordinate2 = gameManager.makeCoordinate(3, 0);
+
+        assertFalse(gameManager.move(coordinate1, coordinate2).isValidMove());
+
+    }
 }

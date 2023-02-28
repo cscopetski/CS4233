@@ -1,6 +1,10 @@
 package escape;
 
 import escape.board.*;
+import escape.board.Board;
+import escape.coordinate.CoordinateImpl;
+import escape.coordinate.HexagonalCoordinate;
+import escape.coordinate.SquareCoordinate;
 import escape.required.Coordinate;
 import escape.required.EscapePiece;
 import escape.required.GameObserver;

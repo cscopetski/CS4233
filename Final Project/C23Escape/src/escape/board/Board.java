@@ -1,8 +1,9 @@
 package escape.board;
 
-import escape.EscapePieceImpl;
+import escape.board.Location;
+import escape.board.LocationImpl;
+import escape.piece.EscapePieceImpl;
 import escape.required.Coordinate;
-import escape.required.EscapePiece;
 import escape.required.LocationType;
 
 import java.util.HashMap;

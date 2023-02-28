@@ -1,7 +1,8 @@
-package escape.board;
+package escape.movement;
 
 import escape.EscapeGameManager;
 import escape.EscapeGameManagerImpl;
+import escape.board.Location;
 import escape.builder.EscapeGameBuilder;
 import escape.required.Coordinate;
 import escape.required.GameStatus;

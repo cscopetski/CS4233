@@ -1,16 +1,9 @@
-package escape;
+package escape.piece;
 
-import escape.board.Board;
-import escape.board.TileShapeCoordinate;
-import escape.movement.MoveChecker;
-import escape.movement.MoveValidator;
-import escape.movement.PathChecker;
-import escape.movement.PathValidator;
+import escape.coordinate.TileShapeCoordinate;
 import escape.required.Coordinate;
 import escape.required.EscapePiece;
 import escape.required.PieceAttribute;
-
-import java.util.Arrays;
 
 public class EscapePieceImpl implements EscapePiece {
 
@@ -24,7 +17,7 @@ public class EscapePieceImpl implements EscapePiece {
     private boolean fly = false;
     private boolean jump = false;
     private boolean unblock = false;
-    private int value;
+    private int value = 1;
 
     public EscapePieceImpl(PieceName name, String player, MovementPattern movementPattern, PieceAttribute[] attributes){
         this.name = name;
@@ -46,7 +39,11 @@ public class EscapePieceImpl implements EscapePiece {
                 this.moveValidator = MoveChecker.omniValidator;
                 this.pathValidator = PathChecker.omniPathValidator;
             }
-            case DIAGONAL -> this.moveValidator = MoveChecker.diagonalValidator;
+            case DIAGONAL -> {
+                this.moveValidator = MoveChecker.diagonalValidator;
+                this.pathValidator = PathChecker.diagonalPathValidator;
+            }
+
         }
 
         for (PieceAttribute piece: attributes) {

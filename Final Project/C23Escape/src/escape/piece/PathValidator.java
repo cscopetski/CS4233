@@ -1,7 +1,6 @@
-package escape.movement;
+package escape.piece;
 
-import escape.board.Board;
-import escape.board.TileShapeCoordinate;
+import escape.coordinate.TileShapeCoordinate;
 
 @FunctionalInterface
 public interface PathValidator {
