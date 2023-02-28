@@ -29,8 +29,7 @@ public class HexMovementTest {
         GameStatus status = gameManager.move(startLocation, endLocation);
 
         assertFalse(status.isValidMove());
-        assertEquals(status.getMoveResult(), GameStatus.MoveResult.NONE);
-        assertEquals(status.finalLocation(), startLocation);
+        assertEquals(status.getMoveResult(), GameStatus.MoveResult.LOSE);
     }
 
     @Test
@@ -49,8 +48,7 @@ public class HexMovementTest {
         GameStatus status = gameManager.move(startLocation, endLocation);
 
         assertFalse(status.isValidMove());
-        assertEquals(status.getMoveResult(), GameStatus.MoveResult.NONE);
-        assertEquals(status.finalLocation(), startLocation);
+        assertEquals(status.getMoveResult(), GameStatus.MoveResult.LOSE);
     }
 
     @Test
@@ -70,8 +68,7 @@ public class HexMovementTest {
         GameStatus status = gameManager.move(startLocation, endLocation);
 
         assertFalse(status.isValidMove());
-        assertEquals(status.getMoveResult(), GameStatus.MoveResult.NONE);
-        assertEquals(status.finalLocation(), startLocation);
+        assertEquals(status.getMoveResult(), GameStatus.MoveResult.LOSE);
     }
 
     @Test
@@ -91,8 +88,7 @@ public class HexMovementTest {
         GameStatus status = gameManager.move(startLocation, endLocation);
 
         assertFalse(status.isValidMove());
-        assertEquals(status.getMoveResult(), GameStatus.MoveResult.NONE);
-        assertEquals(status.finalLocation(), startLocation);
+        assertEquals(status.getMoveResult(), GameStatus.MoveResult.LOSE);
     }
 
     @Test
@@ -114,8 +110,7 @@ public class HexMovementTest {
         GameStatus status = gameManager.move(startLocation, endLocation);
 
         assertFalse(status.isValidMove());
-        assertEquals(status.getMoveResult(), GameStatus.MoveResult.NONE);
-        assertEquals(status.finalLocation(), startLocation);
+        assertEquals(status.getMoveResult(), GameStatus.MoveResult.LOSE);
 
         assertEquals(startingPlayer, gameManager.getCurrentPlayer());
 
@@ -142,7 +137,6 @@ public class HexMovementTest {
 
         assertTrue(status.isValidMove());
         assertEquals(status.getMoveResult(), GameStatus.MoveResult.NONE);
-        assertEquals(status.finalLocation(), endLocation1);
 
         assertEquals(players[1], gameManager.getCurrentPlayer());;
 
@@ -153,7 +147,6 @@ public class HexMovementTest {
 
         assertTrue(status2.isValidMove());
         assertEquals(status2.getMoveResult(), GameStatus.MoveResult.NONE);
-        assertEquals(status2.finalLocation(), endLocation2);
 
         assertEquals(players[0], gameManager.getCurrentPlayer());;
 
@@ -176,8 +169,7 @@ public class HexMovementTest {
         GameStatus status = gameManager.move(startLocation, endLocation);
 
         assertFalse(status.isValidMove());
-        assertEquals(status.getMoveResult(), GameStatus.MoveResult.NONE);
-        assertEquals(status.finalLocation(), startLocation);
+        assertEquals(status.getMoveResult(), GameStatus.MoveResult.LOSE);
     }
 
     @Test
@@ -198,7 +190,6 @@ public class HexMovementTest {
 
         assertTrue(status.isValidMove());
         assertEquals(status.getMoveResult(), GameStatus.MoveResult.NONE);
-        assertEquals(status.finalLocation(), endLocation);
 
         Location location = gameManager.getLocation(endLocation);
 

@@ -1,0 +1,23 @@
+    Coordinate type : SQUARE
+    xMax : 0
+    yMax : 0
+    Players : Chris Pat
+
+    Locations :
+        (2, 1) Chris bird
+        (-2, -1) Chris frog
+        (1, 1) BLOCK
+        (-1, -1) BLOCK
+        (1, -1) BLOCK
+        (-1, 1) BLOCK
+        (1, 0) BLOCK
+        (-1, 0) BLOCK
+        (0, 1) BLOCK
+        (0, -1) BLOCK
+        (0, 0) Chris snail
+
+
+    Piece descriptors :
+        SNAIL linear [distance 5, unblock]
+        BIRD omni [distance 5, unblock]
+        FROG orthogonal [distance 5, unblock]

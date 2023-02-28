@@ -2,6 +2,7 @@ package escape;
 
 import escape.board.*;
 import escape.board.Board;
+import escape.builder.RuleDescriptor;
 import escape.coordinate.CoordinateImpl;
 import escape.coordinate.HexagonalCoordinate;
 import escape.coordinate.SquareCoordinate;
@@ -10,6 +11,8 @@ import escape.required.EscapePiece;
 import escape.required.GameObserver;
 import escape.required.GameStatus;
 
+import java.util.HashMap;
+
 public class EscapeGameManagerImpl<C extends Coordinate> implements EscapeGameManager<C> {
 
     private Coordinate.CoordinateType coordinateType;
@@ -17,6 +20,7 @@ public class EscapeGameManagerImpl<C extends Coordinate> implements EscapeGameMa
     private Board<C> board;
     private String[] players;
     private int currentPlayer = 0;
+    private HashMap<String, Integer> scoreMap = new HashMap<>();
 
     /**
      * Make the move in the current game.
@@ -28,12 +32,12 @@ public class EscapeGameManagerImpl<C extends Coordinate> implements EscapeGameMa
     public GameStatus move(C from, C to) {
 
         if(!board.move(from, to, getCurrentPlayer())){
-            return invalidMoveStatus(from);
+            return invalidMoveStatus(null);
         };
 
         setNextPlayer();
 
-        return validMoveStatus(to);
+        return validMoveStatus(null);
     }
 
     /**
@@ -57,7 +61,7 @@ public class EscapeGameManagerImpl<C extends Coordinate> implements EscapeGameMa
      * @return default valid moveStatus
      */
     private GameStatus validMoveStatus(C finalLocation){
-        return getGameStatus(finalLocation, true);
+        return getGameStatus(finalLocation, true, GameStatus.MoveResult.NONE);
     }
 
     /**
@@ -65,7 +69,7 @@ public class EscapeGameManagerImpl<C extends Coordinate> implements EscapeGameMa
      * @return default invalid move status
      */
     private GameStatus invalidMoveStatus(C finalLocation){
-        return getGameStatus(finalLocation, false);
+        return getGameStatus(finalLocation, false, GameStatus.MoveResult.LOSE);
     }
 
     /**
@@ -74,7 +78,7 @@ public class EscapeGameManagerImpl<C extends Coordinate> implements EscapeGameMa
      * @param isValid Whether the move was valid or not
      * @return the game status
      */
-    private GameStatus getGameStatus(C finalLocation, boolean isValid) {
+    private GameStatus getGameStatus(C finalLocation, boolean isValid, GameStatus.MoveResult gameStatus) {
         return new GameStatus() {
             @Override
             public boolean isValidMove() {
@@ -88,7 +92,7 @@ public class EscapeGameManagerImpl<C extends Coordinate> implements EscapeGameMa
 
             @Override
             public MoveResult getMoveResult() {
-                return MoveResult.NONE;
+                return gameStatus;
             }
 
             @Override
@@ -213,6 +217,10 @@ public class EscapeGameManagerImpl<C extends Coordinate> implements EscapeGameMa
 
     public void setPlayers(String[] players){
         this.players = players;
+
+        for (String player: this.players) {
+            this.scoreMap.put(player,0);
+        }
     }
     /**
      * Set the board
@@ -221,6 +229,9 @@ public class EscapeGameManagerImpl<C extends Coordinate> implements EscapeGameMa
     public void setBoard(Board<C> board){
         this.board = board;
     }
+//    public void setRules(RuleDescriptor[] rules){
+//        this.
+//    }
 
     /**
      * Get a location

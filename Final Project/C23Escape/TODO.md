@@ -57,15 +57,20 @@ These are for implementing the EscapeGameBuilder's `makeGameManager()` method.
 | 23 | Check if piece can move in diagonal line (no obstacles, max distance) | omni valid move |
 | 24 | Check if piece can move in diagonal and straight line around obstacle (max distance) | omni valid move |
 | 25 | Check if piece cannot move in diagonal and straight line around obstacle (max distance) | omni invalid move |
+| * | _**Flight Tests**_ | Flight |
 | 26 | Check if piece can fly over (test 14 with flight) (piece in the way) | linear fly valid move |
 | 27 | Check if piece cannot fly over (piece in the way) end blocked with piece | linear fly invalid move |
 | 28 | Check if piece can fly over obstacle (test 19 with flight) | orthogonal fly valid move |
 | 29 | Check if piece can fly over obstacle (test 24 with flight) | omni fly valid move |
 | 30 | Check finite board only valid path is out of bounds | omni invalid move |
-| 31 | Check that piece can move in diagonally in one direction | diagonal valid move |
-| 32 | Check that piece can move diagonally in multiple direction | diagonal valid move |
-| 33 | Check that piece cannot move in 4 orthogonal directions (N, S, W, E) | diagonal invalid move |
-
+| 31 | Check that piece can move diagonally in one direction | diagonal valid move |
+| 32 | Check that piece can move diagonally in multiple directions | diagonal valid move |
+| 33 | Check that piece cannot move orthogonally | diagonal invalid move |
+| * | _**Unblock Tests**_ | Unblock |
+| 26 | Check if piece can unblock over (test 14 with flight && block) (block in the way) | linear unblock valid move |
+| 27 | Check if piece cannot unblock end blocked with block | linear unblock invalid move |
+| 28 | Check if piece can unblock over obstacle (test 19 with flight && block) | orthogonal unblock valid move |
+| 29 | Check if piece can unblock over obstacle (test 24 with flight && block) | omni unblock valid move |
 **Hex Movement Tests**
 
 | **#** | Test                                                            | Comments                        |
@@ -91,6 +96,12 @@ These are for implementing the EscapeGameBuilder's `makeGameManager()` method.
 | 19 | Check if piece can move in diagonal and straight line around obstacle (max distance) | omni valid move |
 | 20 | Check if piece cannot move in diagonal and straight line around obstacle (max distance) | omni invalid move |
 | 21 | Check finite board only valid path is out of bounds | omni invalid move |
+
+**Win Conditions/Game Status Tests**
+
+| **#** | Test                                                            | Comments                        |
+|:-----:|:----------------------------------------------------------------|:--------------------------------|
+| 1 | Check winner after TURN_LIMIT | turn limit rule check |
 
 
 

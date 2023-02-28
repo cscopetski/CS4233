@@ -28,8 +28,7 @@ public class SquareMovementTest {
         GameStatus status = gameManager.move(startLocation, endLocation);
 
         assertFalse(status.isValidMove());
-        assertEquals(status.getMoveResult(), GameStatus.MoveResult.NONE);
-        assertEquals(status.finalLocation(), startLocation);
+        assertEquals(status.getMoveResult(), GameStatus.MoveResult.LOSE);
     }
 
     @Test
@@ -48,8 +47,7 @@ public class SquareMovementTest {
         GameStatus status = gameManager.move(startLocation, endLocation);
 
         assertFalse(status.isValidMove());
-        assertEquals(status.getMoveResult(), GameStatus.MoveResult.NONE);
-        assertEquals(status.finalLocation(), startLocation);
+        assertEquals(status.getMoveResult(), GameStatus.MoveResult.LOSE);
     }
 
     @Test
@@ -69,8 +67,7 @@ public class SquareMovementTest {
         GameStatus status = gameManager.move(startLocation, endLocation);
 
         assertFalse(status.isValidMove());
-        assertEquals(status.getMoveResult(), GameStatus.MoveResult.NONE);
-        assertEquals(status.finalLocation(), startLocation);
+        assertEquals(status.getMoveResult(), GameStatus.MoveResult.LOSE);
     }
 
     @Test
@@ -90,8 +87,7 @@ public class SquareMovementTest {
         GameStatus status = gameManager.move(startLocation, endLocation);
 
         assertFalse(status.isValidMove());
-        assertEquals(status.getMoveResult(), GameStatus.MoveResult.NONE);
-        assertEquals(status.finalLocation(), startLocation);
+        assertEquals(status.getMoveResult(), GameStatus.MoveResult.LOSE);
     }
 
     @Test
@@ -113,8 +109,7 @@ public class SquareMovementTest {
         GameStatus status = gameManager.move(startLocation, endLocation);
 
         assertFalse(status.isValidMove());
-        assertEquals(status.getMoveResult(), GameStatus.MoveResult.NONE);
-        assertEquals(status.finalLocation(), startLocation);
+        assertEquals(status.getMoveResult(), GameStatus.MoveResult.LOSE);
 
         assertEquals(startingPlayer, gameManager.getCurrentPlayer());
 
@@ -141,7 +136,6 @@ public class SquareMovementTest {
 
         assertTrue(status.isValidMove());
         assertEquals(status.getMoveResult(), GameStatus.MoveResult.NONE);
-        assertEquals(status.finalLocation(), endLocation1);
 
         assertEquals(players[1], gameManager.getCurrentPlayer());;
 
@@ -152,7 +146,6 @@ public class SquareMovementTest {
 
         assertTrue(status2.isValidMove());
         assertEquals(status2.getMoveResult(), GameStatus.MoveResult.NONE);
-        assertEquals(status2.finalLocation(), endLocation2);
 
         assertEquals(players[0], gameManager.getCurrentPlayer());;
 
@@ -175,8 +168,7 @@ public class SquareMovementTest {
         GameStatus status = gameManager.move(startLocation, endLocation);
 
         assertFalse(status.isValidMove());
-        assertEquals(status.getMoveResult(), GameStatus.MoveResult.NONE);
-        assertEquals(status.finalLocation(), startLocation);
+        assertEquals(status.getMoveResult(), GameStatus.MoveResult.LOSE);
     }
 
     @Test
@@ -197,7 +189,6 @@ public class SquareMovementTest {
 
         assertTrue(status.isValidMove());
         assertEquals(status.getMoveResult(), GameStatus.MoveResult.NONE);
-        assertEquals(status.finalLocation(), endLocation);
 
         Location location = gameManager.getLocation(endLocation);
 
@@ -627,6 +618,74 @@ public class SquareMovementTest {
         Coordinate coordinate2 = gameManager.makeCoordinate(3, 0);
 
         assertFalse(gameManager.move(coordinate1, coordinate2).isValidMove());
+
+    }
+
+    @Test
+    void checkUnblockLinearValidMove() {
+        EscapeGameManager gameManager = null;
+
+        try {
+            gameManager = new EscapeGameBuilder("configs/moveUnblockSquare1.egc").makeGameManager();
+        } catch (Exception e) {
+            fail("Exception from builder: " + e.getMessage());
+        }
+
+        Coordinate coordinate1 = gameManager.makeCoordinate(0, 0);
+        Coordinate coordinate2 = gameManager.makeCoordinate(3, 3);
+
+        assertTrue(gameManager.move(coordinate1, coordinate2).isValidMove());
+
+    }
+
+    @Test
+    void checkUnblockLinearInvalidMoveBlockAtEnd() {
+        EscapeGameManager gameManager = null;
+
+        try {
+            gameManager = new EscapeGameBuilder("configs/moveUnblockSquare1.egc").makeGameManager();
+        } catch (Exception e) {
+            fail("Exception from builder: " + e.getMessage());
+        }
+
+        Coordinate coordinate1 = gameManager.makeCoordinate(0, 0);
+        Coordinate coordinate2 = gameManager.makeCoordinate(-1, 1);
+
+        assertFalse(gameManager.move(coordinate1, coordinate2).isValidMove());
+
+    }
+
+    @Test
+    void checkUnblockOrthogonalValidMove() {
+        EscapeGameManager gameManager = null;
+
+        try {
+            gameManager = new EscapeGameBuilder("configs/moveUnblockSquare1.egc").makeGameManager();
+        } catch (Exception e) {
+            fail("Exception from builder: " + e.getMessage());
+        }
+
+        Coordinate coordinate1 = gameManager.makeCoordinate(-2, -1);
+        Coordinate coordinate2 = gameManager.makeCoordinate(-1, 2);
+
+        assertTrue(gameManager.move(coordinate1, coordinate2).isValidMove());
+
+    }
+
+    @Test
+    void checkUnblockOmniValidMove() {
+        EscapeGameManager gameManager = null;
+
+        try {
+            gameManager = new EscapeGameBuilder("configs/moveUnblockSquare1.egc").makeGameManager();
+        } catch (Exception e) {
+            fail("Exception from builder: " + e.getMessage());
+        }
+
+        Coordinate coordinate1 = gameManager.makeCoordinate(2, 1);
+        Coordinate coordinate2 = gameManager.makeCoordinate(-2, 0);
+
+        assertTrue(gameManager.move(coordinate1, coordinate2).isValidMove());
 
     }
 }

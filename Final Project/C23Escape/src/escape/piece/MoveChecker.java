@@ -19,8 +19,6 @@ public class MoveChecker {
         return checkOrthogonal(from, to) || checkDiagonal(from ,to);
     }
 
-    //TODO: TEST THIS
-
     /**
      * Checks if a move is a valid orthogonal move
      * @param from the starting coordinate
@@ -32,7 +30,6 @@ public class MoveChecker {
         return true;
     }
 
-    //TODO: TEST THIS
     /**
      * Checks if a move is a valid omni move
      * @param from the starting coordinate

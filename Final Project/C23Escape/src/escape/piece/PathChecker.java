@@ -143,10 +143,10 @@ public class PathChecker {
         }
 
         if(current.equals(to)){
-            return isValidLocation(board.getLocation(current),fly, jump, unblock);
+            return isValidLocation(board.getLocation(current),fly, jump, unblock, true);
         }
 
-        if (!isFirst && !isValidLocation(board.getLocation(current),fly, jump, unblock)){
+        if (!isFirst && !isValidLocation(board.getLocation(current),fly, jump, unblock, false)){
             return false;
         }
 
@@ -167,7 +167,8 @@ public class PathChecker {
      * @param unblock If the piece can unblock
      * @return true if the location is a valid move, false otherwise
      */
-    private static boolean isValidLocation(Location location, boolean fly, boolean jump, boolean unblock){
+    //TODO: add isLastMove to check if exit (only valid if last location) or if we can unblock(only valid if not last location)?
+    private static boolean isValidLocation(Location location, boolean fly, boolean jump, boolean unblock, boolean isLastLocation){
 
         if(location == null){
             return false;
@@ -180,8 +181,7 @@ public class PathChecker {
                 return fly || location.getPiece()==null;
             }
             case BLOCK -> {
-                //TODO: Implement unblock & jump
-                return fly;
+                return fly || unblock && !isLastLocation;
             }
             case EXIT -> {
                 return false;
