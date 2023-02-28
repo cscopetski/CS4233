@@ -26,7 +26,6 @@ public class EscapePieceImpl implements EscapePiece {
         this.movementPattern = movementPattern;
 
         switch (movementPattern){
-            //TODO: add rest of movement patterns
             case LINEAR -> {
                 this.moveValidator = MoveChecker.linearValidator;
                 this.pathValidator = PathChecker.linearPathValidator;

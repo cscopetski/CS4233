@@ -1,0 +1,11 @@
+    Coordinate type : SQUARE
+    xMax : 0
+    yMax : 0
+    Players : Chris Pat
+
+    Locations :
+        (0, 0) Chris bird
+        (1, 0) Pat bird
+        (2, 0) EXIT
+    Piece descriptors :
+        BIRD linear [distance 5, jump]

@@ -63,14 +63,26 @@ These are for implementing the EscapeGameBuilder's `makeGameManager()` method.
 | 28 | Check if piece can fly over obstacle (test 19 with flight) | orthogonal fly valid move |
 | 29 | Check if piece can fly over obstacle (test 24 with flight) | omni fly valid move |
 | 30 | Check finite board only valid path is out of bounds | omni invalid move |
+| * | |  |
 | 31 | Check that piece can move diagonally in one direction | diagonal valid move |
 | 32 | Check that piece can move diagonally in multiple directions | diagonal valid move |
 | 33 | Check that piece cannot move orthogonally | diagonal invalid move |
 | * | _**Unblock Tests**_ | Unblock |
-| 26 | Check if piece can unblock over (test 14 with flight && block) (block in the way) | linear unblock valid move |
-| 27 | Check if piece cannot unblock end blocked with block | linear unblock invalid move |
-| 28 | Check if piece can unblock over obstacle (test 19 with flight && block) | orthogonal unblock valid move |
-| 29 | Check if piece can unblock over obstacle (test 24 with flight && block) | omni unblock valid move |
+| 34 | Check if piece can unblock over (test 14 with unblock) (block in the way) | linear unblock valid move |
+| 35 | Check if piece cannot unblock end blocked with block | linear unblock invalid move |
+| 36 | Check if piece can unblock over obstacle (test 19 with unblock) | orthogonal unblock valid move |
+| 37 | Check if piece can unblock over obstacle (test 24 with unblock) | omni unblock valid move |
+| * | |  |
+| * | _**Jump Tests**_ | Jump |
+| 38 | Check if piece can jump over (test 14 with jump) (piece in the way) | linear jump valid move |
+| 39 | Check if piece cannot double jump over (piece and exit in a row) | linear jump invalid move |
+| 40 | Check if piece can jump over two obstacles in L shape | orthogonal jump valid move |
+| 41 | Check if piece cannot change directions mid air while jumping | orthogonal jump invalid move |
+| 42 | Check if piece can unblock over obstacle (test 24 with jump) | omni jump valid move |
+| 43 | Check if piece cannot change directions mid air while jumping | omni jump invalid move |
+| 44 | Check that piece will fly before jumping | omni fly jump valid move |
+| * | |  |
+
 **Hex Movement Tests**
 
 | **#** | Test                                                            | Comments                        |

@@ -688,4 +688,106 @@ public class SquareMovementTest {
         assertTrue(gameManager.move(coordinate1, coordinate2).isValidMove());
 
     }
+
+    @Test
+    void checkJumpLinearValidMove() {
+        EscapeGameManager gameManager = null;
+
+        try {
+            gameManager = new EscapeGameBuilder("configs/moveJumpSquare1.egc").makeGameManager();
+        } catch (Exception e) {
+            fail("Exception from builder: " + e.getMessage());
+        }
+
+        Coordinate coordinate1 = gameManager.makeCoordinate(0, 0);
+        Coordinate coordinate2 = gameManager.makeCoordinate(5, 0);
+
+        assertTrue(gameManager.move(coordinate1, coordinate2).isValidMove());
+
+    }
+
+    @Test
+    void checkJumpDoubleLinearInvalidMove() {
+        EscapeGameManager gameManager = null;
+
+        try {
+            gameManager = new EscapeGameBuilder("configs/moveJumpSquare2.egc").makeGameManager();
+        } catch (Exception e) {
+            fail("Exception from builder: " + e.getMessage());
+        }
+
+        Coordinate coordinate1 = gameManager.makeCoordinate(0, 0);
+        Coordinate coordinate2 = gameManager.makeCoordinate(5, 0);
+
+        assertFalse(gameManager.move(coordinate1, coordinate2).isValidMove());
+
+    }
+
+    @Test
+    void checkJumpLOrthogonalValidMove() {
+        EscapeGameManager gameManager = null;
+
+        try {
+            gameManager = new EscapeGameBuilder("configs/moveJumpSquare3.egc").makeGameManager();
+        } catch (Exception e) {
+            fail("Exception from builder: " + e.getMessage());
+        }
+
+        Coordinate coordinate1 = gameManager.makeCoordinate(0, 0);
+        Coordinate coordinate2 = gameManager.makeCoordinate(2, 2);
+
+        assertTrue(gameManager.move(coordinate1, coordinate2).isValidMove());
+
+    }
+
+    @Test
+    void checkJumpLOrthogonalInvalidMove() {
+        EscapeGameManager gameManager = null;
+
+        try {
+            gameManager = new EscapeGameBuilder("configs/moveJumpSquare4.egc").makeGameManager();
+        } catch (Exception e) {
+            fail("Exception from builder: " + e.getMessage());
+        }
+
+        Coordinate coordinate1 = gameManager.makeCoordinate(0, 0);
+        Coordinate coordinate2 = gameManager.makeCoordinate(2, 2);
+
+        assertFalse(gameManager.move(coordinate1, coordinate2).isValidMove());
+
+    }
+
+    @Test
+    void checkJumpXOmniValidMove() {
+        EscapeGameManager gameManager = null;
+
+        try {
+            gameManager = new EscapeGameBuilder("configs/moveJumpSquare5.egc").makeGameManager();
+        } catch (Exception e) {
+            fail("Exception from builder: " + e.getMessage());
+        }
+
+        Coordinate coordinate1 = gameManager.makeCoordinate(1, 1);
+        Coordinate coordinate2 = gameManager.makeCoordinate(3, 1);
+
+        assertTrue(gameManager.move(coordinate1, coordinate2).isValidMove());
+
+    }
+
+    @Test
+    void checkJumpXOmniInvalidMove() {
+        EscapeGameManager gameManager = null;
+
+        try {
+            gameManager = new EscapeGameBuilder("configs/moveJumpSquare6.egc").makeGameManager();
+        } catch (Exception e) {
+            fail("Exception from builder: " + e.getMessage());
+        }
+
+        Coordinate coordinate1 = gameManager.makeCoordinate(1, 1);
+        Coordinate coordinate2 = gameManager.makeCoordinate(5, 2);
+
+        assertFalse(gameManager.move(coordinate1, coordinate2).isValidMove());
+
+    }
 }
