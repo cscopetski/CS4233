@@ -19,7 +19,7 @@ import escape.board.Board;
 import escape.coordinate.HexagonalCoordinate;
 import escape.coordinate.SquareCoordinate;
 import escape.piece.EscapePieceImpl;
-import escape.piece.PathChecker;
+import escape.piece.movement.PathChecker;
 import escape.required.Coordinate;
 import escape.required.EscapePiece;
 import escape.required.LocationType;

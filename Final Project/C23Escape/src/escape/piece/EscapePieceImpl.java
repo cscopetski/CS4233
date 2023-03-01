@@ -1,6 +1,10 @@
 package escape.piece;
 
 import escape.coordinate.TileShapeCoordinate;
+import escape.piece.movement.MoveChecker;
+import escape.piece.movement.MoveValidator;
+import escape.piece.movement.PathChecker;
+import escape.piece.movement.PathValidator;
 import escape.required.Coordinate;
 import escape.required.EscapePiece;
 import escape.required.PieceAttribute;

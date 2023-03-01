@@ -1,4 +1,4 @@
-package escape.piece;
+package escape.piece.movement;
 
 import escape.coordinate.TileShapeCoordinate;
 
