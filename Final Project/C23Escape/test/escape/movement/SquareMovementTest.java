@@ -750,7 +750,7 @@ public class SquareMovementTest {
             fail("Exception from builder: " + e.getMessage());
         }
 
-        Coordinate coordinate1 = gameManager.makeCoordinate(0, 0);
+        Coordinate coordinate1 = gameManager.makeCoordinate(1, 1);
         Coordinate coordinate2 = gameManager.makeCoordinate(2, 2);
 
         assertFalse(gameManager.move(coordinate1, coordinate2).isValidMove());

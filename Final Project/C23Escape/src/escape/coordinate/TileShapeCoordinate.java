@@ -21,15 +21,6 @@ public interface TileShapeCoordinate extends Coordinate {
     int getDistance(Coordinate to);
 
     /**
-     * Get neighbors in all directions
-     *
-     * @return Neighboring coordinates in all directions
-     */
-    default TileShapeCoordinate[] getAllNeighbors() {
-        return getNeighbors(Direction.values());
-    }
-
-    /**
      * Get a list of neighbors in the given directions
      *
      * @param directions The directions to get neighbors in
