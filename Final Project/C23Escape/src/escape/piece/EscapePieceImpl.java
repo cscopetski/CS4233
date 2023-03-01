@@ -73,6 +73,14 @@ public class EscapePieceImpl implements EscapePiece {
         return player;
     }
 
+    /**
+     *
+     * @return the piece value
+     */
+    public int getValue(){
+        return value;
+    }
+
     public MovementPattern getMovementPattern(){
         return movementPattern;
     }

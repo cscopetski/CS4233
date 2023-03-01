@@ -23,6 +23,7 @@ import escape.piece.PathChecker;
 import escape.required.Coordinate;
 import escape.required.EscapePiece;
 import escape.required.LocationType;
+import escape.required.Rule;
 import org.antlr.v4.runtime.*;
 
 import javax.xml.bind.*;
@@ -122,7 +123,6 @@ public class EscapeGameBuilder
      ***********************************************************************/
     public EscapeGameManager makeGameManager()
     {
-		//TODO: CLEAN UP CLEAN UP
 		EscapeGameManagerImpl gameManager = null;
 		Board board = null;
 		Coordinate.CoordinateType coordinateType = gameInitializer.getCoordinateType();
@@ -138,11 +138,20 @@ public class EscapeGameBuilder
 			}
 		}
 
-
 		gameManager.setCoordinateType(gameInitializer.getCoordinateType());
 		gameManager.setxMax(gameInitializer.getxMax());
 		gameManager.setyMax(gameInitializer.getyMax());
 		gameManager.setPlayers(gameInitializer.getPlayers());
+
+		Map<Rule.RuleID, Integer> ruleMap = new HashMap<>();
+
+		if(gameInitializer.getRules() !=null){
+			for (RuleDescriptor rule: gameInitializer.getRules()) {
+				ruleMap.put(rule.ruleId, rule.ruleValue);
+			}
+		}
+
+		gameManager.setRules(ruleMap);
 
 		if(gameInitializer.getLocationInitializers() == null){
 			return gameManager;

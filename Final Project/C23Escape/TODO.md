@@ -115,7 +115,15 @@ These are for implementing the EscapeGameBuilder's `makeGameManager()` method.
 
 | **#** | Test                                                            | Comments                        |
 |:-----:|:----------------------------------------------------------------|:--------------------------------|
-| 1 | Check winner after TURN_LIMIT | turn limit rule check |
+| 1 | Check loss after invalid move | invalid move loss check |
+| 2 | Check winner after TURN_LIMIT | turn limit rule check |
+| 3 | Check tie after TURN_LIMIT | turn limit rule check |
+| 4 | Check win after removing all pieces | remove all pieces win check |
+| 5 | Check winner after SCORE reached player1 | score rule check |
+| 6 | Check winner after SCORE reached player2 | score rule check |
+| 7 | Check winner by SCORE with TURN_LIMIT | score turn limit rule check |
+| 8 | Check winner tie by TURN_LIMIT with SCORE | score turn limit rule check |
+
 
 
 

@@ -59,4 +59,9 @@ public interface GameStatus {
      * the destination (to) specified in the move();
      */
     Coordinate finalLocation();
+
+    /**
+     * @return the CombatResult if there were combat/encounter
+     */
+    CombatResult getCombatResult();
 }

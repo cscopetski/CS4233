@@ -3,11 +3,10 @@ package escape.builder;
 import escape.*;
 import escape.board.LocationImpl;
 import escape.piece.EscapePieceImpl;
-import escape.required.Coordinate;
-import escape.required.EscapePiece;
-import escape.required.LocationType;
-import escape.required.PieceAttribute;
+import escape.required.*;
 import org.junit.jupiter.api.Test;
+
+import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -99,5 +98,21 @@ public class EscapeGameManagerTest {
                 }
             }
         }
+    }
+
+    @Test
+    void testBuildRules() {
+        EscapeGameManagerImpl gameManager = null;
+        try {
+            gameManager = (EscapeGameManagerImpl) new EscapeGameBuilder("configs/ruleBuilder.egc").makeGameManager();
+        } catch (Exception e) {
+            fail("Builder Exception: " + e.getMessage());
+        }
+
+        Map<Rule.RuleID, Integer> ruleMap = gameManager.getRules();
+
+        assertEquals(ruleMap.get(Rule.RuleID.TURN_LIMIT),1);
+        assertEquals(ruleMap.get(Rule.RuleID.SCORE),5);
+        assertEquals(ruleMap.get(Rule.RuleID.POINT_CONFLICT),0);
     }
 }

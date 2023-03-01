@@ -190,7 +190,6 @@ public class PathChecker {
      * @param unblock If the piece can unblock
      * @return true if the location is a valid move, false otherwise
      */
-    //TODO: add isLastMove to check if exit (only valid if last location) or if we can unblock(only valid if not last location)?
     private static boolean isValidLocation(Location location, boolean fly, boolean unblock, boolean isLastLocation){
 
         if(location == null){

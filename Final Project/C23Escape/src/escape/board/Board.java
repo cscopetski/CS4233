@@ -4,6 +4,7 @@ import escape.board.Location;
 import escape.board.LocationImpl;
 import escape.piece.EscapePieceImpl;
 import escape.required.Coordinate;
+import escape.required.EscapePiece;
 import escape.required.LocationType;
 
 import java.util.HashMap;
@@ -33,8 +34,9 @@ public class Board<C extends Coordinate> {
     public boolean move(C from, C to, String currentPlayer){
 
         Location fromLocation = getLocation(from);
+        Location toLocation = getLocation(to);
 
-        if(fromLocation == null){
+        if(fromLocation == null || toLocation== null){
             return false;
         }
 
@@ -65,6 +67,18 @@ public class Board<C extends Coordinate> {
         Location toLocation = getLocation(to);
 
         toLocation.setPiece(fromLocation.getPiece());
+        fromLocation.setPiece(null);
+
+    }
+
+    /**
+     * remove a piece from a location
+     * @param coordinate coordinate of location
+     */
+    public void removePiece(C coordinate){
+
+        Location fromLocation = getLocation(coordinate);
+
         fromLocation.setPiece(null);
 
     }
@@ -130,5 +144,26 @@ public class Board<C extends Coordinate> {
      */
     private Location createBaseLocation(C coordinate){
         return new LocationImpl(null, LocationType.CLEAR);
+    }
+
+    /**
+     * counts the number of pieces a player has
+     * @param player The player to count the pieces of
+     * @return
+     */
+    public int getPieceCount(String player){
+
+        int count = 0;
+
+        for (Location location: board.values()) {
+
+            EscapePiece piece = location.getPiece();
+
+            if(piece!=null && piece.getPlayer().equals(player)){
+                count++;
+            }
+        }
+
+        return count;
     }
 }
