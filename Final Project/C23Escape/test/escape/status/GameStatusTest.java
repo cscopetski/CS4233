@@ -255,4 +255,5 @@ public class GameStatusTest {
         assertEquals(GameStatus.MoveResult.WIN,status2.getMoveResult());
 
     }
+    
 }

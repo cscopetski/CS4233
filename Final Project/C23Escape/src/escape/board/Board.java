@@ -1,7 +1,5 @@
 package escape.board;
 
-import escape.board.Location;
-import escape.board.LocationImpl;
 import escape.piece.EscapePieceImpl;
 import escape.required.Coordinate;
 import escape.required.EscapePiece;
@@ -46,7 +44,7 @@ public class Board<C extends Coordinate> {
             return false;
         }
 
-        if(!piece.canMove(from, to)){
+        if(!piece.isValidMove(from, to)){
             return false;
         }
 
@@ -165,5 +163,24 @@ public class Board<C extends Coordinate> {
         }
 
         return count;
+    }
+
+    /**
+     * checks if a player has a valid move
+     * @param player The player to check the pieces of
+     * @return if the player can move or not
+     */
+    public boolean hasValidMove(String player){
+
+        for (C coordinate: board.keySet()) {
+
+            EscapePieceImpl piece = (EscapePieceImpl) getLocation(coordinate).getPiece();
+
+            if(piece!=null && piece.getPlayer().equals(player) && piece.canMove(coordinate)){
+               return true;
+            }
+        }
+
+        return false;
     }
 }

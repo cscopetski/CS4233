@@ -94,12 +94,21 @@ public class EscapePieceImpl implements EscapePiece {
     }
 
     /**
-     * Checks if the piece can move
+     * Checks if the piece can move to a specific location
      * @param from the starting location
      * @param to the ending location
      * @return true if the piece can move from the starting location to the end location, false otherwise
      */
-    public boolean canMove(Coordinate from, Coordinate to){
-       return moveValidator.isLegalMovePattern((TileShapeCoordinate) from, (TileShapeCoordinate)to) && pathValidator.isLegalPath((TileShapeCoordinate)from, (TileShapeCoordinate)to, distance, fly, jump, unblock);
+    public boolean isValidMove(Coordinate from, Coordinate to){
+       return moveValidator.isLegalMovePattern((TileShapeCoordinate) from, (TileShapeCoordinate)to) && pathValidator.isLegalPath((TileShapeCoordinate)from, (TileShapeCoordinate)to, distance, fly, jump, unblock, false);
+    }
+
+    /**
+     * Checks if the piece can move to any location
+     * @param from the starting location
+     * @return true if the piece can move from the starting location to the end location, false otherwise
+     */
+    public boolean canMove (Coordinate from){
+        return pathValidator.isLegalPath((TileShapeCoordinate)from, null, distance, fly, jump, unblock, true);
     }
 }

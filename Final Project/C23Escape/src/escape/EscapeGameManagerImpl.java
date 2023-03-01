@@ -88,6 +88,10 @@ public class EscapeGameManagerImpl<C extends Coordinate> implements EscapeGameMa
             return GameStatus.MoveResult.WIN;
         };
 
+        if(!board.hasValidMove(getOtherPlayer())){
+            return GameStatus.MoveResult.WIN;
+        }
+
         if(moveCount%players.length == 0){
             checkTurnLimit();
         }
