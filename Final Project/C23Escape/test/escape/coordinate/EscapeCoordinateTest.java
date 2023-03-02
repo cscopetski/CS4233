@@ -1,6 +1,6 @@
 package escape.coordinate;
 
-import escape.EscapeGameManager;
+import escape.managers.EscapeGameManager;
 import escape.builder.EscapeGameBuilder;
 import escape.required.Coordinate;
 import org.junit.jupiter.api.Test;

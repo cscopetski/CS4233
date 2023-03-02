@@ -5,10 +5,12 @@ import escape.board.Location;
 import escape.coordinate.TileShapeCoordinate;
 import escape.required.LocationType;
 
+import java.nio.file.Path;
+
 public class PathChecker {
 
     private static Board board;
-
+    private static boolean combat = false;
     public static PathValidator linearPathValidator = PathChecker::isValidLinearPath;
     public static PathValidator orthogonalPathValidator = PathChecker::isValidOrthogonalPath;
     public static PathValidator omniPathValidator = PathChecker::isValidOmniPath;
@@ -159,7 +161,7 @@ public class PathChecker {
         Location currentLocation = board.getLocation(current);
 
         if(anyMove){
-            if(!isFirst && isValidLocation(currentLocation,fly, unblock, false)){
+            if(!isFirst && isValidLocation(currentLocation,fly, unblock, true)){
                 return true;
             }
         }else if(current.equals(to)){
@@ -216,7 +218,7 @@ public class PathChecker {
 
         switch(type){
             case CLEAR -> {
-                return fly || location.getPiece()==null;
+                return (isLastLocation && combat) || fly || location.getPiece()==null;
             }
             case BLOCK -> {
                 return fly || (unblock && !isLastLocation);
@@ -264,5 +266,13 @@ public class PathChecker {
      */
     public static void setBoard(Board board){
         PathChecker.board = board;
+    }
+
+    /**
+     * Set whether combat is enabled or not
+     * @param combat
+     */
+    public static void setCombat(boolean combat){
+        PathChecker.combat = combat;
     }
 }

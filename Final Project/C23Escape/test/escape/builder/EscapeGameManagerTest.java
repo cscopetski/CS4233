@@ -1,7 +1,7 @@
 package escape.builder;
 
-import escape.*;
 import escape.board.LocationImpl;
+import escape.managers.EscapeGameManagerImpl;
 import escape.piece.EscapePieceImpl;
 import escape.required.*;
 import org.junit.jupiter.api.Test;

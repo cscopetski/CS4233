@@ -1,6 +1,6 @@
-package escape.status;
+package escape.rules;
 
-import escape.EscapeGameManager;
+import escape.managers.EscapeGameManager;
 import escape.builder.EscapeGameBuilder;
 import escape.required.Coordinate;
 import escape.required.GameStatus;

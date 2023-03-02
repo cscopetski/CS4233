@@ -1,0 +1,17 @@
+    Coordinate type : SQUARE
+    xMax : 0
+    yMax : 0
+    Players : Chris Pat
+
+    Locations :
+        (-1, 0) Chris bird
+        (0, -1) Chris horse
+        (1, 0) Pat bird
+        (0, 1) Pat horse
+
+    Piece descriptors :
+        BIRD linear [distance 5, value 2]
+        HORSE linear [distance 5, value 1]
+
+    Rules :
+        POINT_CONFLICT

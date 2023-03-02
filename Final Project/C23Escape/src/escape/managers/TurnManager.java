@@ -1,4 +1,4 @@
-package escape;
+package escape.managers;
 
 import escape.required.GameObserver;
 import escape.required.GameStatus;

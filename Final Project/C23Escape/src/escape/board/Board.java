@@ -26,10 +26,9 @@ public class Board<C extends Coordinate> {
      * Move from one location to another
      * @param from coordinate to move from
      * @param to coordinate to move to
-     * @param currentPlayer the current player's turn
      * @return true if the move was valid and successfully made, false otherwise
      */
-    public boolean move(C from, C to, String currentPlayer){
+    public boolean move(C from, C to){
 
         Location fromLocation = getLocation(from);
         Location toLocation = getLocation(to);
@@ -40,15 +39,13 @@ public class Board<C extends Coordinate> {
 
         EscapePieceImpl piece = (EscapePieceImpl) fromLocation.getPiece();
 
-        if(!isInBounds(from) || !isInBounds(to) || !hasPiece(from) || hasPiece(to) || !piece.getPlayer().equals(currentPlayer)){
+        if(!isInBounds(from) || !isInBounds(to)){
             return false;
         }
 
         if(!piece.isValidMove(from, to)){
             return false;
         }
-
-        movePiece(from, to);
 
         return true;
 
@@ -59,7 +56,7 @@ public class Board<C extends Coordinate> {
      * @param from coordinate of start location
      * @param to coordinate of end location
      */
-    private void movePiece(C from, C to){
+    public void movePiece(C from, C to){
 
         Location fromLocation = getLocation(from);
         Location toLocation = getLocation(to);

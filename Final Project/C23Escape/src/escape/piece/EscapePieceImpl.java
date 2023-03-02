@@ -7,6 +7,7 @@ import escape.piece.movement.PathChecker;
 import escape.piece.movement.PathValidator;
 import escape.required.Coordinate;
 import escape.required.EscapePiece;
+import escape.required.GameStatus;
 import escape.required.PieceAttribute;
 
 public class EscapePieceImpl implements EscapePiece {
@@ -61,6 +62,24 @@ public class EscapePieceImpl implements EscapePiece {
 
     }
 
+    public GameStatus.CombatResult attackPiece(EscapePiece defender){
+
+        int attackValue = this.value;
+        int defendValue = ((EscapePieceImpl)defender).getValue();
+
+        if(attackValue > defendValue){
+
+            return GameStatus.CombatResult.ATTACKER;
+
+        }else if(attackValue < defendValue){
+
+            return GameStatus.CombatResult.DEFENDER;
+        }
+
+        return GameStatus.CombatResult.DRAW;
+
+    }
+
     /**
      * @return the name
      */
@@ -83,6 +102,15 @@ public class EscapePieceImpl implements EscapePiece {
      */
     public int getValue(){
         return value;
+    }
+
+    /**
+     *
+     * @return the piece value
+     */
+    public void takeDamage(int damage){
+        this.value-=damage;
+
     }
 
     public MovementPattern getMovementPattern(){

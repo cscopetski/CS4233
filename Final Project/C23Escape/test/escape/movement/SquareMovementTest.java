@@ -1,7 +1,7 @@
 package escape.movement;
 
-import escape.EscapeGameManager;
-import escape.EscapeGameManagerImpl;
+import escape.managers.EscapeGameManager;
+import escape.managers.EscapeGameManagerImpl;
 import escape.board.Location;
 import escape.builder.EscapeGameBuilder;
 import escape.required.Coordinate;

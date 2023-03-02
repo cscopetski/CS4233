@@ -13,11 +13,13 @@
 package escape.builder;
 
 import econfig.*;
-import escape.*;
 import escape.board.*;
 import escape.board.Board;
 import escape.coordinate.HexagonalCoordinate;
 import escape.coordinate.SquareCoordinate;
+import escape.managers.EscapeGameManager;
+import escape.managers.EscapeGameManagerImpl;
+import escape.managers.TurnManager;
 import escape.piece.EscapePieceImpl;
 import escape.piece.movement.PathChecker;
 import escape.required.Coordinate;
@@ -154,7 +156,10 @@ public class EscapeGameBuilder
 
 		TurnManager turnManager = new TurnManager(gameInitializer.getPlayers(), ruleMap);
 
-		gameManager.setPointConflict(ruleMap.containsKey(Rule.RuleID.POINT_CONFLICT));
+		boolean isCombat = ruleMap.containsKey(Rule.RuleID.POINT_CONFLICT);
+
+		gameManager.setPointConflict(isCombat);
+		PathChecker.setCombat(isCombat);
 		gameManager.setTurnManager(turnManager);
 
 		if(gameInitializer.getLocationInitializers() == null){
@@ -168,8 +173,6 @@ public class EscapeGameBuilder
 				pieceMap.put(piece.getPieceName(), piece);
 			}
 		}
-
-
 
 		for(LocationInitializer init : gameInitializer.getLocationInitializers()){
 
@@ -195,6 +198,7 @@ public class EscapeGameBuilder
 
 		gameManager.setBoard(board);
 		PathChecker.setBoard(board);
+
 
     	return gameManager;
     }

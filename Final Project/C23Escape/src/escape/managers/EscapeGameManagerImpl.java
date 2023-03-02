@@ -1,4 +1,4 @@
-package escape;
+package escape.managers;
 
 import escape.board.*;
 import escape.board.Board;
@@ -37,10 +37,21 @@ public class EscapeGameManagerImpl<C extends Coordinate> implements EscapeGameMa
         String currentPlayer = turnManager.getCurrentPlayer();
         String otherPlayer = turnManager.getOtherPlayer();
 
+        EscapePiece fromPiece = getPieceAt(from);
+        EscapePiece toPiece = getPieceAt(to);
 
-        if(gameFinished || !board.move(from, to, currentPlayer)){
+        if(gameFinished || fromPiece==null || !fromPiece.getPlayer().equals(currentPlayer) || (!pointConflict && toPiece!=null) || !board.move(from, to)){
             return invalidMoveStatus();
         };
+
+        GameStatus.CombatResult combatResult = GameStatus.CombatResult.NONE;
+
+        if(pointConflict && toPiece!=null && toPiece.getPlayer().equals(otherPlayer)){
+            combatResult = combat(fromPiece, toPiece, from, to);
+        }else{
+            board.movePiece(from, to);
+        }
+
 
         if(board.getLocation(to).getLocationType() == LocationType.EXIT){
             exitPiece(to);
@@ -52,7 +63,32 @@ public class EscapeGameManagerImpl<C extends Coordinate> implements EscapeGameMa
             gameFinished = true;
         }
 
-        return validMoveStatus(result);
+        return validMoveStatus(result, combatResult);
+    }
+
+    public GameStatus.CombatResult combat(EscapePiece fromPiece, EscapePiece toPiece, C from, C to){
+
+        int attackValue = ((EscapePieceImpl)fromPiece).getValue();
+        int defendValue = ((EscapePieceImpl)toPiece).getValue();
+
+        GameStatus.CombatResult combatResult = ((EscapePieceImpl)fromPiece).attackPiece(toPiece);
+
+        switch (combatResult){
+            case ATTACKER -> {
+                ((EscapePieceImpl) fromPiece).takeDamage(defendValue);
+                board.movePiece(from, to);
+            }
+            case DEFENDER -> {
+                ((EscapePieceImpl) toPiece).takeDamage(attackValue);
+                board.removePiece(from);
+            }
+            case DRAW -> {
+                board.removePiece(to);
+                board.removePiece(from);
+            }
+        }
+
+        return combatResult;
     }
 
     /**
@@ -78,8 +114,8 @@ public class EscapeGameManagerImpl<C extends Coordinate> implements EscapeGameMa
      * @param result
      * @return default valid moveStatus
      */
-    private GameStatus validMoveStatus(GameStatus.MoveResult result){
-        return getGameStatus(true, result);
+    private GameStatus validMoveStatus(GameStatus.MoveResult result, GameStatus.CombatResult combatResult){
+        return getGameStatus(true, result, combatResult);
     }
 
     /**
@@ -87,7 +123,7 @@ public class EscapeGameManagerImpl<C extends Coordinate> implements EscapeGameMa
      * @return default invalid move status
      */
     private GameStatus invalidMoveStatus(){
-        return getGameStatus(false, GameStatus.MoveResult.LOSE);
+        return getGameStatus(false, GameStatus.MoveResult.LOSE, GameStatus.CombatResult.NONE);
     }
 
     /**
@@ -95,7 +131,8 @@ public class EscapeGameManagerImpl<C extends Coordinate> implements EscapeGameMa
      * @param isValid Whether the move was valid or not
      * @return the game status
      */
-    private GameStatus getGameStatus(boolean isValid, GameStatus.MoveResult gameStatus) {
+    private GameStatus getGameStatus(boolean isValid, GameStatus.MoveResult gameStatus, GameStatus.CombatResult combatResult) {
+
         return new GameStatus() {
             @Override
             public boolean isValidMove() {
@@ -104,7 +141,7 @@ public class EscapeGameManagerImpl<C extends Coordinate> implements EscapeGameMa
 
             @Override
             public boolean isMoreInformation() {
-                return false;
+                return gameStatus != GameStatus.MoveResult.NONE || combatResult != GameStatus.CombatResult.NONE;
             }
 
             @Override
@@ -120,7 +157,7 @@ public class EscapeGameManagerImpl<C extends Coordinate> implements EscapeGameMa
 
             @Override
             public CombatResult getCombatResult() {
-                return CombatResult.NONE;
+                return combatResult;
             }
         };
     }
@@ -135,7 +172,13 @@ public class EscapeGameManagerImpl<C extends Coordinate> implements EscapeGameMa
      */
     @Override
     public EscapePiece getPieceAt(C coordinate) {
-        return board.getLocation(coordinate).getPiece();
+        Location location = board.getLocation(coordinate);
+
+        if(location == null){
+            return null;
+        }
+
+        return location.getPiece();
     }
 
     /**
