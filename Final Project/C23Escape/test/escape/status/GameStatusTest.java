@@ -47,6 +47,34 @@ public class GameStatusTest {
         assertEquals(GameStatus.MoveResult.NONE, status1.getMoveResult());
 
         Coordinate coordinate3 = gameManager.makeCoordinate(1, 0);
+        Coordinate coordinate4 = gameManager.makeCoordinate(0, 0);
+
+        GameStatus status2 = gameManager.move(coordinate3, coordinate4);
+
+        assertTrue(status2.isValidMove());
+        assertEquals(GameStatus.MoveResult.LOSE,status2.getMoveResult());
+
+    }
+
+    @Test
+    public void CheckTurnLimitDraw(){
+        EscapeGameManager gameManager = null;
+
+        try {
+            gameManager = new EscapeGameBuilder("configs/gameStatusTimeLimit1.egc").makeGameManager();
+        } catch (Exception e) {
+            fail("Exception from builder: " + e.getMessage());
+        }
+
+        Coordinate coordinate1 = gameManager.makeCoordinate(0, 0);
+        Coordinate coordinate2 = gameManager.makeCoordinate(1, 1);
+
+        GameStatus status1 = gameManager.move(coordinate1, coordinate2);
+
+        assertTrue(status1.isValidMove());
+        assertEquals(GameStatus.MoveResult.NONE, status1.getMoveResult());
+
+        Coordinate coordinate3 = gameManager.makeCoordinate(1, 0);
         Coordinate coordinate4 = gameManager.makeCoordinate(1, 1);
 
         GameStatus status2 = gameManager.move(coordinate3, coordinate4);

@@ -123,7 +123,9 @@ These are for implementing the EscapeGameBuilder's `makeGameManager()` method.
 | 6 | Check winner after SCORE reached player2 | score rule check |
 | 7 | Check winner by SCORE with TURN_LIMIT | score turn limit rule check |
 | 8 | Check winner tie by TURN_LIMIT with SCORE | score turn limit rule check |
-| 8 | Check winner by no valid moves | valid moves rule check | PASS IN NULL AS TO COORDINATE, CHECK THIS AND THEN JUST RETURN IF THE LOCATION IS VALID
+| 9 | Check winner by no valid moves | valid moves rule check |
+POINT_CONFLICT
+OBSERVERS
 
 
 

@@ -141,9 +141,10 @@ public class EscapeGameBuilder
 		gameManager.setCoordinateType(gameInitializer.getCoordinateType());
 		gameManager.setxMax(gameInitializer.getxMax());
 		gameManager.setyMax(gameInitializer.getyMax());
-		gameManager.setPlayers(gameInitializer.getPlayers());
 
-		Map<Rule.RuleID, Integer> ruleMap = new HashMap<>();
+
+
+		HashMap<Rule.RuleID, Integer> ruleMap = new HashMap<>();
 
 		if(gameInitializer.getRules() !=null){
 			for (RuleDescriptor rule: gameInitializer.getRules()) {
@@ -151,7 +152,10 @@ public class EscapeGameBuilder
 			}
 		}
 
-		gameManager.setRules(ruleMap);
+		TurnManager turnManager = new TurnManager(gameInitializer.getPlayers(), ruleMap);
+
+		gameManager.setPointConflict(ruleMap.containsKey(Rule.RuleID.POINT_CONFLICT));
+		gameManager.setTurnManager(turnManager);
 
 		if(gameInitializer.getLocationInitializers() == null){
 			return gameManager;

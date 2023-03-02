@@ -16,17 +16,14 @@ public class EscapeGameManagerImpl<C extends Coordinate> implements EscapeGameMa
     private Coordinate.CoordinateType coordinateType;
     private int xMax, yMax;
     private Board<C> board;
-    private String[] players;
-    private int currentPlayer = 0;
-    private int moveCount = 0;
-    private int turnCount = -1;
-    private int scoreGoal = -1;
+
+    private TurnManager turnManager;
+
     private boolean pointConflict = false;
 
     private boolean gameFinished = false;
 
     private HashMap<String, Integer> scoreMap = new HashMap<>();
-    private Map<Rule.RuleID, Integer> rules;
 
     /**
      * Make the move in the current game.
@@ -37,17 +34,25 @@ public class EscapeGameManagerImpl<C extends Coordinate> implements EscapeGameMa
     @Override
     public GameStatus move(C from, C to) {
 
-        if(gameFinished || !board.move(from, to, getCurrentPlayer())){
-            return invalidMoveStatus(null);
+        String currentPlayer = turnManager.getCurrentPlayer();
+        String otherPlayer = turnManager.getOtherPlayer();
+
+
+        if(gameFinished || !board.move(from, to, currentPlayer)){
+            return invalidMoveStatus();
         };
 
         if(board.getLocation(to).getLocationType() == LocationType.EXIT){
             exitPiece(to);
         }
 
-        GameStatus.MoveResult result = endPlayerTurn();
+        GameStatus.MoveResult result = turnManager.endPlayerTurn(board.getPieceCount(currentPlayer), board.hasValidMove(otherPlayer));
 
-        return validMoveStatus(null, result);
+        if(result != GameStatus.MoveResult.NONE){
+            gameFinished = true;
+        }
+
+        return validMoveStatus(result);
     }
 
     /**
@@ -62,130 +67,35 @@ public class EscapeGameManagerImpl<C extends Coordinate> implements EscapeGameMa
         }
 
         int pieceScore = piece.getValue();
-        int currentScore = scoreMap.get(getCurrentPlayer());
 
-        scoreMap.put(getCurrentPlayer(), currentScore+pieceScore);
+        turnManager.updateScore(turnManager.getCurrentPlayer(), pieceScore);
+
         board.removePiece(to);
     }
 
     /**
-     * Gets the current player
-     * @return The name of the current player
-     */
-    public String getCurrentPlayer(){
-        return players[currentPlayer];
-    }
-
-    /**
-     * End the current player turn and check win conditions
-     * @return The result of the game
-     */
-    private GameStatus.MoveResult endPlayerTurn(){
-
-        moveCount++;
-
-        if(checkScore() || board.getPieceCount(getCurrentPlayer()) == 0){
-            return GameStatus.MoveResult.WIN;
-        };
-
-        if(board.getPieceCount(getOtherPlayer()) > 0 && !board.hasValidMove(getOtherPlayer())){
-            return GameStatus.MoveResult.WIN;
-        }
-
-        if(moveCount%players.length == 0){
-            checkTurnLimit();
-        }
-
-        if(gameFinished){
-           return getGameResult();
-        }
-
-        setNextPlayer();
-
-        return GameStatus.MoveResult.NONE;
-
-    }
-
-    /**
-     * Sets the current player to the next player
-     */
-    private void setNextPlayer(){
-        currentPlayer = (currentPlayer+1)%players.length;
-
-    }
-
-    /**
-     * Get the opposing player
-     * @return the opposing player name
-     */
-    private String getOtherPlayer(){
-        return players[(currentPlayer+1)%players.length];
-    }
-
-    /**
-     * Check the turn limit, and end the game if the turn limit is reached
-     */
-    private void checkTurnLimit(){
-        turnCount--;
-        if(turnCount == 0){
-            gameFinished = true;
-        }
-    }
-
-    /**
-     * Checks the score to see if the current player won
-     * @return
-     */
-    private boolean checkScore(){
-        return scoreGoal != -1 && scoreGoal <= scoreMap.get(getCurrentPlayer());
-    }
-
-    /**
-     * Get the game result based on the score
-     * @return the game result
-     */
-    private GameStatus.MoveResult getGameResult(){
-
-        int currentPlayerScore = scoreMap.get(getCurrentPlayer());
-        int otherPlayerScore = scoreMap.get(getOtherPlayer());
-
-        if(currentPlayerScore > otherPlayerScore){
-            return GameStatus.MoveResult.WIN;
-        }
-
-        if(currentPlayerScore < otherPlayerScore){
-            return GameStatus.MoveResult.LOSE;
-        }
-
-        return GameStatus.MoveResult.DRAW;
-
-    }
-
-    /**
      * Gets default valid moveStatus
-     * @param finalLocation The final location
      * @param result
      * @return default valid moveStatus
      */
-    private GameStatus validMoveStatus(C finalLocation, GameStatus.MoveResult result){
-        return getGameStatus(finalLocation, true, result);
+    private GameStatus validMoveStatus(GameStatus.MoveResult result){
+        return getGameStatus(true, result);
     }
 
     /**
      * Generates default invalid move status
      * @return default invalid move status
      */
-    private GameStatus invalidMoveStatus(C finalLocation){
-        return getGameStatus(finalLocation, false, GameStatus.MoveResult.LOSE);
+    private GameStatus invalidMoveStatus(){
+        return getGameStatus(false, GameStatus.MoveResult.LOSE);
     }
 
     /**
      * Returns the game status
-     * @param finalLocation The final location
      * @param isValid Whether the move was valid or not
      * @return the game status
      */
-    private GameStatus getGameStatus(C finalLocation, boolean isValid, GameStatus.MoveResult gameStatus) {
+    private GameStatus getGameStatus(boolean isValid, GameStatus.MoveResult gameStatus) {
         return new GameStatus() {
             @Override
             public boolean isValidMove() {
@@ -204,7 +114,7 @@ public class EscapeGameManagerImpl<C extends Coordinate> implements EscapeGameMa
 
             @Override
             public Coordinate finalLocation() {
-                return finalLocation;
+                return null;
             }
 
 
@@ -328,18 +238,6 @@ public class EscapeGameManagerImpl<C extends Coordinate> implements EscapeGameMa
     }
 
     /**
-     * Set the players
-     * @param players List of player names
-     */
-    public void setPlayers(String[] players){
-        this.players = players;
-
-        for (String player: this.players) {
-            this.scoreMap.put(player,0);
-        }
-    }
-
-    /**
      * Set the board
      * @param board the board to set
      */
@@ -357,22 +255,30 @@ public class EscapeGameManagerImpl<C extends Coordinate> implements EscapeGameMa
     }
 
     /**
-     * Set the game rules
-     * @param ruleMap Hashmap of rules and values
+     * Set the point conflict rule
+     * @param pointConflict true or false
      */
-    public void setRules(Map<Rule.RuleID, Integer> ruleMap) {
-        this.rules = ruleMap;
-
-        this.turnCount = rules.get(Rule.RuleID.TURN_LIMIT) != null ? rules.get(Rule.RuleID.TURN_LIMIT) : -1;
-        this.scoreGoal = rules.get(Rule.RuleID.SCORE) != null ? rules.get(Rule.RuleID.SCORE) : -1;
-        this.pointConflict = rules.get(Rule.RuleID.POINT_CONFLICT) != null;
+    public void setPointConflict(boolean pointConflict) {
+        this.pointConflict = pointConflict;
     }
 
     /**
-     * Get game rules
-     * @return the game rules
+     * Set the turn manager
+     * @param turnManager the turn manager
      */
-    public Map<Rule.RuleID, Integer> getRules() {
-        return this.rules;
+    public void setTurnManager(TurnManager turnManager){
+        this.turnManager = turnManager;
+    }
+
+    /**
+     * Gets the current player
+     * @return the current player
+     */
+    public String getCurrentPlayer(){
+        return this.turnManager.getCurrentPlayer();
+    }
+
+    public Map<Rule.RuleID, Integer> getRules(){
+        return turnManager.getRules();
     }
 }
