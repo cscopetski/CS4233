@@ -71,10 +71,10 @@ class EscapeCoordinateTest {
             fail("Exception from builder: " + e.getMessage());
         }
 
-        TileShapeCoordinate coordinate1 = (TileShapeCoordinate) gameManager.makeCoordinate(1, 1);
-        TileShapeCoordinate coordinate2 = (TileShapeCoordinate) gameManager.makeCoordinate(0, 0);
+        CoordinateImpl coordinate1 = (CoordinateImpl) gameManager.makeCoordinate(1, 1);
+        CoordinateImpl coordinate2 = (CoordinateImpl) gameManager.makeCoordinate(0, 0);
 
-        assertEquals(2, coordinate1.getDistance(coordinate2));
+        assertEquals(2, coordinate1.getDistance(coordinate2,new HexagonalCoordinateStrategy()));
     }
 
     @Test
@@ -87,25 +87,25 @@ class EscapeCoordinateTest {
             fail("Exception from builder: " + e.getMessage());
         }
 
-        TileShapeCoordinate coordinate1 = (TileShapeCoordinate) gameManager.makeCoordinate(1, 1);
-        TileShapeCoordinate coordinate2 = (TileShapeCoordinate) gameManager.makeCoordinate(0, 0);
+        CoordinateImpl coordinate1 = (CoordinateImpl) gameManager.makeCoordinate(1, 1);
+        CoordinateImpl coordinate2 = (CoordinateImpl) gameManager.makeCoordinate(0, 0);
 
-        assertEquals(2, coordinate1.getDistance(coordinate2));
+        assertEquals(2, coordinate1.getDistance(coordinate2, new HexagonalCoordinateStrategy()));
 
-        TileShapeCoordinate coordinate3 = (TileShapeCoordinate) gameManager.makeCoordinate(-2, 1);
-        TileShapeCoordinate coordinate4 = (TileShapeCoordinate) gameManager.makeCoordinate(0, 0);
+        CoordinateImpl coordinate3 = (CoordinateImpl) gameManager.makeCoordinate(-2, 1);
+        CoordinateImpl coordinate4 = (CoordinateImpl) gameManager.makeCoordinate(0, 0);
 
-        assertEquals(2, coordinate3.getDistance(coordinate4));
+        assertEquals(2, coordinate3.getDistance(coordinate4, new HexagonalCoordinateStrategy()));
 
-        TileShapeCoordinate coordinate5 = (TileShapeCoordinate) gameManager.makeCoordinate(-1, 1);
-        TileShapeCoordinate coordinate6 = (TileShapeCoordinate) gameManager.makeCoordinate(0, 0);
+        CoordinateImpl coordinate5 = (CoordinateImpl) gameManager.makeCoordinate(-1, 1);
+        CoordinateImpl coordinate6 = (CoordinateImpl) gameManager.makeCoordinate(0, 0);
 
-        assertEquals(1, coordinate5.getDistance(coordinate6));
+        assertEquals(1, coordinate5.getDistance(coordinate6, new HexagonalCoordinateStrategy()));
 
-        TileShapeCoordinate coordinate7 = (TileShapeCoordinate) gameManager.makeCoordinate(3, 2);
-        TileShapeCoordinate coordinate8 = (TileShapeCoordinate) gameManager.makeCoordinate(0, 0);
+        CoordinateImpl coordinate7 = (CoordinateImpl) gameManager.makeCoordinate(3, 2);
+        CoordinateImpl coordinate8 = (CoordinateImpl) gameManager.makeCoordinate(0, 0);
 
-        assertEquals(5, coordinate7.getDistance(coordinate8));
+        assertEquals(5, coordinate7.getDistance(coordinate8, new HexagonalCoordinateStrategy()));
     }
 
 }

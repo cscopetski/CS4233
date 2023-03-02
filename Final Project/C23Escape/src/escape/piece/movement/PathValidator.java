@@ -1,8 +1,8 @@
 package escape.piece.movement;
 
-import escape.coordinate.TileShapeCoordinate;
+import escape.coordinate.CoordinateImpl;
 
 @FunctionalInterface
 public interface PathValidator {
-    boolean isLegalPath(TileShapeCoordinate from, TileShapeCoordinate to, int distance, boolean fly, boolean jump, boolean unblock, boolean anyMove);
+    boolean isLegalPath(CoordinateImpl from, CoordinateImpl to, int distance, boolean fly, boolean jump, boolean unblock, boolean anyMove);
 }

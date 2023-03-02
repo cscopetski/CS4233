@@ -1,6 +1,7 @@
 package escape.piece;
 
-import escape.coordinate.TileShapeCoordinate;
+import escape.coordinate.CoordinateImpl;
+import escape.coordinate.CoordinateStrategy;
 import escape.piece.movement.MoveChecker;
 import escape.piece.movement.MoveValidator;
 import escape.piece.movement.PathChecker;
@@ -128,7 +129,7 @@ public class EscapePieceImpl implements EscapePiece {
      * @return true if the piece can move from the starting location to the end location, false otherwise
      */
     public boolean isValidMove(Coordinate from, Coordinate to){
-       return moveValidator.isLegalMovePattern((TileShapeCoordinate) from, (TileShapeCoordinate)to) && pathValidator.isLegalPath((TileShapeCoordinate)from, (TileShapeCoordinate)to, distance, fly, jump, unblock, false);
+       return moveValidator.isLegalMovePattern((CoordinateImpl) from, (CoordinateImpl)to) && pathValidator.isLegalPath((CoordinateImpl)from, (CoordinateImpl)to, distance, fly, jump, unblock, false);
     }
 
     /**
@@ -137,6 +138,6 @@ public class EscapePieceImpl implements EscapePiece {
      * @return true if the piece can move from the starting location to the end location, false otherwise
      */
     public boolean canMove (Coordinate from){
-        return pathValidator.isLegalPath((TileShapeCoordinate)from, null, distance, fly, jump, unblock, true);
+        return pathValidator.isLegalPath((CoordinateImpl)from, null, distance, fly, jump, unblock, true);
     }
 }

@@ -44,4 +44,23 @@ public class CoordinateImpl implements Coordinate {
     public int hashCode() {
         return Objects.hash(row, column);
     }
+
+    /**
+     * Get the manhattan distance between two coordinates
+     *
+     * @param to The coordinate to compare to
+     * @return The manhattan distance between two coordinates
+     */
+    public int getDistance(Coordinate to, CoordinateStrategy strategy) {
+        return strategy.getDistance(this, to);
+    }
+
+    /**
+     * Get the neighboring coordinate in the given direction
+     * @param direction The direction to get the neighbor from
+     * @return The neighboring coordinate in the given direction
+     */
+    public Coordinate getNeighbor(CoordinateStrategy.Direction direction,  CoordinateStrategy strategy) {
+        return strategy.getNeighbor(direction, this);
+    }
 }

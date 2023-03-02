@@ -2,7 +2,7 @@ package escape.coordinate;
 
 import escape.required.Coordinate;
 
-public interface TileShapeCoordinate extends Coordinate {
+public interface CoordinateStrategy {
 
     enum Direction{NORTH, SOUTH, EAST, WEST, NORTHEAST, NORTHWEST, SOUTHEAST, SOUTHWEST}
 
@@ -15,36 +15,19 @@ public interface TileShapeCoordinate extends Coordinate {
 
     /**
      * Get the manhattan distance between two coordinates
+     *
+     * @param from
      * @param to The coordinate to compare to
      * @return The manhattan distance between two coordinates
      */
-    int getDistance(Coordinate to);
-
-    /**
-     * Get a list of neighbors in the given directions
-     *
-     * @param directions The directions to get neighbors in
-     * @return a list of neighboring coordinates in the given directions
-     */
-     default TileShapeCoordinate[] getNeighbors(Direction[] directions) {
-
-            TileShapeCoordinate[] neighbors = new TileShapeCoordinate[directions.length];
-
-            int count = 0;
-
-            for (Direction direction: directions) {
-                neighbors[count] = this.getNeighbor(direction);
-                count++;
-            }
-
-            return neighbors;
-    }
+    int getDistance(Coordinate from, Coordinate to);
 
     /**
      * Get the neighboring coordinate in the given direction
      * @param direction The direction to get the neighbor from
+     * @param current the current coordinate
      * @return The neighboring coordinate in the given direction
      */
-    TileShapeCoordinate getNeighbor(Direction direction);
+    Coordinate getNeighbor(Direction direction, Coordinate current);
 
 }

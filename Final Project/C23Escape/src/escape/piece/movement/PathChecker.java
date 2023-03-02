@@ -2,14 +2,14 @@ package escape.piece.movement;
 
 import escape.board.Board;
 import escape.board.Location;
-import escape.coordinate.TileShapeCoordinate;
+import escape.coordinate.CoordinateImpl;
+import escape.coordinate.CoordinateStrategy;
 import escape.required.LocationType;
-
-import java.nio.file.Path;
 
 public class PathChecker {
 
     private static Board board;
+    private static CoordinateStrategy coordinateStrategy;
     private static boolean combat = false;
     public static PathValidator linearPathValidator = PathChecker::isValidLinearPath;
     public static PathValidator orthogonalPathValidator = PathChecker::isValidOrthogonalPath;
@@ -26,12 +26,12 @@ public class PathChecker {
      * @param unblock if the piece can unblock or not
      * @return true if a valid path was found, false otherwise
      */
-    private static boolean isValidLinearPath(TileShapeCoordinate from, TileShapeCoordinate to, int distance, boolean fly, boolean jump, boolean unblock, boolean anyMove){
+    private static boolean isValidLinearPath(CoordinateImpl from, CoordinateImpl to, int distance, boolean fly, boolean jump, boolean unblock, boolean anyMove){
 
         if(anyMove){
 
-            for (TileShapeCoordinate.Direction direction: getOmniDirections()) {
-                boolean validPath = dfs(from,to, new TileShapeCoordinate.Direction[]{direction},distance, fly, jump, unblock, true);
+            for (CoordinateStrategy.Direction direction: getOmniDirections()) {
+                boolean validPath = dfs(from,to, new CoordinateStrategy.Direction[]{direction},distance, fly, jump, unblock, true);
 
                 if(validPath){
                     return true;
@@ -41,7 +41,7 @@ public class PathChecker {
             return false;
         }
 
-        return dfs(from,to, new TileShapeCoordinate.Direction[]{getLinearDirection(from, to)},distance, fly, jump, unblock, false);
+        return dfs(from,to, new CoordinateStrategy.Direction[]{getLinearDirection(from, to)},distance, fly, jump, unblock, false);
 
     }
 
@@ -51,14 +51,14 @@ public class PathChecker {
      * @param to the ending coordinate
      * @return The linear direction to get from point A to point B
      */
-    private static TileShapeCoordinate.Direction getLinearDirection(TileShapeCoordinate from, TileShapeCoordinate to){
+    private static CoordinateStrategy.Direction getLinearDirection(CoordinateImpl from, CoordinateImpl to){
 
-        int minDistance = from.getDistance(to);
-        TileShapeCoordinate.Direction bestDirection = TileShapeCoordinate.Direction.NORTH;
+        int minDistance = from.getDistance(to, coordinateStrategy);
+        CoordinateStrategy.Direction bestDirection = CoordinateStrategy.Direction.NORTH;
 
-        for (TileShapeCoordinate.Direction direction: TileShapeCoordinate.Direction.values()) {
+        for (CoordinateStrategy.Direction direction: CoordinateStrategy.Direction.values()) {
 
-            int distance = from.getNeighbor(direction).getDistance(to);
+            int distance = ((CoordinateImpl)from.getNeighbor(direction, coordinateStrategy)).getDistance(to, coordinateStrategy);
 
             if(distance <= minDistance){
                 minDistance = distance;
@@ -79,7 +79,7 @@ public class PathChecker {
      * @param unblock if the piece can unblock or not
      * @return true if a valid path was found, false otherwise
      */
-    private static boolean isValidOmniPath(TileShapeCoordinate from, TileShapeCoordinate to, int distance, boolean fly, boolean jump, boolean unblock, boolean anyMove){
+    private static boolean isValidOmniPath(CoordinateImpl from, CoordinateImpl to, int distance, boolean fly, boolean jump, boolean unblock, boolean anyMove){
 
         return dfs(from,to, getOmniDirections(),distance, fly, jump, unblock, anyMove);
     }
@@ -88,8 +88,8 @@ public class PathChecker {
      * Get the directions for omni movement
      * @return the directions for omni movement
      */
-    private static TileShapeCoordinate.Direction[] getOmniDirections(){
-        return TileShapeCoordinate.Direction.values();
+    private static CoordinateStrategy.Direction[] getOmniDirections(){
+        return CoordinateStrategy.Direction.values();
     }
 
     /**
@@ -102,7 +102,7 @@ public class PathChecker {
      * @param unblock if the piece can unblock or not
      * @return true if a valid path was found, false otherwise
      */
-    private static boolean isValidOrthogonalPath(TileShapeCoordinate from, TileShapeCoordinate to, int distance, boolean fly, boolean jump, boolean unblock, boolean anyMove){
+    private static boolean isValidOrthogonalPath(CoordinateImpl from, CoordinateImpl to, int distance, boolean fly, boolean jump, boolean unblock, boolean anyMove){
         return dfs(from,to, getOrthogonalDirections(),distance, fly, jump, unblock, anyMove);
     }
 
@@ -110,11 +110,11 @@ public class PathChecker {
      * Get the directions for orthogonal movement
      * @return the directions for orthogonal movement
      */
-    private static TileShapeCoordinate.Direction[] getOrthogonalDirections(){
-        return TileShapeCoordinate.getOrthogonalDirections();
+    private static CoordinateStrategy.Direction[] getOrthogonalDirections(){
+        return CoordinateStrategy.getOrthogonalDirections();
     }
 
-    private static boolean isValidDiagonalPath(TileShapeCoordinate from, TileShapeCoordinate to, int distance, boolean fly, boolean jump, boolean unblock, boolean anyMove){
+    private static boolean isValidDiagonalPath(CoordinateImpl from, CoordinateImpl to, int distance, boolean fly, boolean jump, boolean unblock, boolean anyMove){
         return dfs(from,to, getDiagonalDirections(),distance, fly, jump, unblock, anyMove);
     }
 
@@ -122,8 +122,8 @@ public class PathChecker {
      * Get the directions for diagonal movement
      * @return the directions for diagonal movement
      */
-    private static TileShapeCoordinate.Direction[] getDiagonalDirections(){
-        return TileShapeCoordinate.getDiagonalDirections();
+    private static CoordinateStrategy.Direction[] getDiagonalDirections(){
+        return CoordinateStrategy.getDiagonalDirections();
     }
 
     /**
@@ -137,7 +137,7 @@ public class PathChecker {
      * @param unblock if the piece can unblock or not
      * @return true if a valid path was found, false otherwise
      */
-    private static boolean dfs(TileShapeCoordinate from, TileShapeCoordinate to, TileShapeCoordinate.Direction[] directions, int distance, boolean fly, boolean jump, boolean unblock, boolean anyMove) {
+    private static boolean dfs(CoordinateImpl from, CoordinateImpl to, CoordinateStrategy.Direction[] directions, int distance, boolean fly, boolean jump, boolean unblock, boolean anyMove) {
         return dfsRecursive(from, to, directions[0], true, directions, distance, fly, jump, unblock, anyMove,false);
     }
 
@@ -153,7 +153,7 @@ public class PathChecker {
      * @param unblock if the piece can unblock or not
      * @return true if a valid path was found, false otherwise
      */
-    private static boolean dfsRecursive(TileShapeCoordinate current, TileShapeCoordinate to, TileShapeCoordinate.Direction currentDirection, boolean isFirst, TileShapeCoordinate.Direction[] directions, int distance, boolean fly, boolean jump, boolean unblock, boolean anyMove, boolean hasJumped) {
+    private static boolean dfsRecursive(CoordinateImpl current, CoordinateImpl to, CoordinateStrategy.Direction currentDirection, boolean isFirst, CoordinateStrategy.Direction[] directions, int distance, boolean fly, boolean jump, boolean unblock, boolean anyMove, boolean hasJumped) {
 
         if(distance < 0){
             return false;
@@ -182,14 +182,14 @@ public class PathChecker {
         boolean isPath = false;
 
         if(jumped){
-            TileShapeCoordinate destination = current.getNeighbor(currentDirection);
+            CoordinateImpl destination = (CoordinateImpl) current.getNeighbor(currentDirection, coordinateStrategy);
 
             isPath = isPath || dfsRecursive(destination, to, currentDirection, false,directions, distance-1, fly, jump, unblock, anyMove,true);
         }else{
 
-            for (TileShapeCoordinate.Direction direction : directions) {
+            for (CoordinateStrategy.Direction direction : directions) {
 
-                TileShapeCoordinate destination = current.getNeighbor(direction);
+                CoordinateImpl destination = (CoordinateImpl) current.getNeighbor(direction, coordinateStrategy);
 
                 isPath = isPath || dfsRecursive(destination, to, direction, false,directions, distance-1, fly, jump, unblock, anyMove,false);
             }
@@ -274,5 +274,8 @@ public class PathChecker {
      */
     public static void setCombat(boolean combat){
         PathChecker.combat = combat;
+    }
+    public static void setCoordinateStrategy(CoordinateStrategy coordinateStrategy){
+        PathChecker.coordinateStrategy = coordinateStrategy;
     }
 }

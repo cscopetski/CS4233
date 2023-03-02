@@ -1,6 +1,7 @@
 package escape.piece.movement;
 
-import escape.coordinate.TileShapeCoordinate;
+import escape.coordinate.CoordinateImpl;
+import escape.coordinate.CoordinateStrategy;
 
 public class MoveChecker {
 
@@ -15,7 +16,7 @@ public class MoveChecker {
      * @param to the ending coordinate
      * @return True if the move is a valid linear move
      */
-    private static boolean isMoveLinear(TileShapeCoordinate from, TileShapeCoordinate to){
+    private static boolean isMoveLinear(CoordinateImpl from, CoordinateImpl to){
         return checkOrthogonal(from, to) || checkDiagonal(from ,to);
     }
 
@@ -25,7 +26,7 @@ public class MoveChecker {
      * @param to the ending coordinate
      * @return True if the move is a valid orthogonal move
      */
-    private static boolean isMoveOrthogonal(TileShapeCoordinate from, TileShapeCoordinate to){
+    private static boolean isMoveOrthogonal(CoordinateImpl from, CoordinateImpl to){
         //Moves are always possible orthogonally
         return true;
     }
@@ -36,7 +37,7 @@ public class MoveChecker {
      * @param to the ending coordinate
      * @return True if the move is a valid omni move
      */
-    private static boolean isMoveOmni(TileShapeCoordinate from, TileShapeCoordinate to){
+    private static boolean isMoveOmni(CoordinateImpl from, CoordinateImpl to){
         //Moves are always possible omni
         return true;
     }
@@ -47,7 +48,7 @@ public class MoveChecker {
      * @param to the ending coordinate
      * @return True if the move is a valid diagonal move
      */
-    private static boolean isMoveDiagonal(TileShapeCoordinate from, TileShapeCoordinate to){
+    private static boolean isMoveDiagonal(CoordinateImpl from, CoordinateImpl to){
         int rowDiff = Math.abs(from.getRow() - to.getRow());
         int columnDiff = Math.abs(from.getColumn() - to.getColumn());
         return (rowDiff+columnDiff) %2 == 0;
@@ -59,7 +60,7 @@ public class MoveChecker {
      * @param to the ending coordinate
      * @return True if the move is orthogonal
      */
-    private static boolean checkOrthogonal(TileShapeCoordinate from, TileShapeCoordinate to){
+    private static boolean checkOrthogonal(CoordinateImpl from, CoordinateImpl to){
         return from.getRow() == to.getRow() || from.getColumn() == to.getColumn();
     }
 
@@ -69,7 +70,7 @@ public class MoveChecker {
      * @param to the ending coordinate
      * @return True if the move is diagonal
      */
-    private static boolean checkDiagonal(TileShapeCoordinate from, TileShapeCoordinate to){
+    private static boolean checkDiagonal(CoordinateImpl from, CoordinateImpl to){
 
         int rowDiff = Math.abs(from.getRow() - to.getRow());
         int columnDiff = Math.abs(from.getColumn() - to.getColumn());

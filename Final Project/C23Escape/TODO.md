@@ -24,7 +24,7 @@ These are for implementing the EscapeGameBuilder's `makeGameManager()` method.
 | 5 | Check square coordinate distance | square coordinate distance |
 | * | _**Refactored by creating square and hex coordinate classes**_ | Refactor |
 | 6 | Check hex coordinate distance | hex coordinate distance |
-
+| * | _**Refactored by using strategy pattern for coordinates**_ | Refactor |
 **Square Movement Tests**
 
 | **#** | Test                                                            | Comments                        |

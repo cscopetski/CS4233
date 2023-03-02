@@ -1,8 +1,8 @@
 package escape.piece.movement;
 
-import escape.coordinate.TileShapeCoordinate;
+import escape.coordinate.CoordinateImpl;
 
 @FunctionalInterface
 public interface MoveValidator {
-    boolean isLegalMovePattern(TileShapeCoordinate from, TileShapeCoordinate to);
+    boolean isLegalMovePattern(CoordinateImpl from, CoordinateImpl to);
 }

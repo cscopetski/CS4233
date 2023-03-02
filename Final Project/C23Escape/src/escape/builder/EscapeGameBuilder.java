@@ -15,8 +15,9 @@ package escape.builder;
 import econfig.*;
 import escape.board.*;
 import escape.board.Board;
-import escape.coordinate.HexagonalCoordinate;
-import escape.coordinate.SquareCoordinate;
+import escape.coordinate.CoordinateImpl;
+import escape.coordinate.HexagonalCoordinateStrategy;
+import escape.coordinate.SquareCoordinateStrategy;
 import escape.managers.EscapeGameManager;
 import escape.managers.EscapeGameManagerImpl;
 import escape.managers.TurnManager;
@@ -125,26 +126,11 @@ public class EscapeGameBuilder
      ***********************************************************************/
     public EscapeGameManager makeGameManager()
     {
-		EscapeGameManagerImpl gameManager = null;
-		Board board = null;
-		Coordinate.CoordinateType coordinateType = gameInitializer.getCoordinateType();
+		EscapeGameManagerImpl gameManager = new EscapeGameManagerImpl<CoordinateImpl>();;
+		Board board = new Board<CoordinateImpl>(gameInitializer.getxMax(), gameInitializer.getyMax());
 
-		switch (coordinateType){
-			case SQUARE -> {
-				gameManager = new EscapeGameManagerImpl<SquareCoordinate>();
-				board = new Board<SquareCoordinate>(gameInitializer.getxMax(), gameInitializer.getyMax());
-			}
-			case HEX -> {
-				gameManager = new EscapeGameManagerImpl<HexagonalCoordinate>();
-				board = new Board<HexagonalCoordinate>(gameInitializer.getxMax(), gameInitializer.getyMax());
-			}
-		}
-
-		gameManager.setCoordinateType(gameInitializer.getCoordinateType());
 		gameManager.setxMax(gameInitializer.getxMax());
 		gameManager.setyMax(gameInitializer.getyMax());
-
-
 
 		HashMap<Rule.RuleID, Integer> ruleMap = new HashMap<>();
 
@@ -184,20 +170,17 @@ public class EscapeGameBuilder
 				 piece = new EscapePieceImpl(init.pieceName, init.player, pieceDescriptor.getMovementPattern(), pieceDescriptor.getAttributes());
 			}
 
-			switch (coordinateType){
-				case SQUARE -> {
-					board.addLocation(new SquareCoordinate(init.x, init.y), new LocationImpl(piece, init.locationType != null ? init.locationType : LocationType.CLEAR));
-				}
-				case HEX -> {
-					board.addLocation(new HexagonalCoordinate(init.x, init.y), new LocationImpl(piece, init.locationType != null ? init.locationType : LocationType.CLEAR));
-				}
-			}
-
+			board.addLocation(new CoordinateImpl(init.x, init.y), new LocationImpl(piece, init.locationType != null ? init.locationType : LocationType.CLEAR));
 
 		}
 
 		gameManager.setBoard(board);
 		PathChecker.setBoard(board);
+
+		switch (gameInitializer.getCoordinateType()){
+			case SQUARE -> PathChecker.setCoordinateStrategy(new SquareCoordinateStrategy());
+			case HEX -> PathChecker.setCoordinateStrategy(new HexagonalCoordinateStrategy());
+		}
 
 
     	return gameManager;

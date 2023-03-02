@@ -3,8 +3,8 @@ package escape.managers;
 import escape.board.*;
 import escape.board.Board;
 import escape.coordinate.CoordinateImpl;
-import escape.coordinate.HexagonalCoordinate;
-import escape.coordinate.SquareCoordinate;
+import escape.coordinate.HexagonalCoordinateStrategy;
+import escape.coordinate.SquareCoordinateStrategy;
 import escape.piece.EscapePieceImpl;
 import escape.required.*;
 
@@ -15,7 +15,6 @@ import java.util.Map;
 
 public class EscapeGameManagerImpl<C extends Coordinate> implements EscapeGameManager<C> {
 
-    private Coordinate.CoordinateType coordinateType;
     private List<GameObserver> gameObservers = new ArrayList<>();
     private int xMax, yMax;
     private Board<C> board;
@@ -211,19 +210,7 @@ public class EscapeGameManagerImpl<C extends Coordinate> implements EscapeGameMa
      */
     @Override
     public C makeCoordinate(int x, int y) {
-
-        C coordinate = (C) new CoordinateImpl(x,y);
-
-        switch (coordinateType){
-            case SQUARE -> {
-                coordinate = (C) new SquareCoordinate(x,y);
-            }
-            case HEX -> {
-                coordinate = (C) new HexagonalCoordinate(x,y);
-            }
-        }
-
-        return coordinate;
+        return (C) new CoordinateImpl(x,y);
     }
 
     /**
@@ -254,22 +241,6 @@ public class EscapeGameManagerImpl<C extends Coordinate> implements EscapeGameMa
         this.turnManager.removeObserver(observer);
         return this.gameObservers.remove(observer) ? observer:null;
 
-    }
-
-    /**
-     * @return the coordinateType
-     */
-    public Coordinate.CoordinateType getCoordinateType()
-    {
-        return coordinateType;
-    }
-
-    /**
-     * @param coordinateType the coordinate type to set
-     */
-    public void setCoordinateType(Coordinate.CoordinateType coordinateType)
-    {
-        this.coordinateType = coordinateType;
     }
 
     /**
