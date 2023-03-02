@@ -111,19 +111,29 @@ These are for implementing the EscapeGameBuilder's `makeGameManager()` method.
 | 20 | Check if piece cannot move in diagonal and straight line around obstacle (max distance) | omni invalid move |
 | 21 | Check finite board only valid path is out of bounds | omni invalid move |
 
+**Combat Tests**
+
+| **#** | Test                                                            | Comments                        |
+|:-----:|:----------------------------------------------------------------|:--------------------------------|
+| 1 | Check attacker wins | combat check |
+| 2 | Check defender wins | combat check |
+| 3 | Check draw | combat check |
+
 **Win Conditions/Game Status Tests**
 
 | **#** | Test                                                            | Comments                        |
 |:-----:|:----------------------------------------------------------------|:--------------------------------|
 | 1 | Check loss after invalid move | invalid move loss check |
 | 2 | Check winner after TURN_LIMIT | turn limit rule check |
-| 3 | Check tie after TURN_LIMIT | turn limit rule check |
-| 4 | Check win after removing all pieces | remove all pieces win check |
-| 5 | Check winner after SCORE reached player1 | score rule check |
-| 6 | Check winner after SCORE reached player2 | score rule check |
-| 7 | Check winner by SCORE with TURN_LIMIT | score turn limit rule check |
-| 8 | Check winner tie by TURN_LIMIT with SCORE | score turn limit rule check |
-| 9 | Check winner by no valid moves | valid moves rule check |
+| 3 | Check loser after TURN_LIMIT | turn limit rule check |
+| 4 | Check tie after TURN_LIMIT | turn limit rule check |
+| 5 | Check win after removing all pieces | remove all pieces win check |
+| 6 | Check winner after SCORE reached player1 | score rule check |
+| 7 | Check winner after SCORE reached player2 | score rule check |
+| 8 | Check winner by SCORE with TURN_LIMIT | score turn limit rule check |
+| 9 | Check winner tie by TURN_LIMIT with SCORE | score turn limit rule check |
+| 10 | Check winner by no valid moves | valid moves rule check |
+| * | _**Refactored by extracting all win condition and turn functionality into turn manager class**_ | Refactor |
 POINT_CONFLICT
 OBSERVERS
 
