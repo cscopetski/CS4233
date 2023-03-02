@@ -8,12 +8,15 @@ import escape.coordinate.SquareCoordinate;
 import escape.piece.EscapePieceImpl;
 import escape.required.*;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class EscapeGameManagerImpl<C extends Coordinate> implements EscapeGameManager<C> {
 
     private Coordinate.CoordinateType coordinateType;
+    private List<GameObserver> gameObservers = new ArrayList<>();
     private int xMax, yMax;
     private Board<C> board;
 
@@ -40,7 +43,20 @@ public class EscapeGameManagerImpl<C extends Coordinate> implements EscapeGameMa
         EscapePiece fromPiece = getPieceAt(from);
         EscapePiece toPiece = getPieceAt(to);
 
-        if(gameFinished || fromPiece==null || !fromPiece.getPlayer().equals(currentPlayer) || (!pointConflict && toPiece!=null) || !board.move(from, to)){
+        if(gameFinished){
+            String message = String.format("The game is over, so %s is not allowed to move", currentPlayer);
+
+            notifyObservers(message);
+
+            return invalidMoveStatus();
+        }
+
+        if(fromPiece==null || !fromPiece.getPlayer().equals(currentPlayer) || (!pointConflict && toPiece!=null) || !board.move(from, to)){
+
+            String message = String.format("%s lost by making an invalid move",currentPlayer);
+
+            notifyObservers(message);
+
             return invalidMoveStatus();
         };
 
@@ -48,6 +64,10 @@ public class EscapeGameManagerImpl<C extends Coordinate> implements EscapeGameMa
 
         if(pointConflict && toPiece!=null && toPiece.getPlayer().equals(otherPlayer)){
             combatResult = combat(fromPiece, toPiece, from, to);
+
+            String message = String.format("%s attacked %s, the combat result was %s",currentPlayer,otherPlayer,combatResult);
+
+            notifyObservers(message);
         }else{
             board.movePiece(from, to);
         }
@@ -216,7 +236,9 @@ public class EscapeGameManagerImpl<C extends Coordinate> implements EscapeGameMa
      */
     @Override
     public GameObserver addObserver(GameObserver observer) {
-        return EscapeGameManager.super.addObserver(observer);
+        this.gameObservers.add(observer);
+        this.turnManager.addObserver(observer);
+        return observer;
     }
 
     /**
@@ -229,7 +251,9 @@ public class EscapeGameManagerImpl<C extends Coordinate> implements EscapeGameMa
      */
     @Override
     public GameObserver removeObserver(GameObserver observer) {
-        return EscapeGameManager.super.removeObserver(observer);
+        this.turnManager.removeObserver(observer);
+        return this.gameObservers.remove(observer) ? observer:null;
+
     }
 
     /**
@@ -323,5 +347,16 @@ public class EscapeGameManagerImpl<C extends Coordinate> implements EscapeGameMa
 
     public Map<Rule.RuleID, Integer> getRules(){
         return turnManager.getRules();
+    }
+
+    /**
+     * Notifies all observers
+     *
+     * @param message the message to notify
+     */
+    public void notifyObservers(String message) {
+        for (GameObserver observer: this.gameObservers) {
+            observer.notify(message);
+        }
     }
 }

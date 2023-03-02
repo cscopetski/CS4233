@@ -134,7 +134,7 @@ These are for implementing the EscapeGameBuilder's `makeGameManager()` method.
 | 9 | Check winner tie by TURN_LIMIT with SCORE | score turn limit rule check |
 | 10 | Check winner by no valid moves | valid moves rule check |
 | * | _**Refactored by extracting all win condition and turn functionality into turn manager class**_ | Refactor |
-POINT_CONFLICT
+
 OBSERVERS
 
 

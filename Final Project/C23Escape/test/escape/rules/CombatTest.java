@@ -1,5 +1,6 @@
 package escape.rules;
 
+import escape.ObserverImpl;
 import escape.managers.EscapeGameManager;
 import escape.builder.EscapeGameBuilder;
 import escape.piece.EscapePieceImpl;
@@ -19,7 +20,7 @@ public class CombatTest {
         } catch (Exception e) {
             fail("Exception from builder: " + e.getMessage());
         }
-
+        gameManager.addObserver(new ObserverImpl());
         Coordinate coordinate1 = gameManager.makeCoordinate(-1, 0);
         Coordinate coordinate2 = gameManager.makeCoordinate(0, 1);
 
@@ -45,7 +46,7 @@ public class CombatTest {
         } catch (Exception e) {
             fail("Exception from builder: " + e.getMessage());
         }
-
+        gameManager.addObserver(new ObserverImpl());
         Coordinate coordinate1 = gameManager.makeCoordinate(0, -1);
         Coordinate coordinate2 = gameManager.makeCoordinate(1, 0);
 
@@ -71,7 +72,7 @@ public class CombatTest {
         } catch (Exception e) {
             fail("Exception from builder: " + e.getMessage());
         }
-
+        gameManager.addObserver(new ObserverImpl());
         Coordinate coordinate1 = gameManager.makeCoordinate(-1, 0);
         Coordinate coordinate2 = gameManager.makeCoordinate(1, 0);
 

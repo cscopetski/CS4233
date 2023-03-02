@@ -1,5 +1,6 @@
 package escape.rules;
 
+import escape.ObserverImpl;
 import escape.managers.EscapeGameManager;
 import escape.builder.EscapeGameBuilder;
 import escape.required.Coordinate;
@@ -18,7 +19,7 @@ public class GameStatusTest {
         } catch (Exception e) {
             fail("Exception from builder: " + e.getMessage());
         }
-
+        gameManager.addObserver(new ObserverImpl());
         Coordinate coordinate1 = gameManager.makeCoordinate(0, 0);
         Coordinate coordinate2 = gameManager.makeCoordinate(2, 2);
 
@@ -37,7 +38,7 @@ public class GameStatusTest {
         } catch (Exception e) {
             fail("Exception from builder: " + e.getMessage());
         }
-
+        gameManager.addObserver(new ObserverImpl());
         Coordinate coordinate1 = gameManager.makeCoordinate(0, 0);
         Coordinate coordinate2 = gameManager.makeCoordinate(1, 1);
 
@@ -65,7 +66,7 @@ public class GameStatusTest {
         } catch (Exception e) {
             fail("Exception from builder: " + e.getMessage());
         }
-
+        gameManager.addObserver(new ObserverImpl());
         Coordinate coordinate1 = gameManager.makeCoordinate(0, 0);
         Coordinate coordinate2 = gameManager.makeCoordinate(0, 1);
 
@@ -93,7 +94,7 @@ public class GameStatusTest {
         } catch (Exception e) {
             fail("Exception from builder: " + e.getMessage());
         }
-
+        gameManager.addObserver(new ObserverImpl());
         Coordinate coordinate1 = gameManager.makeCoordinate(0, 0);
         Coordinate coordinate2 = gameManager.makeCoordinate(1, 1);
 
@@ -121,7 +122,7 @@ public class GameStatusTest {
         } catch (Exception e) {
             fail("Exception from builder: " + e.getMessage());
         }
-
+        gameManager.addObserver(new ObserverImpl());
         Coordinate coordinate1 = gameManager.makeCoordinate(0, 0);
         Coordinate coordinate2 = gameManager.makeCoordinate(1, 1);
 
@@ -149,7 +150,7 @@ public class GameStatusTest {
         } catch (Exception e) {
             fail("Exception from builder: " + e.getMessage());
         }
-
+        gameManager.addObserver(new ObserverImpl());
         Coordinate coordinate1 = gameManager.makeCoordinate(0, 0);
         Coordinate coordinate2 = gameManager.makeCoordinate(1, 1);
 
@@ -177,7 +178,7 @@ public class GameStatusTest {
         } catch (Exception e) {
             fail("Exception from builder: " + e.getMessage());
         }
-
+        gameManager.addObserver(new ObserverImpl());
         Coordinate coordinate1 = gameManager.makeCoordinate(0, 0);
         Coordinate coordinate2 = gameManager.makeCoordinate(0, 3);
 
@@ -205,7 +206,7 @@ public class GameStatusTest {
         } catch (Exception e) {
             fail("Exception from builder: " + e.getMessage());
         }
-
+        gameManager.addObserver(new ObserverImpl());
         Coordinate coordinate1 = gameManager.makeCoordinate(0, 1);
         Coordinate coordinate2 = gameManager.makeCoordinate(1, 1);
 
@@ -249,7 +250,7 @@ public class GameStatusTest {
         } catch (Exception e) {
             fail("Exception from builder: " + e.getMessage());
         }
-
+        gameManager.addObserver(new ObserverImpl());
         Coordinate coordinate1 = gameManager.makeCoordinate(0, 1);
         Coordinate coordinate2 = gameManager.makeCoordinate(1, 1);
 
@@ -293,7 +294,7 @@ public class GameStatusTest {
         } catch (Exception e) {
             fail("Exception from builder: " + e.getMessage());
         }
-
+        gameManager.addObserver(new ObserverImpl());
         Coordinate coordinate1 = gameManager.makeCoordinate(2, 2);
         Coordinate coordinate2 = gameManager.makeCoordinate(2, 1);
 

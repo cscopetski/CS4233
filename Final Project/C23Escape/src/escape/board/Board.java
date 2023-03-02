@@ -39,10 +39,6 @@ public class Board<C extends Coordinate> {
 
         EscapePieceImpl piece = (EscapePieceImpl) fromLocation.getPiece();
 
-        if(!isInBounds(from) || !isInBounds(to)){
-            return false;
-        }
-
         if(!piece.isValidMove(from, to)){
             return false;
         }
@@ -97,15 +93,6 @@ public class Board<C extends Coordinate> {
      */
     private boolean checkBounds(int max, int min, int val){
         return max == INFINITE_AXIS || (val <= max && val >= min);
-    }
-
-    /**
-     * Checks if there is a piece at the coordinate
-     * @param coordinate The coordinate to check
-     * @return True if there is a piece at the coordinate
-     */
-    private boolean hasPiece(C coordinate){
-        return getLocation(coordinate).getPiece() != null;
     }
 
     /**

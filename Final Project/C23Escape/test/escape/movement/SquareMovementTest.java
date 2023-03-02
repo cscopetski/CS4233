@@ -169,6 +169,11 @@ public class SquareMovementTest {
 
         assertFalse(status.isValidMove());
         assertEquals(status.getMoveResult(), GameStatus.MoveResult.LOSE);
+
+        GameStatus status1 = gameManager.move(endLocation, startLocation);
+
+        assertFalse(status1.isValidMove());
+        assertEquals(status1.getMoveResult(), GameStatus.MoveResult.LOSE);
     }
 
     @Test

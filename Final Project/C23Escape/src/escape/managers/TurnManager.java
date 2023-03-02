@@ -1,13 +1,16 @@
 package escape.managers;
 
+import escape.Observable;
 import escape.required.GameObserver;
 import escape.required.GameStatus;
 import escape.required.Rule;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
-public class TurnManager {
+public class TurnManager implements Observable {
 
     private String[] players;
     private int currentPlayer = 0;
@@ -16,6 +19,7 @@ public class TurnManager {
 
     private HashMap<String, Integer> scoreMap = new HashMap<>();
     private HashMap<Rule.RuleID, Integer> ruleMap;
+    private List<GameObserver> gameObservers = new ArrayList<>();
 
     public TurnManager(String[] players, HashMap<Rule.RuleID, Integer> ruleMap){
         this.players = players;
@@ -75,29 +79,45 @@ public class TurnManager {
     }
 
     private GameStatus.MoveResult checkWinConditions(int currentPlayerPieceCount, boolean otherPlayerValidMove){
+        String currentPlayerName = getCurrentPlayer();
+
         if(isScoreActive()){
 
             if(checkScore()){
+                String message = String.format("%s won by SCORE with a score of %d",currentPlayerName,getScore(currentPlayerName));
+
+                notifyObservers(message);
+
+
                 return GameStatus.MoveResult.WIN;
             }
 
             if(checkTurnLimit()){
+
                 return getTurnLimitGameResult();
             }
 
         }else {
 
             if(checkTurnLimit()){
+
                 return getTurnLimitGameResult();
             }
 
             if (currentPlayerPieceCount == 0){
+
+                String message = String.format("%s won by removing all pieces",currentPlayerName);
+                notifyObservers(message);
+
                 return GameStatus.MoveResult.WIN;
             }
 
         };
 
         if(!otherPlayerValidMove){
+            String message = String.format("%s won by %s not having a valid move",currentPlayerName,getOtherPlayer());
+            notifyObservers(message);
+
             return GameStatus.MoveResult.WIN;
         }
 
@@ -140,12 +160,23 @@ public class TurnManager {
         int otherPlayerScore = getScore(getOtherPlayer());
 
         if(currentPlayerScore > otherPlayerScore){
+
+            String message = String.format("%s won by TURN_LIMIT with a score of %d",getCurrentPlayer(),currentPlayerScore);
+            notifyObservers(message);
+
             return GameStatus.MoveResult.WIN;
         }
 
         if(currentPlayerScore < otherPlayerScore){
+
+            String message = String.format("%s won by TURN_LIMIT with a score of %d",getOtherPlayer(),otherPlayerScore);
+            notifyObservers(message);
+
             return GameStatus.MoveResult.LOSE;
         }
+
+        String message = String.format("DRAW by TURN_LIMIT with a score of %d",otherPlayerScore);
+        notifyObservers(message);
 
         return GameStatus.MoveResult.DRAW;
 
@@ -161,5 +192,29 @@ public class TurnManager {
 
     public Map<Rule.RuleID, Integer> getRules(){
         return this.ruleMap;
+    }
+
+    @Override
+    public GameObserver addObserver(GameObserver observer) {
+        this.gameObservers.add(observer);
+
+        return observer;
+    }
+
+    @Override
+    public GameObserver removeObserver(GameObserver observer) {
+        return this.gameObservers.remove(observer) ? observer:null;
+    }
+
+    /**
+     * Notifies all observers
+     *
+     * @param message the message to notify
+     */
+    @Override
+    public void notifyObservers(String message) {
+        for (GameObserver observer: this.gameObservers) {
+            observer.notify(message);
+        }
     }
 }
