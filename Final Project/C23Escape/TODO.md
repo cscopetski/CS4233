@@ -135,8 +135,6 @@ These are for implementing the EscapeGameBuilder's `makeGameManager()` method.
 | 10 | Check winner by no valid moves | valid moves rule check |
 | * | _**Refactored by extracting all win condition and turn functionality into turn manager class**_ | Refactor |
 
-OBSERVERS
-
 
 
 
