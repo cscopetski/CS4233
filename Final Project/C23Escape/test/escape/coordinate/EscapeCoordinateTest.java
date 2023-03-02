@@ -27,7 +27,7 @@ class EscapeCoordinateTest {
         EscapeGameManager gameManager = null;
 
         try {
-            gameManager = new EscapeGameBuilder("configs/test1.egc").makeGameManager();
+            gameManager = new EscapeGameBuilder("configurations/test1.egc").makeGameManager();
         } catch (Exception e) {
             fail("Exception from builder: " + e.getMessage());
         }
@@ -43,7 +43,7 @@ class EscapeCoordinateTest {
         EscapeGameManager gameManager = null;
 
         try {
-            gameManager = new EscapeGameBuilder("configs/test1.egc").makeGameManager();
+            gameManager = new EscapeGameBuilder("configurations/test1.egc").makeGameManager();
         } catch (Exception e) {
             fail("Exception from builder: " + e.getMessage());
         }
@@ -66,7 +66,7 @@ class EscapeCoordinateTest {
         EscapeGameManager gameManager = null;
 
         try {
-            gameManager = new EscapeGameBuilder("configs/test1.egc").makeGameManager();
+            gameManager = new EscapeGameBuilder("configurations/test1.egc").makeGameManager();
         } catch (Exception e) {
             fail("Exception from builder: " + e.getMessage());
         }
@@ -82,7 +82,7 @@ class EscapeCoordinateTest {
         EscapeGameManager gameManager = null;
 
         try {
-            gameManager = new EscapeGameBuilder("configs/test2.egc").makeGameManager();
+            gameManager = new EscapeGameBuilder("configurations/test2.egc").makeGameManager();
         } catch (Exception e) {
             fail("Exception from builder: " + e.getMessage());
         }

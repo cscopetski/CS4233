@@ -15,7 +15,7 @@ public class GameStatusTest {
         EscapeGameManager gameManager = null;
 
         try {
-            gameManager = new EscapeGameBuilder("configs/gameStatusTimeLimit1.egc").makeGameManager();
+            gameManager = new EscapeGameBuilder("configurations/gameStatusTimeLimit1.egc").makeGameManager();
         } catch (Exception e) {
             fail("Exception from builder: " + e.getMessage());
         }
@@ -34,7 +34,7 @@ public class GameStatusTest {
         EscapeGameManager gameManager = null;
 
         try {
-            gameManager = new EscapeGameBuilder("configs/gameStatusTimeLimit1.egc").makeGameManager();
+            gameManager = new EscapeGameBuilder("configurations/gameStatusTimeLimit1.egc").makeGameManager();
         } catch (Exception e) {
             fail("Exception from builder: " + e.getMessage());
         }
@@ -62,7 +62,7 @@ public class GameStatusTest {
         EscapeGameManager gameManager = null;
 
         try {
-            gameManager = new EscapeGameBuilder("configs/gameStatusTimeLimit1.egc").makeGameManager();
+            gameManager = new EscapeGameBuilder("configurations/gameStatusTimeLimit1.egc").makeGameManager();
         } catch (Exception e) {
             fail("Exception from builder: " + e.getMessage());
         }
@@ -90,7 +90,7 @@ public class GameStatusTest {
         EscapeGameManager gameManager = null;
 
         try {
-            gameManager = new EscapeGameBuilder("configs/gameStatusTimeLimit1.egc").makeGameManager();
+            gameManager = new EscapeGameBuilder("configurations/gameStatusTimeLimit1.egc").makeGameManager();
         } catch (Exception e) {
             fail("Exception from builder: " + e.getMessage());
         }
@@ -118,7 +118,7 @@ public class GameStatusTest {
         EscapeGameManager gameManager = null;
 
         try {
-            gameManager = new EscapeGameBuilder("configs/gameStatusRemoveAllPieces.egc").makeGameManager();
+            gameManager = new EscapeGameBuilder("configurations/gameStatusRemoveAllPieces.egc").makeGameManager();
         } catch (Exception e) {
             fail("Exception from builder: " + e.getMessage());
         }
@@ -146,7 +146,7 @@ public class GameStatusTest {
         EscapeGameManager gameManager = null;
 
         try {
-            gameManager = new EscapeGameBuilder("configs/gameStatusScore1.egc").makeGameManager();
+            gameManager = new EscapeGameBuilder("configurations/gameStatusScore1.egc").makeGameManager();
         } catch (Exception e) {
             fail("Exception from builder: " + e.getMessage());
         }
@@ -174,7 +174,7 @@ public class GameStatusTest {
         EscapeGameManager gameManager = null;
 
         try {
-            gameManager = new EscapeGameBuilder("configs/gameStatusScore1.egc").makeGameManager();
+            gameManager = new EscapeGameBuilder("configurations/gameStatusScore1.egc").makeGameManager();
         } catch (Exception e) {
             fail("Exception from builder: " + e.getMessage());
         }
@@ -202,7 +202,7 @@ public class GameStatusTest {
         EscapeGameManager gameManager = null;
 
         try {
-            gameManager = new EscapeGameBuilder("configs/gameStatusScoreTimeLimit1.egc").makeGameManager();
+            gameManager = new EscapeGameBuilder("configurations/gameStatusScoreTimeLimit1.egc").makeGameManager();
         } catch (Exception e) {
             fail("Exception from builder: " + e.getMessage());
         }
@@ -246,7 +246,7 @@ public class GameStatusTest {
         EscapeGameManager gameManager = null;
 
         try {
-            gameManager = new EscapeGameBuilder("configs/gameStatusScoreTimeLimit1.egc").makeGameManager();
+            gameManager = new EscapeGameBuilder("configurations/gameStatusScoreTimeLimit1.egc").makeGameManager();
         } catch (Exception e) {
             fail("Exception from builder: " + e.getMessage());
         }
@@ -290,7 +290,7 @@ public class GameStatusTest {
         EscapeGameManager gameManager = null;
 
         try {
-            gameManager = new EscapeGameBuilder("configs/gameStatusPieceCannotMove1.egc").makeGameManager();
+            gameManager = new EscapeGameBuilder("configurations/gameStatusPieceCannotMove1.egc").makeGameManager();
         } catch (Exception e) {
             fail("Exception from builder: " + e.getMessage());
         }

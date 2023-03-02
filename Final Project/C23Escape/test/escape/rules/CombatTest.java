@@ -16,7 +16,7 @@ public class CombatTest {
         EscapeGameManager gameManager = null;
 
         try {
-            gameManager = new EscapeGameBuilder("configs/combat1.egc").makeGameManager();
+            gameManager = new EscapeGameBuilder("configurations/combat1.egc").makeGameManager();
         } catch (Exception e) {
             fail("Exception from builder: " + e.getMessage());
         }
@@ -42,7 +42,7 @@ public class CombatTest {
         EscapeGameManager gameManager = null;
 
         try {
-            gameManager = new EscapeGameBuilder("configs/combat1.egc").makeGameManager();
+            gameManager = new EscapeGameBuilder("configurations/combat1.egc").makeGameManager();
         } catch (Exception e) {
             fail("Exception from builder: " + e.getMessage());
         }
@@ -68,7 +68,7 @@ public class CombatTest {
         EscapeGameManager gameManager = null;
 
         try {
-            gameManager = new EscapeGameBuilder("configs/combat1.egc").makeGameManager();
+            gameManager = new EscapeGameBuilder("configurations/combat1.egc").makeGameManager();
         } catch (Exception e) {
             fail("Exception from builder: " + e.getMessage());
         }

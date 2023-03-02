@@ -16,7 +16,7 @@ public class EscapeGameManagerTest {
     void testSuccessfullyBuildGameManager() {
         EscapeGameManagerImpl gameManager = null;
         try {
-            gameManager = (EscapeGameManagerImpl) new EscapeGameBuilder("configs/test1.egc").makeGameManager();
+            gameManager = (EscapeGameManagerImpl) new EscapeGameBuilder("configurations/test1.egc").makeGameManager();
         } catch (Exception e) {
             fail("Builder Exception: " + e.getMessage());
         }
@@ -27,7 +27,7 @@ public class EscapeGameManagerTest {
     void testBuild2x2Square() {
         EscapeGameManagerImpl gameManager;
         try {
-            gameManager = (EscapeGameManagerImpl) new EscapeGameBuilder("configs/test1.egc").makeGameManager();
+            gameManager = (EscapeGameManagerImpl) new EscapeGameBuilder("configurations/test1.egc").makeGameManager();
             assertEquals(2, gameManager.getxMax());
             assertEquals(2, gameManager.getyMax());
 
@@ -41,7 +41,7 @@ public class EscapeGameManagerTest {
     void testBuild4x6Hex() {
         EscapeGameManagerImpl gameManager;
         try {
-            gameManager = (EscapeGameManagerImpl) new EscapeGameBuilder("configs/test2.egc").makeGameManager();
+            gameManager = (EscapeGameManagerImpl) new EscapeGameBuilder("configurations/test2.egc").makeGameManager();
             assertEquals(4, gameManager.getxMax());
             assertEquals(6, gameManager.getyMax());
 
@@ -54,7 +54,7 @@ public class EscapeGameManagerTest {
     @Test
     void testBuild2x2Square4Locations() throws Exception {
         EscapeGameManagerImpl gameManager;
-        gameManager = (EscapeGameManagerImpl) new EscapeGameBuilder("configs/test3.egc").makeGameManager();
+        gameManager = (EscapeGameManagerImpl) new EscapeGameBuilder("configurations/test3.egc").makeGameManager();
         String player1 = "Chris";
         String player2 = "Pat";
 
@@ -104,7 +104,7 @@ public class EscapeGameManagerTest {
     void testBuildRules() {
         EscapeGameManagerImpl gameManager = null;
         try {
-            gameManager = (EscapeGameManagerImpl) new EscapeGameBuilder("configs/ruleBuilder.egc").makeGameManager();
+            gameManager = (EscapeGameManagerImpl) new EscapeGameBuilder("configurations/ruleBuilder.egc").makeGameManager();
         } catch (Exception e) {
             fail("Builder Exception: " + e.getMessage());
         }

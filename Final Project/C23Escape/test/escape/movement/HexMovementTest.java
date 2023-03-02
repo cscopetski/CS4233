@@ -17,7 +17,7 @@ public class HexMovementTest {
     void testNoPieceAtStartLocation(){
         EscapeGameManagerImpl gameManager = null;
         try {
-            gameManager = (EscapeGameManagerImpl) new EscapeGameBuilder("configs/moveHex1.egc").makeGameManager();
+            gameManager = (EscapeGameManagerImpl) new EscapeGameBuilder("configurations/moveHex1.egc").makeGameManager();
         } catch (Exception e) {
             e.printStackTrace();
             fail();
@@ -36,7 +36,7 @@ public class HexMovementTest {
     void testMoveFromStartToStart(){
         EscapeGameManagerImpl gameManager = null;
         try {
-            gameManager = (EscapeGameManagerImpl) new EscapeGameBuilder("configs/moveHex1.egc").makeGameManager();
+            gameManager = (EscapeGameManagerImpl) new EscapeGameBuilder("configurations/moveHex1.egc").makeGameManager();
         } catch (Exception e) {
             e.printStackTrace();
             fail();
@@ -55,7 +55,7 @@ public class HexMovementTest {
     void testWrongPlayerPieceMove(){
         EscapeGameManagerImpl gameManager = null;
         try {
-            gameManager = (EscapeGameManagerImpl) new EscapeGameBuilder("configs/moveHex1.egc").makeGameManager();
+            gameManager = (EscapeGameManagerImpl) new EscapeGameBuilder("configurations/moveHex1.egc").makeGameManager();
         } catch (Exception e) {
             e.printStackTrace();
             fail();
@@ -75,7 +75,7 @@ public class HexMovementTest {
     void testPieceAtEndLocation(){
         EscapeGameManagerImpl gameManager = null;
         try {
-            gameManager = (EscapeGameManagerImpl) new EscapeGameBuilder("configs/moveHex1.egc").makeGameManager();
+            gameManager = (EscapeGameManagerImpl) new EscapeGameBuilder("configurations/moveHex1.egc").makeGameManager();
         } catch (Exception e) {
             e.printStackTrace();
             fail();
@@ -95,7 +95,7 @@ public class HexMovementTest {
     void testPlayerTurnOnInvalidMove(){
         EscapeGameManagerImpl gameManager = null;
         try {
-            gameManager = (EscapeGameManagerImpl) new EscapeGameBuilder("configs/moveHex1.egc").makeGameManager();
+            gameManager = (EscapeGameManagerImpl) new EscapeGameBuilder("configurations/moveHex1.egc").makeGameManager();
         } catch (Exception e) {
             e.printStackTrace();
             fail();
@@ -120,7 +120,7 @@ public class HexMovementTest {
     void testPlayerTurnOnValidMove(){
         EscapeGameManagerImpl gameManager = null;
         try {
-            gameManager = (EscapeGameManagerImpl) new EscapeGameBuilder("configs/moveHex1.egc").makeGameManager();
+            gameManager = (EscapeGameManagerImpl) new EscapeGameBuilder("configurations/moveHex1.egc").makeGameManager();
         } catch (Exception e) {
             e.printStackTrace();
             fail();
@@ -156,7 +156,7 @@ public class HexMovementTest {
     void testLocationOutOfBounds(){
         EscapeGameManagerImpl gameManager = null;
         try {
-            gameManager = (EscapeGameManagerImpl) new EscapeGameBuilder("configs/moveHex2.egc").makeGameManager();
+            gameManager = (EscapeGameManagerImpl) new EscapeGameBuilder("configurations/moveHex2.egc").makeGameManager();
         } catch (Exception e) {
             e.printStackTrace();
             fail();
@@ -176,7 +176,7 @@ public class HexMovementTest {
     void testInfiniteXBoardCreateNewLocation(){
         EscapeGameManagerImpl gameManager = null;
         try {
-            gameManager = (EscapeGameManagerImpl) new EscapeGameBuilder("configs/moveHex1.egc").makeGameManager();
+            gameManager = (EscapeGameManagerImpl) new EscapeGameBuilder("configurations/moveHex1.egc").makeGameManager();
         } catch (Exception e) {
             e.printStackTrace();
             fail();
@@ -203,7 +203,7 @@ public class HexMovementTest {
         EscapeGameManager gameManager = null;
 
         try {
-            gameManager = new EscapeGameBuilder("configs/moveHex1.egc").makeGameManager();
+            gameManager = new EscapeGameBuilder("configurations/moveHex1.egc").makeGameManager();
         } catch (Exception e) {
             fail("Exception from builder: " + e.getMessage());
         }
@@ -220,7 +220,7 @@ public class HexMovementTest {
         EscapeGameManager gameManager = null;
 
         try {
-            gameManager = new EscapeGameBuilder("configs/moveHex1.egc").makeGameManager();
+            gameManager = new EscapeGameBuilder("configurations/moveHex1.egc").makeGameManager();
         } catch (Exception e) {
             fail("Exception from builder: " + e.getMessage());
         }
@@ -237,7 +237,7 @@ public class HexMovementTest {
         EscapeGameManager gameManager = null;
 
         try {
-            gameManager = new EscapeGameBuilder("configs/moveHex1.egc").makeGameManager();
+            gameManager = new EscapeGameBuilder("configurations/moveHex1.egc").makeGameManager();
         } catch (Exception e) {
             fail("Exception from builder: " + e.getMessage());
         }
@@ -254,7 +254,7 @@ public class HexMovementTest {
         EscapeGameManager gameManager = null;
 
         try {
-            gameManager = new EscapeGameBuilder("configs/moveHex1.egc").makeGameManager();
+            gameManager = new EscapeGameBuilder("configurations/moveHex1.egc").makeGameManager();
         } catch (Exception e) {
             fail("Exception from builder: " + e.getMessage());
         }
@@ -271,7 +271,7 @@ public class HexMovementTest {
         EscapeGameManager gameManager = null;
 
         try {
-            gameManager = new EscapeGameBuilder("configs/moveHex1.egc").makeGameManager();
+            gameManager = new EscapeGameBuilder("configurations/moveHex1.egc").makeGameManager();
         } catch (Exception e) {
             fail("Exception from builder: " + e.getMessage());
         }
@@ -288,7 +288,7 @@ public class HexMovementTest {
         EscapeGameManager gameManager = null;
 
         try {
-            gameManager = new EscapeGameBuilder("configs/moveHex1.egc").makeGameManager();
+            gameManager = new EscapeGameBuilder("configurations/moveHex1.egc").makeGameManager();
         } catch (Exception e) {
             fail("Exception from builder: " + e.getMessage());
         }
@@ -305,7 +305,7 @@ public class HexMovementTest {
         EscapeGameManager gameManager = null;
 
         try {
-            gameManager = new EscapeGameBuilder("configs/moveHex1.egc").makeGameManager();
+            gameManager = new EscapeGameBuilder("configurations/moveHex1.egc").makeGameManager();
         } catch (Exception e) {
             fail("Exception from builder: " + e.getMessage());
         }
@@ -322,7 +322,7 @@ public class HexMovementTest {
         EscapeGameManager gameManager = null;
 
         try {
-            gameManager = new EscapeGameBuilder("configs/moveHex1.egc").makeGameManager();
+            gameManager = new EscapeGameBuilder("configurations/moveHex1.egc").makeGameManager();
         } catch (Exception e) {
             fail("Exception from builder: " + e.getMessage());
         }
@@ -339,7 +339,7 @@ public class HexMovementTest {
         EscapeGameManager gameManager = null;
 
         try {
-            gameManager = new EscapeGameBuilder("configs/moveHex1.egc").makeGameManager();
+            gameManager = new EscapeGameBuilder("configurations/moveHex1.egc").makeGameManager();
         } catch (Exception e) {
             fail("Exception from builder: " + e.getMessage());
         }
@@ -356,7 +356,7 @@ public class HexMovementTest {
         EscapeGameManager gameManager = null;
 
         try {
-            gameManager = new EscapeGameBuilder("configs/moveHex1.egc").makeGameManager();
+            gameManager = new EscapeGameBuilder("configurations/moveHex1.egc").makeGameManager();
         } catch (Exception e) {
             fail("Exception from builder: " + e.getMessage());
         }
@@ -373,7 +373,7 @@ public class HexMovementTest {
         EscapeGameManager gameManager = null;
 
         try {
-            gameManager = new EscapeGameBuilder("configs/moveHex3.egc").makeGameManager();
+            gameManager = new EscapeGameBuilder("configurations/moveHex3.egc").makeGameManager();
         } catch (Exception e) {
             fail("Exception from builder: " + e.getMessage());
         }
@@ -390,7 +390,7 @@ public class HexMovementTest {
         EscapeGameManager gameManager = null;
 
         try {
-            gameManager = new EscapeGameBuilder("configs/moveHex3.egc").makeGameManager();
+            gameManager = new EscapeGameBuilder("configurations/moveHex3.egc").makeGameManager();
         } catch (Exception e) {
             fail("Exception from builder: " + e.getMessage());
         }
@@ -407,7 +407,7 @@ public class HexMovementTest {
         EscapeGameManager gameManager = null;
 
         try {
-            gameManager = new EscapeGameBuilder("configs/moveHex4.egc").makeGameManager();
+            gameManager = new EscapeGameBuilder("configurations/moveHex4.egc").makeGameManager();
         } catch (Exception e) {
             fail("Exception from builder: " + e.getMessage());
         }

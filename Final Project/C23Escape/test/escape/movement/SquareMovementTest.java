@@ -16,7 +16,7 @@ public class SquareMovementTest {
     void testNoPieceAtStartLocation(){
         EscapeGameManagerImpl gameManager = null;
         try {
-            gameManager = (EscapeGameManagerImpl) new EscapeGameBuilder("configs/test3.egc").makeGameManager();
+            gameManager = (EscapeGameManagerImpl) new EscapeGameBuilder("configurations/test3.egc").makeGameManager();
         } catch (Exception e) {
             e.printStackTrace();
             fail();
@@ -35,7 +35,7 @@ public class SquareMovementTest {
     void testMoveFromStartToStart(){
         EscapeGameManagerImpl gameManager = null;
         try {
-            gameManager = (EscapeGameManagerImpl) new EscapeGameBuilder("configs/test3.egc").makeGameManager();
+            gameManager = (EscapeGameManagerImpl) new EscapeGameBuilder("configurations/test3.egc").makeGameManager();
         } catch (Exception e) {
             e.printStackTrace();
             fail();
@@ -54,7 +54,7 @@ public class SquareMovementTest {
     void testWrongPlayerPieceMove(){
         EscapeGameManagerImpl gameManager = null;
         try {
-            gameManager = (EscapeGameManagerImpl) new EscapeGameBuilder("configs/test3.egc").makeGameManager();
+            gameManager = (EscapeGameManagerImpl) new EscapeGameBuilder("configurations/test3.egc").makeGameManager();
         } catch (Exception e) {
             e.printStackTrace();
             fail();
@@ -74,7 +74,7 @@ public class SquareMovementTest {
     void testPieceAtEndLocation(){
         EscapeGameManagerImpl gameManager = null;
         try {
-            gameManager = (EscapeGameManagerImpl) new EscapeGameBuilder("configs/test3.egc").makeGameManager();
+            gameManager = (EscapeGameManagerImpl) new EscapeGameBuilder("configurations/test3.egc").makeGameManager();
         } catch (Exception e) {
             e.printStackTrace();
             fail();
@@ -94,7 +94,7 @@ public class SquareMovementTest {
     void testPlayerTurnOnInvalidMove(){
         EscapeGameManagerImpl gameManager = null;
         try {
-            gameManager = (EscapeGameManagerImpl) new EscapeGameBuilder("configs/test3.egc").makeGameManager();
+            gameManager = (EscapeGameManagerImpl) new EscapeGameBuilder("configurations/test3.egc").makeGameManager();
         } catch (Exception e) {
             e.printStackTrace();
             fail();
@@ -119,7 +119,7 @@ public class SquareMovementTest {
     void testPlayerTurnOnValidMove(){
         EscapeGameManagerImpl gameManager = null;
         try {
-            gameManager = (EscapeGameManagerImpl) new EscapeGameBuilder("configs/test3.egc").makeGameManager();
+            gameManager = (EscapeGameManagerImpl) new EscapeGameBuilder("configurations/test3.egc").makeGameManager();
         } catch (Exception e) {
             e.printStackTrace();
             fail();
@@ -155,7 +155,7 @@ public class SquareMovementTest {
     void testLocationOutOfBounds(){
         EscapeGameManagerImpl gameManager = null;
         try {
-            gameManager = (EscapeGameManagerImpl) new EscapeGameBuilder("configs/test3.egc").makeGameManager();
+            gameManager = (EscapeGameManagerImpl) new EscapeGameBuilder("configurations/test3.egc").makeGameManager();
         } catch (Exception e) {
             e.printStackTrace();
             fail();
@@ -180,7 +180,7 @@ public class SquareMovementTest {
     void testInfiniteXBoardCreateNewLocation(){
         EscapeGameManagerImpl gameManager = null;
         try {
-            gameManager = (EscapeGameManagerImpl) new EscapeGameBuilder("configs/test4.egc").makeGameManager();
+            gameManager = (EscapeGameManagerImpl) new EscapeGameBuilder("configurations/test4.egc").makeGameManager();
         } catch (Exception e) {
             e.printStackTrace();
             fail();
@@ -207,7 +207,7 @@ public class SquareMovementTest {
         EscapeGameManager gameManager = null;
 
         try {
-            gameManager = new EscapeGameBuilder("configs/test5.egc").makeGameManager();
+            gameManager = new EscapeGameBuilder("configurations/test5.egc").makeGameManager();
         } catch (Exception e) {
             fail("Exception from builder: " + e.getMessage());
         }
@@ -224,7 +224,7 @@ public class SquareMovementTest {
         EscapeGameManager gameManager = null;
 
         try {
-            gameManager = new EscapeGameBuilder("configs/test5.egc").makeGameManager();
+            gameManager = new EscapeGameBuilder("configurations/test5.egc").makeGameManager();
         } catch (Exception e) {
             fail("Exception from builder: " + e.getMessage());
         }
@@ -241,7 +241,7 @@ public class SquareMovementTest {
         EscapeGameManager gameManager = null;
 
         try {
-            gameManager = new EscapeGameBuilder("configs/test5.egc").makeGameManager();
+            gameManager = new EscapeGameBuilder("configurations/test5.egc").makeGameManager();
         } catch (Exception e) {
             fail("Exception from builder: " + e.getMessage());
         }
@@ -258,7 +258,7 @@ public class SquareMovementTest {
         EscapeGameManager gameManager = null;
 
         try {
-            gameManager = new EscapeGameBuilder("configs/test5.egc").makeGameManager();
+            gameManager = new EscapeGameBuilder("configurations/test5.egc").makeGameManager();
         } catch (Exception e) {
             fail("Exception from builder: " + e.getMessage());
         }
@@ -275,7 +275,7 @@ public class SquareMovementTest {
         EscapeGameManager gameManager = null;
 
         try {
-            gameManager = new EscapeGameBuilder("configs/test5.egc").makeGameManager();
+            gameManager = new EscapeGameBuilder("configurations/test5.egc").makeGameManager();
         } catch (Exception e) {
             fail("Exception from builder: " + e.getMessage());
         }
@@ -292,7 +292,7 @@ public class SquareMovementTest {
         EscapeGameManager gameManager = null;
 
         try {
-            gameManager = new EscapeGameBuilder("configs/test5.egc").makeGameManager();
+            gameManager = new EscapeGameBuilder("configurations/test5.egc").makeGameManager();
         } catch (Exception e) {
             fail("Exception from builder: " + e.getMessage());
         }
@@ -309,7 +309,7 @@ public class SquareMovementTest {
         EscapeGameManager gameManager = null;
 
         try {
-            gameManager = new EscapeGameBuilder("configs/test5.egc").makeGameManager();
+            gameManager = new EscapeGameBuilder("configurations/test5.egc").makeGameManager();
         } catch (Exception e) {
             fail("Exception from builder: " + e.getMessage());
         }
@@ -326,7 +326,7 @@ public class SquareMovementTest {
         EscapeGameManager gameManager = null;
 
         try {
-            gameManager = new EscapeGameBuilder("configs/test6.egc").makeGameManager();
+            gameManager = new EscapeGameBuilder("configurations/test6.egc").makeGameManager();
         } catch (Exception e) {
             fail("Exception from builder: " + e.getMessage());
         }
@@ -343,7 +343,7 @@ public class SquareMovementTest {
         EscapeGameManager gameManager = null;
 
         try {
-            gameManager = new EscapeGameBuilder("configs/test6.egc").makeGameManager();
+            gameManager = new EscapeGameBuilder("configurations/test6.egc").makeGameManager();
         } catch (Exception e) {
             fail("Exception from builder: " + e.getMessage());
         }
@@ -360,7 +360,7 @@ public class SquareMovementTest {
         EscapeGameManager gameManager = null;
 
         try {
-            gameManager = new EscapeGameBuilder("configs/test6.egc").makeGameManager();
+            gameManager = new EscapeGameBuilder("configurations/test6.egc").makeGameManager();
         } catch (Exception e) {
             fail("Exception from builder: " + e.getMessage());
         }
@@ -377,7 +377,7 @@ public class SquareMovementTest {
         EscapeGameManager gameManager = null;
 
         try {
-            gameManager = new EscapeGameBuilder("configs/test6.egc").makeGameManager();
+            gameManager = new EscapeGameBuilder("configurations/test6.egc").makeGameManager();
         } catch (Exception e) {
             fail("Exception from builder: " + e.getMessage());
         }
@@ -394,7 +394,7 @@ public class SquareMovementTest {
         EscapeGameManager gameManager = null;
 
         try {
-            gameManager = new EscapeGameBuilder("configs/test11.egc").makeGameManager();
+            gameManager = new EscapeGameBuilder("configurations/test11.egc").makeGameManager();
         } catch (Exception e) {
             fail("Exception from builder: " + e.getMessage());
         }
@@ -411,7 +411,7 @@ public class SquareMovementTest {
         EscapeGameManager gameManager = null;
 
         try {
-            gameManager = new EscapeGameBuilder("configs/test7.egc").makeGameManager();
+            gameManager = new EscapeGameBuilder("configurations/test7.egc").makeGameManager();
         } catch (Exception e) {
             fail("Exception from builder: " + e.getMessage());
         }
@@ -428,7 +428,7 @@ public class SquareMovementTest {
         EscapeGameManager gameManager = null;
 
         try {
-            gameManager = new EscapeGameBuilder("configs/test7.egc").makeGameManager();
+            gameManager = new EscapeGameBuilder("configurations/test7.egc").makeGameManager();
         } catch (Exception e) {
             fail("Exception from builder: " + e.getMessage());
         }
@@ -445,7 +445,7 @@ public class SquareMovementTest {
         EscapeGameManager gameManager = null;
 
         try {
-            gameManager = new EscapeGameBuilder("configs/test7.egc").makeGameManager();
+            gameManager = new EscapeGameBuilder("configurations/test7.egc").makeGameManager();
         } catch (Exception e) {
             fail("Exception from builder: " + e.getMessage());
         }
@@ -462,7 +462,7 @@ public class SquareMovementTest {
         EscapeGameManager gameManager = null;
 
         try {
-            gameManager = new EscapeGameBuilder("configs/test7.egc").makeGameManager();
+            gameManager = new EscapeGameBuilder("configurations/test7.egc").makeGameManager();
         } catch (Exception e) {
             fail("Exception from builder: " + e.getMessage());
         }
@@ -479,7 +479,7 @@ public class SquareMovementTest {
         EscapeGameManager gameManager = null;
 
         try {
-            gameManager = new EscapeGameBuilder("configs/test7.egc").makeGameManager();
+            gameManager = new EscapeGameBuilder("configurations/test7.egc").makeGameManager();
         } catch (Exception e) {
             fail("Exception from builder: " + e.getMessage());
         }
@@ -496,7 +496,7 @@ public class SquareMovementTest {
         EscapeGameManager gameManager = null;
 
         try {
-            gameManager = new EscapeGameBuilder("configs/test8.egc").makeGameManager();
+            gameManager = new EscapeGameBuilder("configurations/test8.egc").makeGameManager();
         } catch (Exception e) {
             fail("Exception from builder: " + e.getMessage());
         }
@@ -513,7 +513,7 @@ public class SquareMovementTest {
         EscapeGameManager gameManager = null;
 
         try {
-            gameManager = new EscapeGameBuilder("configs/test8.egc").makeGameManager();
+            gameManager = new EscapeGameBuilder("configurations/test8.egc").makeGameManager();
         } catch (Exception e) {
             fail("Exception from builder: " + e.getMessage());
         }
@@ -530,7 +530,7 @@ public class SquareMovementTest {
         EscapeGameManager gameManager = null;
 
         try {
-            gameManager = new EscapeGameBuilder("configs/test10.egc").makeGameManager();
+            gameManager = new EscapeGameBuilder("configurations/test10.egc").makeGameManager();
         } catch (Exception e) {
             fail("Exception from builder: " + e.getMessage());
         }
@@ -547,7 +547,7 @@ public class SquareMovementTest {
         EscapeGameManager gameManager = null;
 
         try {
-            gameManager = new EscapeGameBuilder("configs/test9.egc").makeGameManager();
+            gameManager = new EscapeGameBuilder("configurations/test9.egc").makeGameManager();
         } catch (Exception e) {
             fail("Exception from builder: " + e.getMessage());
         }
@@ -564,7 +564,7 @@ public class SquareMovementTest {
         EscapeGameManager gameManager = null;
 
         try {
-            gameManager = new EscapeGameBuilder("configs/test12.egc").makeGameManager();
+            gameManager = new EscapeGameBuilder("configurations/test12.egc").makeGameManager();
         } catch (Exception e) {
             fail("Exception from builder: " + e.getMessage());
         }
@@ -581,7 +581,7 @@ public class SquareMovementTest {
         EscapeGameManager gameManager = null;
 
         try {
-            gameManager = new EscapeGameBuilder("configs/moveDiagonalSquare1.egc").makeGameManager();
+            gameManager = new EscapeGameBuilder("configurations/moveDiagonalSquare1.egc").makeGameManager();
         } catch (Exception e) {
             fail("Exception from builder: " + e.getMessage());
         }
@@ -597,7 +597,7 @@ public class SquareMovementTest {
         EscapeGameManager gameManager = null;
 
         try {
-            gameManager = new EscapeGameBuilder("configs/moveDiagonalSquare1.egc").makeGameManager();
+            gameManager = new EscapeGameBuilder("configurations/moveDiagonalSquare1.egc").makeGameManager();
         } catch (Exception e) {
             fail("Exception from builder: " + e.getMessage());
         }
@@ -614,7 +614,7 @@ public class SquareMovementTest {
         EscapeGameManager gameManager = null;
 
         try {
-            gameManager = new EscapeGameBuilder("configs/moveDiagonalSquare1.egc").makeGameManager();
+            gameManager = new EscapeGameBuilder("configurations/moveDiagonalSquare1.egc").makeGameManager();
         } catch (Exception e) {
             fail("Exception from builder: " + e.getMessage());
         }
@@ -631,7 +631,7 @@ public class SquareMovementTest {
         EscapeGameManager gameManager = null;
 
         try {
-            gameManager = new EscapeGameBuilder("configs/moveUnblockSquare1.egc").makeGameManager();
+            gameManager = new EscapeGameBuilder("configurations/moveUnblockSquare1.egc").makeGameManager();
         } catch (Exception e) {
             fail("Exception from builder: " + e.getMessage());
         }
@@ -648,7 +648,7 @@ public class SquareMovementTest {
         EscapeGameManager gameManager = null;
 
         try {
-            gameManager = new EscapeGameBuilder("configs/moveUnblockSquare1.egc").makeGameManager();
+            gameManager = new EscapeGameBuilder("configurations/moveUnblockSquare1.egc").makeGameManager();
         } catch (Exception e) {
             fail("Exception from builder: " + e.getMessage());
         }
@@ -665,7 +665,7 @@ public class SquareMovementTest {
         EscapeGameManager gameManager = null;
 
         try {
-            gameManager = new EscapeGameBuilder("configs/moveUnblockSquare1.egc").makeGameManager();
+            gameManager = new EscapeGameBuilder("configurations/moveUnblockSquare1.egc").makeGameManager();
         } catch (Exception e) {
             fail("Exception from builder: " + e.getMessage());
         }
@@ -682,7 +682,7 @@ public class SquareMovementTest {
         EscapeGameManager gameManager = null;
 
         try {
-            gameManager = new EscapeGameBuilder("configs/moveUnblockSquare1.egc").makeGameManager();
+            gameManager = new EscapeGameBuilder("configurations/moveUnblockSquare1.egc").makeGameManager();
         } catch (Exception e) {
             fail("Exception from builder: " + e.getMessage());
         }
@@ -699,7 +699,7 @@ public class SquareMovementTest {
         EscapeGameManager gameManager = null;
 
         try {
-            gameManager = new EscapeGameBuilder("configs/moveJumpSquare1.egc").makeGameManager();
+            gameManager = new EscapeGameBuilder("configurations/moveJumpSquare1.egc").makeGameManager();
         } catch (Exception e) {
             fail("Exception from builder: " + e.getMessage());
         }
@@ -716,7 +716,7 @@ public class SquareMovementTest {
         EscapeGameManager gameManager = null;
 
         try {
-            gameManager = new EscapeGameBuilder("configs/moveJumpSquare2.egc").makeGameManager();
+            gameManager = new EscapeGameBuilder("configurations/moveJumpSquare2.egc").makeGameManager();
         } catch (Exception e) {
             fail("Exception from builder: " + e.getMessage());
         }
@@ -733,7 +733,7 @@ public class SquareMovementTest {
         EscapeGameManager gameManager = null;
 
         try {
-            gameManager = new EscapeGameBuilder("configs/moveJumpSquare3.egc").makeGameManager();
+            gameManager = new EscapeGameBuilder("configurations/moveJumpSquare3.egc").makeGameManager();
         } catch (Exception e) {
             fail("Exception from builder: " + e.getMessage());
         }
@@ -750,7 +750,7 @@ public class SquareMovementTest {
         EscapeGameManager gameManager = null;
 
         try {
-            gameManager = new EscapeGameBuilder("configs/moveJumpSquare4.egc").makeGameManager();
+            gameManager = new EscapeGameBuilder("configurations/moveJumpSquare4.egc").makeGameManager();
         } catch (Exception e) {
             fail("Exception from builder: " + e.getMessage());
         }
@@ -767,7 +767,7 @@ public class SquareMovementTest {
         EscapeGameManager gameManager = null;
 
         try {
-            gameManager = new EscapeGameBuilder("configs/moveJumpSquare5.egc").makeGameManager();
+            gameManager = new EscapeGameBuilder("configurations/moveJumpSquare5.egc").makeGameManager();
         } catch (Exception e) {
             fail("Exception from builder: " + e.getMessage());
         }
@@ -784,7 +784,7 @@ public class SquareMovementTest {
         EscapeGameManager gameManager = null;
 
         try {
-            gameManager = new EscapeGameBuilder("configs/moveJumpSquare6.egc").makeGameManager();
+            gameManager = new EscapeGameBuilder("configurations/moveJumpSquare6.egc").makeGameManager();
         } catch (Exception e) {
             fail("Exception from builder: " + e.getMessage());
         }
@@ -801,7 +801,7 @@ public class SquareMovementTest {
         EscapeGameManager gameManager = null;
 
         try {
-            gameManager = new EscapeGameBuilder("configs/moveJumpSquare7.egc").makeGameManager();
+            gameManager = new EscapeGameBuilder("configurations/moveJumpSquare7.egc").makeGameManager();
         } catch (Exception e) {
             fail("Exception from builder: " + e.getMessage());
         }
@@ -818,7 +818,7 @@ public class SquareMovementTest {
         EscapeGameManager gameManager = null;
 
         try {
-            gameManager = new EscapeGameBuilder("configs/moveJumpSquare9.egc").makeGameManager();
+            gameManager = new EscapeGameBuilder("configurations/moveJumpSquare9.egc").makeGameManager();
         } catch (Exception e) {
             fail("Exception from builder: " + e.getMessage());
         }
@@ -835,7 +835,7 @@ public class SquareMovementTest {
         EscapeGameManager gameManager = null;
 
         try {
-            gameManager = new EscapeGameBuilder("configs/moveJumpSquare8.egc").makeGameManager();
+            gameManager = new EscapeGameBuilder("configurations/moveJumpSquare8.egc").makeGameManager();
         } catch (Exception e) {
             fail("Exception from builder: " + e.getMessage());
         }
